@@ -19,6 +19,12 @@ export default function Header() {
           <Link href="/blog" className={styles.navLink}>
             ブログ
           </Link>
+          <Link href="/typescript" className={styles.navLink}>
+            TypeScript
+          </Link>
+          <Link href="/react" className={styles.navLink}>
+            React
+          </Link>
         </nav>
       </div>
     </header>

@@ -82,8 +82,20 @@ export default function Home() {
             ブラウザで http://localhost:3000 を開いて、変更を確認できます。
           </p>
           <div className={styles.navigation}>
-            <Link href="/about" className={styles.link}>
+            <Link href="/nextjs" className={styles.link} style={{ marginRight: '10px', marginBottom: '10px' }}>
+              Next.js講座 →
+            </Link>
+            <Link href="/about" className={styles.link} style={{ marginRight: '10px', marginBottom: '10px' }}>
               詳細を見る →
+            </Link>
+            <Link href="/typescript" className={styles.link} style={{ marginRight: '10px', marginBottom: '10px' }}>
+              TypeScript学習 →
+            </Link>
+            <Link href="/react" className={styles.link} style={{ marginRight: '10px', marginBottom: '10px' }}>
+              React学習 →
+            </Link>
+            <Link href="/quiz" className={styles.link} style={{ marginRight: '10px', marginBottom: '10px' }}>
+              🧪 クイズに挑戦 →
             </Link>
           </div>
         </div>

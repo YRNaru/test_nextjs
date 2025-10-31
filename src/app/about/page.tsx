@@ -6,7 +6,6 @@ export default function About() {
     <div className={styles.container}>
       <main className={styles.main}>
         <h1>📖 About Next.js</h1>
-        
         <div className={styles.section}>
           <h2>🎯 この講座について</h2>
           <p>
@@ -23,6 +22,8 @@ export default function About() {
             <li><strong>スタイリング</strong> - CSS ModulesとTailwind CSS</li>
             <li><strong>データフェッチ</strong> - API RoutesとSSR</li>
             <li><strong>デプロイ</strong> - Vercelへの公開</li>
+            <li><strong>React</strong> - コンポーネントベースのUI開発</li>
+            <li><strong>TypeScript</strong> - 静的型付けによるコードの安全性</li>
           </ul>
         </div>
 
@@ -36,6 +37,9 @@ export default function About() {
             <span className={styles.tech}>React 18</span>
             <span className={styles.tech}>TypeScript</span>
             <span className={styles.tech}>CSS Modules</span>
+            <span className={styles.tech}>Tailwind CSS</span>
+            <span className={styles.tech}>React</span>
+            <span className={styles.tech}>TypeScript</span>
           </div>
         </div>
 
