@@ -21,7 +21,7 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 1rem;
   display: flex;
@@ -72,6 +72,16 @@
 
 .navLink:hover::after {
   width: 100%;
+}
+
+.navLink.active {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.navLink.active::after {
+  width: 100%;
+  background: #3498db;
 }
 
 @media (max-width: 600px) {

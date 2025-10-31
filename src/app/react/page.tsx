@@ -87,7 +87,12 @@ export default function ReactPage() {
     };
 
     const handleChildSectionClick = (section: ChildSection) => {
-        setChildSection(section);
+        // 既に選択されているセクションがクリックされた場合は解除
+        if (childSection === section) {
+            setChildSection(null);
+        } else {
+            setChildSection(section);
+        }
     };
 
     const handleAnswerSelect = (answerIndex: number) => {
@@ -136,7 +141,6 @@ export default function ReactPage() {
             <main className={styles.main}>
                 <header className={styles.header}>
                     <h1>React 学習</h1>
-                    <p>Reactの学習サイトです。</p>
                 </header>
                 <SectionTabs
                     sections={parentSections}
