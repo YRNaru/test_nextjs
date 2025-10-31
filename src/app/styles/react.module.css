@@ -85,6 +85,39 @@
     color: white;
     box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
   }
+
+  /* 子セクションタブ */
+  .childTabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .childTab {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #27ae60;
+    background: white;
+    color: #27ae60;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .childTab:hover {
+    background: #27ae60;
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .activeChildTab {
+    background: #27ae60;
+    color: white;
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+  }
   
   .learningSection {
     background: white;
