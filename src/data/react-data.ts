@@ -381,48 +381,72 @@ export const contextPractice: PracticeQuestion[] = [
 export const hooksData: LearningSection = {
   id: 'hooks',
   title: 'Hooks（フック）',
-  description: 'React Hooksは、関数コンポーネント内で状態管理やライフサイクル処理を可能にする仕組みです。Hooksによりクラスコンポーネントでしかできなかったことが関数コンポーネントでも扱えるようになり、より簡潔かつ再利用性の高い記述が可能になります。',
+  description:
+    'Hooksは、関数コンポーネントからReactの状態管理や副作用、コンテクスト、パフォーマンス最適化といった機能を利用するための公式API群です。クラスを用いなくてもUIロジックを柔軟に組み立てられるように設計されています。',
   keyPoints: [
-    'React公式Hooksは主に10種類以上あり、状態管理・副作用処理・最適化・DOM操作などをサポート',
-    '複数のHooksを組み合わせてカスタムHooks（独自フック）を実装できる',
-    'Hooksは関数コンポーネントのトップレベルでのみ使用（ルール違反するとエラー）'
+    'Reactの組み込みHooksは「state」「context」「ref」「effect」「performance」などのカテゴリにまとまっている',
+    'Hooksはコンポーネントのトップレベルで同じ順序で呼び出す必要があり、条件分岐やループ内では使わない',
+    '複数のHooksを組み合わせることでロジックを分割・再利用でき、必要に応じてカスタムフックも作成できる'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'hook',
-      name: '状態の管理（useState, useReducer）',
-      description: 'useStateやuseReducerで状態を管理する例です。',
-      example: `const [count, setCount] = useState(0);`,
-      correctUsage: `const [count, setCount] = useState(0);`,
-      incorrectUsage: `const [count, setCount] = useState(); // 初期値がない`,
-      explanation: 'useStateで状態変数と更新関数を取得します。',
-      keyPoints: ['useState', 'useReducer', '状態管理'],
-      benefits: ['状態管理が簡単', 'UIとデータの同期']
+      name: 'stateフックでUIを更新する',
+      description: 'stateカテゴリの代表であるuseStateを使って、ユーザー操作に応じた表示変更を行います。',
+      example: `const [index, setIndex] = useState(0);
+const artworks = getArtworks();
+return (
+  <>
+    <button onClick={() => setIndex((i) => (i + 1) % artworks.length)}>次へ</button>
+    <p>{artworks[index].title}</p>
+  </>
+);`,
+      correctUsage: `const [value, setValue] = useState(initialValue);`,
+      incorrectUsage: `const value = useState(initialValue); // 配列の分割代入が必要`,
+      explanation: 'useStateは現在の値と更新関数を返し、更新するとコンポーネントが再レンダーされます。',
+      keyPoints: ['useState', '現在値と更新関数', '再レンダー'],
+      benefits: ['UIと状態を同期できる', 'ローカルな状態管理が容易']
     },
     {
       id: 'ex2',
       type: 'hook',
-      name: '副作用処理（useEffect）',
-      description: 'useEffectで副作用処理（マウント時の処理など）を行う例です。',
-      example: `useEffect(() => {\n  console.log('Component mounted');\n}, []);`,
-      correctUsage: `useEffect(() => { /* 副作用処理 */ }, []);`,
-      incorrectUsage: `useEffect(() => { /* 副作用処理 */ }); // 依存配列がない`,
-      explanation: 'useEffectは副作用処理を記述し、依存配列で発火タイミングを制御します。',
-      keyPoints: ['useEffect', '副作用', '依存配列'],
-      benefits: ['副作用の明示的管理', 'マウント・アンマウント処理']
+      name: 'contextフックで共有データを読む',
+      description: 'useContextは最も近いContext.Providerから供給された値を直接取得します。',
+      example: `const ThemeContext = createContext('light');
+
+const Toolbar = () => {
+  const theme = useContext(ThemeContext);
+  return <button className={theme}>テーマを適用</button>;
+};`,
+      correctUsage: `const value = useContext(MyContext);`,
+      incorrectUsage: `const value = MyContext; // Contextオブジェクトそのものではなくフックで値を読む`,
+      explanation: 'useContextを使うとpropsを渡し続けなくても、コンポーネントツリーのどこからでも共有データにアクセスできます。',
+      keyPoints: ['useContext', 'Providerから値を取得', 'バケツリレー解消'],
+      benefits: ['深いツリーでも共有データが扱える', 'コードの見通しが良くなる']
     },
     {
       id: 'ex3',
       type: 'hook',
-      name: 'メモ化（useCallback, useMemo）',
-      description: 'useCallbackやuseMemoで関数や値のメモ化を行う例です。',
-      example: `const memoizedFn = useCallback(() => doSomething(), [dependency]);`,
-      correctUsage: `const memoizedFn = useCallback(() => doSomething(), [dependency]);`,
-      incorrectUsage: `const memoizedFn = () => doSomething(); // useCallbackなし`,
-      explanation: 'useCallbackで関数、useMemoで値をメモ化し、無駄な再生成を防ぎます。',
-      keyPoints: ['useCallback', 'useMemo', 'メモ化'],
-      benefits: ['パフォーマンス最適化', '無駄な再生成防止']
+      name: 'effectフックで外部システムと同期する',
+      description: 'useEffectはDOM描画のあとでチャット接続やイベント購読など外部システムとの同期を行います。',
+      example: `useEffect(() => {
+  const connection = createConnection(roomId);
+  connection.connect();
+  return () => connection.disconnect();
+}, [roomId]);`,
+      correctUsage: `useEffect(() => {
+  // 外部との同期
+  return () => {
+    // クリーンアップ
+  };
+}, [依存値]);`,
+      incorrectUsage: `useEffect(() => {
+  doSomething();
+}); // 依存配列を省略すると毎レンダーで実行される`,
+      explanation: '依存配列に指定した値が変化したときのみ副作用が再実行され、戻り値の関数でリソースを解放できます。',
+      keyPoints: ['useEffect', '依存配列', 'クリーンアップ'],
+      benefits: ['外部APIやブラウザAPIと安全に同期できる', '不要な処理を抑えられる']
     }
   ]
 };
@@ -469,49 +493,59 @@ export const hooksPractice: PracticeQuestion[] = [
 export const useStateData: LearningSection = {
   id: 'useState',
   title: 'useState',
-  description: 'useStateはReactの公式フックの1つで、関数コンポーネント内で状態を持たせるために使用されます。この章では、useStateの基本的な使い方、状態更新の仕方、再描画の挙動について説明されています。',
+  description:
+    'useStateはstateカテゴリの基本フックで、関数コンポーネントにローカルな状態を追加します。初回レンダー時に初期値を受け取り、レンダーごとに現在の値と更新関数を返します。',
   keyPoints: [
-    'useState()は状態とその更新関数を返す',
-    '状態が更新されると、そのコンポーネントは自動的に再描画される',
-    '更新関数には直接新しい値、または関数（前回の状態を元に更新）を渡せる',
-    '状態の初期値はprops経由で受け取ることも可能'
+    'const [state, setState] = useState(initial) の形で現在値と更新関数を受け取る',
+    'setStateには新しい値か、前回の値を受け取るアップデート関数を渡せる',
+    '同じ値を設定するとReactは再レンダーをスキップして最適化する',
+    '初期値の計算が高コストな場合は useState(() => initialise()) のように遅延初期化できる'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'state',
-      name: '単純なカウンター',
-      description: 'useStateでカウント状態を管理する基本例です。',
-      example: `const [count, setCount] = useState(0);`,
-      correctUsage: `const [count, setCount] = useState(0);`,
-      incorrectUsage: `const [count, setCount] = useState(); // 初期値がないと型推論できない`,
-      explanation: 'useState(0)で初期値0のcount状態を作成します。',
-      keyPoints: ['useState', '初期値', '状態変数'],
-      benefits: ['状態管理が簡単', 'UIとデータの同期が容易']
+      name: 'ギャラリーの選択状態を管理する',
+      description: '現在表示中の作品のインデックスをstateで管理し、ボタンで切り替えます。',
+      example: `const artworks = getArtworks();
+const [index, setIndex] = useState(0);
+const artwork = artworks[index];
+return (
+  <>
+    <button onClick={() => setIndex((i) => (i + 1) % artworks.length)}>次へ</button>
+    <h2>{artwork.title}</h2>
+  </>
+);`,
+      correctUsage: `const [value, setValue] = useState(initialValue);`,
+      incorrectUsage: `const value = useState(initialValue); // 配列を分割代入する必要がある`,
+      explanation: 'useStateは配列で現在値と更新関数を返し、ユーザー操作に合わせて再レンダーします。',
+      keyPoints: ['配列の分割代入', '再レンダー', 'ローカルstate'],
+      benefits: ['UIを現在の状態と同期', '簡潔に状態を追加']
     },
     {
       id: 'ex2',
       type: 'state',
-      name: '値を直接渡して状態更新',
-      description: 'setCountに新しい値を直接渡して状態を更新します。',
-      example: `<button onClick={() => setCount(count + 1)}>+1</button>`,
-      correctUsage: `<button onClick={() => setCount(count + 1)}>+1</button>`,
-      incorrectUsage: `<button onClick={() => count = count + 1}>+1</button> // 直接代入は不可`,
-      explanation: 'setCountに新しい値を渡すことで状態が更新され、再描画されます。',
-      keyPoints: ['setCount', '直接値を渡す', '再描画'],
-      benefits: ['直感的な状態更新', 'UIが自動で最新化']
+      name: 'アップデート関数で前回の値に基づいて更新',
+      description: 'クリック回数を安全に更新するため、setStateに関数を渡します。',
+      example: `const [count, setCount] = useState(0);
+return <button onClick={() => setCount((c) => c + 1)}>クリック数: {count}</button>;`,
+      correctUsage: `setCount((prev) => prev + 1);`,
+      incorrectUsage: `setCount(count++); // ミューテーションは避ける`,
+      explanation: '更新関数は前回の値を受け取り、新しい値を返します。非同期やバッチ更新でも安全です。',
+      keyPoints: ['アップデート関数', '安全なインクリメント', 'バッチ処理'],
+      benefits: ['競合を防ぐ', '更新ロジックを明示']
     },
     {
       id: 'ex3',
       type: 'state',
-      name: '関数で状態を更新（より安全）',
-      description: 'setCountに関数を渡して前回の状態を元に更新します。',
-      example: `<button onClick={() => setCount(prev => prev + 1)}>+1</button>`,
-      correctUsage: `<button onClick={() => setCount(prev => prev + 1)}>+1</button>`,
-      incorrectUsage: `<button onClick={() => setCount(count + 1)}>+1</button> // 非同期更新時は安全でない`,
-      explanation: '前回の状態に依存する場合は関数で更新することで安全に状態を変更できます。',
-      keyPoints: ['setCount', '関数で更新', '前回の状態'],
-      benefits: ['非同期でも安全な状態更新', 'バグを防げる']
+      name: '高コストな初期値を遅延計算する',
+      description: '初期化時のみ重い処理を走らせるため、初期値を返す関数を渡します。',
+      example: `const [todos, setTodos] = useState(() => loadInitialTodos());`,
+      correctUsage: `useState(() => expensiveComputation());`,
+      incorrectUsage: `useState(expensiveComputation()); // 毎レンダーで呼ばれる`,
+      explanation: '関数を渡すと初回レンダー時だけ評価されるため、パフォーマンスを保てます。',
+      keyPoints: ['遅延初期化', 'パフォーマンス', '初回だけ評価'],
+      benefits: ['初期化コストを最小化', '必要なときだけ処理']
     }
   ]
 };
@@ -787,49 +821,82 @@ export const inputEventPractice: PracticeQuestion[] = [
 export const useReducerData: LearningSection = {
   id: 'useReducer',
   title: 'useReducer',
-  description: 'useReducer は、Reactの状態管理フックで、useStateよりも複雑な状態管理や明確な状態遷移が必要なケースに適している。状態遷移をreducer関数として分離し、dispatch関数を使って状態を更新する構造。',
+  description:
+    'useReducerは複雑な状態遷移や明示的な更新ロジックが必要なときに使うstateフックです。reducer関数に「現在の状態」と「アクション」を渡し、戻り値を次の状態として採用します。',
   keyPoints: [
-    '状態更新のロジックをreducer関数で定義し、明確な状態遷移が可能',
-    'UIとロジックの分離で保守性向上',
-    'reducer関数が純粋関数なのでテストしやすい',
-    'オブジェクトや配列など複雑な状態にも柔軟に対応'
+    'const [state, dispatch] = useReducer(reducer, initialState) の形式で利用する',
+    'reducerは(state, action) => newStateという純粋関数でなければならない',
+    'dispatch(action)を呼ぶとReactがreducerを実行し、返り値で再レンダーされる',
+    '第三引数initで初期化ロジックを切り出し、遅延初期化にも対応できる'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'hook',
-      name: 'カウンター（複数アクション対応）',
-      description: 'dispatchでINCREMENT, DECREMENT, DOUBLE, RESETなどのアクションを切り替え可能なカウンター。',
-      example: `const initialState = 0;\nfunction reducer(state, action) {\n  switch(action) {\n    case 'INCREMENT': return state + 1;\n    case 'DECREMENT': return state - 1;\n    case 'DOUBLE': return state * 2;\n    case 'RESET': return 0;\n    default: return state;\n  }\n}\nconst [count, dispatch] = useReducer(reducer, initialState);`,
-      correctUsage: `dispatch('INCREMENT');`,
-      incorrectUsage: `count = count + 1; // 直接代入はNG`,
-      explanation: 'dispatchでアクションを指定して状態を更新します。',
-      keyPoints: ['dispatch', 'reducer', '複数アクション'],
-      benefits: ['状態遷移が明確', '複雑なロジックも管理しやすい']
+      name: 'カウンターを複数アクションで管理する',
+      description: 'INCREMENTとDECREMENTアクションを受け取るreducerでカウントを制御します。',
+      example: `type Action = { type: 'increment' } | { type: 'decrement' };
+const reducer = (count: number, action: Action) => {
+  switch (action.type) {
+    case 'increment':
+      return count + 1;
+    case 'decrement':
+      return count - 1;
+    default:
+      return count;
+  }
+};
+const [count, dispatch] = useReducer(reducer, 0);`,
+      correctUsage: `dispatch({ type: 'increment' });`,
+      incorrectUsage: `count = count + 1; // stateを直接書き換えない`,
+      explanation: 'dispatchを呼ぶとreducerが実行され、新しいcountが返ってコンポーネントが再レンダーされます。',
+      keyPoints: ['dispatch', '純粋関数', 'アクション'],
+      benefits: ['状態遷移を一箇所に集約', '分岐が多いロジックでも読みやすい']
     },
     {
       id: 'ex2',
       type: 'hook',
-      name: 'フォーム入力の一括管理',
-      description: '複数の入力フィールドをオブジェクトで一括管理する例。',
-      example: `const initialState = { name: '', email: '' };\nfunction reducer(state, action) {\n  return { ...state, [action.name]: action.value };\n}\nconst [form, dispatch] = useReducer(reducer, initialState);`,
-      correctUsage: `dispatch({ name: 'email', value: 'test@example.com' });`,
-      incorrectUsage: `form.email = 'test@example.com'; // 直接代入はNG`,
-      explanation: 'dispatchでフィールド名と値を指定して一括管理します。',
-      keyPoints: ['オブジェクト状態', '一括管理', 'dispatch'],
-      benefits: ['複数入力の効率管理', '保守性・拡張性が高い']
+      name: 'フォーム入力をまとめて更新する',
+      description: '入力イベントでフィールド名と値をdispatchし、オブジェクト状態を更新します。',
+      example: `type FormState = { name: string; email: string };
+type FormAction = { type: 'update'; field: keyof FormState; value: string };
+const reducer = (state: FormState, action: FormAction): FormState => {
+  switch (action.type) {
+    case 'update':
+      return { ...state, [action.field]: action.value };
+    default:
+      return state;
+  }
+};
+const [form, dispatch] = useReducer(reducer, { name: '', email: '' });`,
+      correctUsage: `dispatch({ type: 'update', field: 'email', value: e.target.value });`,
+      incorrectUsage: `form.email = e.target.value; // 直接代入はしない`,
+      explanation: 'reducerが新しい状態を返すため、副作用なく複数フィールドを一元管理できます。',
+      keyPoints: ['オブジェクト状態', '展開コピー', '単方向データフロー'],
+      benefits: ['フォームの更新ロジックを統一', '入力項目が増えても拡張しやすい']
     },
     {
       id: 'ex3',
       type: 'hook',
-      name: 'トグルスイッチの状態管理',
-      description: '複数トグルのON/OFF状態を配列で管理し、dispatchで制御。',
-      example: `const initialState = [false, false, false];\nfunction reducer(state, action) {\n  switch(action.type) {\n    case 'TOGGLE':\n      return state.map((v, i) => i === action.index ? !v : v);\n    default: return state;\n  }\n}\nconst [toggles, dispatch] = useReducer(reducer, initialState);`,
-      correctUsage: `dispatch({ type: 'TOGGLE', index: 1 });`,
-      incorrectUsage: `toggles[1] = true; // 直接代入はNG`,
-      explanation: 'dispatchでindexを指定してON/OFFを切り替えます。',
-      keyPoints: ['配列状態', 'トグル', 'dispatch'],
-      benefits: ['複数状態の一元管理', 'UIロジックの分離']
+      name: '遅延初期化で重い処理を分離する',
+      description: '第三引数initを使って初回レンダー時のみ実行する初期化処理を切り出します。',
+      example: `const init = (savedCount: number) => ({ count: savedCount });
+const reducer = (state: { count: number }, action: { type: 'reset' | 'tick' }) => {
+  switch (action.type) {
+    case 'tick':
+      return { count: state.count + 1 };
+    case 'reset':
+      return init(0);
+    default:
+      return state;
+  }
+};
+const [state, dispatch] = useReducer(reducer, loadFromStorage(), init);`,
+      correctUsage: `useReducer(reducer, initialArg, init);`,
+      incorrectUsage: `useReducer(reducer, init(initialArg)); // initが毎回走る`,
+      explanation: 'init関数は初回にだけ呼ばれるため、ストレージからの読み込みや変換処理を安全に行えます。',
+      keyPoints: ['init関数', '遅延初期化', '永続化データ'],
+      benefits: ['初期化コストを局所化', '状態の復元がしやすい']
     }
   ]
 };
@@ -876,72 +943,68 @@ export const useReducerPractice: PracticeQuestion[] = [
 export const useCallbackData: LearningSection = {
   id: 'useCallback',
   title: 'useCallback',
-  description: 'useCallback は、Reactのフックの1つで、関数の再生成を防ぎ、不要な再描画を抑制するために使う。特にメモ化された子コンポーネントに関数を渡す際に効果的。',
+  description:
+    'useCallbackはパフォーマンスカテゴリのフックで、依存値が変わらない限り同じ関数インスタンスを再利用します。メモ化された子コンポーネントにコールバックを渡すときなどに有効です。',
   keyPoints: [
-    '関数の再生成を抑制: 親コンポーネントの再描画時に毎回新しい関数を生成しないようにできる',
-    'パフォーマンス向上: 子コンポーネントの無駄な再描画を減らすことで描画効率が上がる',
-    '依存配列により制御可能: 関数をいつ再生成するかを [] や [変数] で明示的に指定できる',
-    'メモ化と相性が良い: React.memo や useMemo と併用することで再描画コントロールが強化される'
+    'useCallback(fn, dependencies) は依存配列が変わったときだけ新しい関数を返す',
+    'メモ化しても関数の挙動は変わらないため、参照の安定化が必要な場面でのみ使う',
+    'React.memoでラップした子コンポーネントにpropsとして渡すと再レンダーを抑えられる',
+    '依存配列を正しく指定しないと古い値を閉じ込めてしまうため、使用する変数はすべて依存に含める'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'hook',
-      name: 'メモ化されたボタンコンポーネント',
-      description: 'DoubleButton に useCallback でメモ化した関数を渡すことで、親の再描画でもボタンは再描画されない。',
-      example: `const DoubleButton = React.memo(({ onDouble }) => <button onClick={onDouble}>2倍</button>);
+      name: 'メモ化された子コンポーネントへコールバックを渡す',
+      description: 'React.memoでラップしたButtonが、依存するstateが変わらない限り再レンダーされません。',
+      example: `const IncrementButton = memo(({ onIncrement }: { onIncrement: () => void }) => (
+  <button onClick={onIncrement}>+1</button>
+));
 const [count, setCount] = useState(0);
-const handleDouble = useCallback(() => setCount(c => c * 2), []);
-return <DoubleButton onDouble={handleDouble} />;`,
-      correctUsage: `const handleDouble = useCallback(() => setCount(c => c * 2), []);
-<DoubleButton onDouble={handleDouble} />`,
-      incorrectUsage: `const handleDouble = () => setCount(c => c * 2);
-<DoubleButton onDouble={handleDouble} /> // useCallbackなしだと毎回再生成`,
-      explanation: 'useCallbackで関数をメモ化することで、DoubleButtonはpropsが変わらない限り再描画されません。',
-      keyPoints: ['useCallback', 'React.memo', 'propsの最適化'],
-      benefits: ['無駄な再描画防止', 'パフォーマンス向上']
+const handleIncrement = useCallback(() => setCount((c) => c + 1), []);
+return (
+  <>
+    <IncrementButton onIncrement={handleIncrement} />
+    <p>{count}</p>
+  </>
+);`,
+      correctUsage: `const handle = useCallback(() => setCount((c) => c + 1), []);`,
+      incorrectUsage: `const handle = () => setCount((c) => c + 1); // 毎レンダーで関数が再生成`,
+      explanation: 'useCallbackでコールバックを安定させると、props比較で差分がなくなり再レンダーを抑えられます。',
+      keyPoints: ['React.memo', '参照の安定化', '依存配列'],
+      benefits: ['子コンポーネントの再レンダー削減', 'パフォーマンス向上']
     },
     {
       id: 'ex2',
       type: 'hook',
-      name: 'カスタムフック内でのonChange処理の定義',
-      description: 'useInput の中で useCallback を使って onChange 関数を定義。複数コンポーネントで再利用可能。',
-      example: `const useInput = () => {
-  const [value, setValue] = useState('');
-  const onChange = useCallback((e) => setValue(e.target.value), []);
-  return [value, onChange] as const;
-};
-const [text, onChangeText] = useInput();
-<input value={text} onChange={onChangeText} />`,
-      correctUsage: `const onChange = useCallback((e) => setValue(e.target.value), []);`,
-      incorrectUsage: `const onChange = (e) => setValue(e.target.value); // useCallbackなし`,
-      explanation: 'useCallbackでonChangeをメモ化することで、useInputを使う全てのコンポーネントで無駄な再生成を防げます。',
-      keyPoints: ['useCallback', 'カスタムフック', '再利用性'],
-      benefits: ['ロジック共通化', 'パフォーマンス向上']
+      name: 'フォーム入力用のイベントハンドラをメモ化する',
+      description: 'useCallbackを使ってonChangeを再利用できるようにし、コンポーネントの再レンダーを抑えます。',
+      example: `const [text, setText] = useState('');
+const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  setText(event.target.value);
+}, []);
+return <input value={text} onChange={handleChange} />;`,
+      correctUsage: `const handleChange = useCallback((e) => setValue(e.target.value), []);`,
+      incorrectUsage: `const handleChange = (e) => setValue(e.target.value); // 依存が同じでも毎回新しい関数`,
+      explanation: '安定したコールバックを渡すことで、入力コンポーネントが余計な再レンダーを行わずに済みます。',
+      keyPoints: ['イベントハンドラ', '依存配列', 'フォーム入力'],
+      benefits: ['無駄な再レンダーを防止', 'コードの明確化']
     },
     {
       id: 'ex3',
       type: 'hook',
-      name: 'クリック制限付きボタン',
-      description: '上限回数に達したらアラートを表示するカウントボタン。依存配列に count と maximum を指定することで必要時のみ関数を更新。',
-      example: `const [count, setCount] = useState(0);
-const maximum = 5;
-const handleClick = useCallback(() => {
-  if (count < maximum) setCount(c => c + 1);
-  else alert('上限です');
-}, [count, maximum]);
-<button onClick={handleClick}>カウント</button>`,
-      correctUsage: `const handleClick = useCallback(() => {
-  if (count < maximum) setCount(c => c + 1);
-  else alert('上限です');
-}, [count, maximum]);`,
-      incorrectUsage: `const handleClick = () => {
-  if (count < maximum) setCount(c => c + 1);
-  else alert('上限です');
-}; // useCallbackなし`,
-      explanation: '依存配列に count, maximum を指定することで、必要な時だけ関数が再生成されます。',
-      keyPoints: ['useCallback', '依存配列', '条件付きロジック'],
-      benefits: ['無駄な再生成防止', '安全な状態管理']
+      name: '依存値に応じた関数の再生成を制御する',
+      description: '複数の依存を扱う場合でも、必要な値をすべて依存配列に列挙します。',
+      example: `const [locale, setLocale] = useState('ja');
+const format = useCallback(
+  (value: number) => new Intl.NumberFormat(locale).format(value),
+  [locale]
+);`,
+      correctUsage: `useCallback(() => formatWith(locale), [locale]);`,
+      incorrectUsage: `useCallback(() => formatWith(locale), []); // localeが更新されても古い値を使う`,
+      explanation: '依存配列にlocaleを含めることで、ロケールが変わったときだけ新しいフォーマッタを生成できます。',
+      keyPoints: ['依存の漏れを防ぐ', 'Intl API', '適切な再生成'],
+      benefits: ['最新の値を参照', 'バグの温床を排除']
     }
   ]
 };
@@ -949,56 +1012,58 @@ const handleClick = useCallback(() => {
 export const useMemoData: LearningSection = {
   id: 'useMemo',
   title: 'useMemo',
-  description: 'useMemo は、Reactにおいて値の計算結果をメモ化（再利用）するためのフック。パフォーマンスの最適化を目的とし、不要な再計算を抑制する際に使用される。',
+  description:
+    'useMemoはパフォーマンスカテゴリのフックで、計算結果をメモ化し、依存している値が変わらない限り再計算を避けます。描画時に重い処理を何度も実行するのを防ぎます。',
   keyPoints: [
-    '値のメモ化: 関数の戻り値をキャッシュし、依存値が変わらない限り再計算を行わない',
-    '再計算の抑制: 描画のたびに重たい計算を繰り返すことを防げる',
-    '依存配列で更新を制御: 第二引数に渡す配列の値が変化した時のみ再実行',
-    'useCallbackとの違い: useMemoは「値のメモ化」、useCallbackは「関数のメモ化」用'
+    'useMemo(() => compute(value), [dependencies]) でメモ化された結果を得る',
+    '依存配列に含めた値が変わると再計算され、変わらなければ前回の結果が再利用される',
+    '軽い計算には不要。重い処理や参照の安定化が必要な場合のみ使う',
+    'useCallbackは関数をメモ化するのに対し、useMemoは値（配列・オブジェクト・数値など）をメモ化する'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'hook',
-      name: 'テキスト長合計の計算',
-      description: '入力文字列のリストitemsの全要素の長さを合計する処理を、useMemoで包み、itemsが変更された時だけ再計算するようにする。',
-      example: `const [items, setItems] = useState<string[]>([]);
-const totalLength = useMemo(() => items.reduce((sum, item) => sum + item.length, 0), [items]);
-return <div>合計文字数: {totalLength}</div>;`,
-      correctUsage: `const totalLength = useMemo(() => items.reduce((sum, item) => sum + item.length, 0), [items]);`,
-      incorrectUsage: `const totalLength = items.reduce((sum, item) => sum + item.length, 0); // useMemoなしで毎回再計算`,
-      explanation: 'useMemoでitemsが変わった時だけ合計値を再計算し、無駄な再計算を防ぎます。',
-      keyPoints: ['useMemo', '依存配列', '再計算抑制'],
-      benefits: ['パフォーマンス最適化', '効率的な計算']
+      name: 'フィルタ結果をキャッシュする',
+      description: '検索クエリが変わったときだけリストを再計算します。',
+      example: `const [query, setQuery] = useState('');
+const filteredItems = useMemo(() => {
+  return items.filter((item) => item.name.includes(query));
+}, [items, query]);`,
+      correctUsage: `useMemo(() => expensive(items, query), [items, query]);`,
+      incorrectUsage: `items.filter((item) => item.name.includes(query)); // 毎レンダーで再計算`,
+      explanation: 'itemsかqueryに変化がない限り、前回のフィルタ結果が再利用されます。',
+      keyPoints: ['依存配列', '重い計算', 'リストフィルタ'],
+      benefits: ['不要な計算を削減', '大規模データでのレスポンス向上']
     },
     {
       id: 'ex2',
       type: 'hook',
-      name: '高負荷な計算処理の結果をキャッシュ',
-      description: '大量データに対するフィルタやソート、集計など。例えば、複雑な検索フィルタロジックの実行結果をuseMemoで保持。',
-      example: `const [query, setQuery] = useState('');
-const filtered = useMemo(() => data.filter(item => item.name.includes(query)), [data, query]);
-return <ul>{filtered.map(item => <li key={item.id}>{item.name}</li>)}</ul>;`,
-      correctUsage: `const filtered = useMemo(() => data.filter(item => item.name.includes(query)), [data, query]);`,
-      incorrectUsage: `const filtered = data.filter(item => item.name.includes(query)); // useMemoなしで毎回フィルタ`,
-      explanation: 'useMemoでフィルタ結果をキャッシュし、dataやqueryが変わった時だけ再計算します。',
-      keyPoints: ['useMemo', '高負荷処理', 'キャッシュ'],
-      benefits: ['パフォーマンス向上', '無駄な処理削減']
+      name: '安定したオプション配列を渡す',
+      description: '子コンポーネントに渡す配列をuseMemoで固定し、不要な再レンダーを避けます。',
+      example: `const options = useMemo(() => [
+  { id: 1, label: 'First' },
+  { id: 2, label: 'Second' }
+], []);`,
+      correctUsage: `const memoOptions = useMemo(() => createOptions(), []);`,
+      incorrectUsage: `const options = [{ id: 1 }, { id: 2 }]; // 毎回新しい参照になる`,
+      explanation: 'useMemoで配列の参照を固定すると、React.memoなどの最適化が効果的に働きます。',
+      keyPoints: ['参照の安定化', '子コンポーネント', 'React.memoとの併用'],
+      benefits: ['無駄な再レンダーを抑制', 'props比較がシンプル']
     },
     {
       id: 'ex3',
       type: 'hook',
-      name: 'オブジェクト・配列のprops渡し最適化',
-      description: '子コンポーネントに渡すオブジェクトや配列をuseMemoで固定化することで、propsの変更と誤認識されるのを防ぐ。',
-      example: `const options = useMemo(() => [1, 2, 3], []);
-return <Select options={options} />;`,
-      correctUsage: `const options = useMemo(() => [1, 2, 3], []);
-<Select options={options} />;`,
-      incorrectUsage: `const options = [1, 2, 3];
-<Select options={options} /> // useMemoなしだと毎回新しい配列`,
-      explanation: 'useMemoで配列やオブジェクトをメモ化することで、propsの参照が変わらず、子コンポーネントの無駄な再描画を防げます。',
-      keyPoints: ['useMemo', 'props最適化', '参照の固定化'],
-      benefits: ['無駄な再描画防止', '効率的なprops渡し']
+      name: '派生データをまとめて計算する',
+      description: '完了済みタスク数など、複数のstateから導かれる値をメモ化します。',
+      example: `const completedCount = useMemo(() => {
+  return tasks.filter((task) => task.completed).length;
+}, [tasks]);`,
+      correctUsage: `useMemo(() => deriveValue(data), [data]);`,
+      incorrectUsage: `const completedCount = tasks.filter((t) => t.completed).length; // 毎回フィルタ`,
+      explanation: '派生データをuseMemoでまとめて計算すると、複雑なUIでも描画コストを抑えられます。',
+      keyPoints: ['派生データ', '依存関係', 'コスト削減'],
+      benefits: ['レンダーを軽量化', 'データ処理を明示']
     }
   ]
 };
@@ -1062,136 +1127,64 @@ export const useCallbackPractice: PracticeQuestion[] = [
   }
 ];
 
-export const useMemoPractice: PracticeQuestion[] = [
-  {
-    id: 'q1',
-    question: 'useMemoの主な用途はどれ？',
-    code: '',
-    options: [
-      '値のメモ化',
-      '関数のメモ化',
-      '副作用の管理',
-      '状態管理'
-    ],
-    correctAnswer: 0,
-    explanation: 'useMemoは「値のメモ化」に使います。',
-    type: 'hook'
-  },
-  {
-    id: 'q2',
-    question: 'useMemoの依存配列に指定した値が変化した場合、どうなる？',
-    code: '',
-    options: [
-      '値が再計算される',
-      '関数が再生成される',
-      '副作用が発生する',
-      '何も起きない'
-    ],
-    correctAnswer: 0,
-    explanation: '依存配列の値が変わると、useMemoでメモ化した値が再計算されます。',
-    type: 'hook'
-  },
-  {
-    id: 'q3',
-    question: 'useMemoを使うと効果的なケースはどれ？',
-    code: '',
-    options: [
-      '重い計算処理の結果をキャッシュしたいとき',
-      '副作用を管理したいとき',
-      'イベントハンドラを最適化したいとき',
-      '状態を管理したいとき'
-    ],
-    correctAnswer: 0,
-    explanation: '重い計算処理や配列・オブジェクトのprops最適化などにuseMemoが有効です。',
-    type: 'hook'
-  },
-  {
-    id: 'q4',
-    question: 'useMemoとuseCallbackの違いは？',
-    code: '',
-    options: [
-      'useMemoは値、useCallbackは関数をメモ化',
-      'どちらも値をメモ化',
-      'どちらも関数をメモ化',
-      '違いはない'
-    ],
-    correctAnswer: 0,
-    explanation: 'useMemoは「値」、useCallbackは「関数」をメモ化します。',
-    type: 'hook'
-  }
-];
-
 export const useEffectData: LearningSection = {
   id: 'useEffect',
   title: 'useEffect',
-  description: 'useEffectは、コンポーネントの描画後に実行すべき副作用（データ取得、タイマー処理、ログ出力など）を記述するためのReactフック。副作用のタイミングや依存を制御し、Reactの描画ロジックと分離するのが目的。',
+  description:
+    'useEffectは、コンポーネントのレンダー結果がDOMへ反映された後に外部システムと同期するためのeffectフックです。ネットワーク、ブラウザAPI、イベント購読などReactの外にある副作用を記述します。',
   keyPoints: [
-    '副作用の管理: DOM操作、API通信、タイマーなど「描画とは直接関係のない処理」を実行',
-    '実行タイミング: 描画後に実行される。描画前に実行したい場合はuseLayoutEffectを使用',
-    '依存配列による制御: 第二引数に依存値の配列を渡すことで、特定のstateやprops変更時のみ実行できる',
-    'クリーンアップ可能: 副作用の終了処理（例：タイマー解除）を戻り値の関数として記述できる'
+    'useEffect(setup, dependencies) のsetupはレンダー後に実行され、必要ならクリーンアップ関数を返す',
+    '依存配列に指定した値が変化したときのみsetupが再実行される。省略すると毎レンダーで再実行される',
+    'クリーンアップ関数はエフェクトの再実行前とコンポーネントのアンマウント時に呼ばれる',
+    '外部の状態と同期する場合のみuseEffectを使い、計算やデータ整形はレンダー中に行う'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'hook',
-      name: '時計表示（Clock.tsx）',
-      description: 'setIntervalで1秒ごとに時間を更新し表示。useEffect内でタイマーを設定し、アンマウント時に解除。',
-      example: `const [time, setTime] = useState(new Date());
-useEffect(() => {
-  const timer = setInterval(() => setTime(new Date()), 1000);
-  return () => clearInterval(timer);
-}, []);
-return <div>{time.toLocaleTimeString()}</div>;`,
-      correctUsage: `useEffect(() => {
-  const timer = setInterval(() => setTime(new Date()), 1000);
-  return () => clearInterval(timer);
-}, []);`,
-      incorrectUsage: `useEffect(() => {
-  setInterval(() => setTime(new Date()), 1000);
-}, []); // クリーンアップがない`,
-      explanation: '副作用でタイマーを設定し、クリーンアップ関数で解除しています。',
-      keyPoints: ['setInterval', 'クリーンアップ', 'アンマウント時'],
-      benefits: ['リソースリーク防止', '安全な副作用管理']
+      name: 'チャット接続を管理する',
+      description: '部屋IDが変わったときだけ接続を張り直し、終了時に切断します。',
+      example: `useEffect(() => {
+  const connection = createConnection(roomId);
+  connection.connect();
+  return () => connection.disconnect();
+}, [roomId]);`,
+      correctUsage: `return () => connection.disconnect(); // クリーンアップを返す`,
+      incorrectUsage: `createConnection(roomId); // クリーンアップを返さないと接続が残る`,
+      explanation: '依存配列にroomIdを指定すると部屋が変わったときだけエフェクトが再実行され、戻り値でリソースを解放できます。',
+      keyPoints: ['依存配列', 'クリーンアップ', '外部接続'],
+      benefits: ['リークを防ぐ', '必要な時だけ再接続']
     },
     {
       id: 'ex2',
       type: 'hook',
-      name: 'localStorageからの読込',
-      description: '初期描画時に、localStorageに保存されている「言語設定（locale）」を読み取り、状態に反映。',
-      example: `const [locale, setLocale] = useState('ja');
+      name: 'ドキュメントタイトルを同期する',
+      description: 'カウンターが変わるたびにブラウザのタイトルを更新します。',
+      example: `const [count, setCount] = useState(0);
 useEffect(() => {
-  const saved = localStorage.getItem('locale');
-  if (saved) setLocale(saved);
-}, []);`,
-      correctUsage: `useEffect(() => {
-  const saved = localStorage.getItem('locale');
-  if (saved) setLocale(saved);
-}, []);`,
-      incorrectUsage: `const saved = localStorage.getItem('locale');
-setLocale(saved); // useEffect外で実行すると毎回呼ばれる`,
-      explanation: '初回マウント時のみlocalStorageから値を取得し、状態に反映します。',
-      keyPoints: ['localStorage', '初期描画時', '依存配列[]'],
-      benefits: ['初期化処理の最適化', '無駄な再取得防止']
+  document.title = \`Click count: \${count}\`;
+}, [count]);`,
+      correctUsage: `useEffect(() => { document.title = title; }, [title]);`,
+      incorrectUsage: `document.title = title; // レンダー中に副作用を書かない`,
+      explanation: '副作用をレンダー外に移動することで、描画ロジックとブラウザAPIの同期ロジックを分離できます。',
+      keyPoints: ['ブラウザAPI', 'レンダー後', '依存値の変化'],
+      benefits: ['UIとブラウザ状態を一致', '描画を妨げない']
     },
     {
       id: 'ex3',
       type: 'hook',
-      name: 'localStorageへの保存',
-      description: 'localeが変更されるたびに、その値をlocalStorageへ保存。依存配列に[locale]を指定して最適化。',
-      example: `const [locale, setLocale] = useState('ja');
-useEffect(() => {
-  localStorage.setItem('locale', locale);
-}, [locale]);`,
-      correctUsage: `useEffect(() => {
-  localStorage.setItem('locale', locale);
-}, [locale]);`,
-      incorrectUsage: `useEffect(() => {
-  localStorage.setItem('locale', locale);
-}); // 依存配列がない`,
-      explanation: '依存配列[locale]で、localeが変わった時だけ保存処理が実行されます。',
-      keyPoints: ['localStorage', '依存配列', '最適化'],
-      benefits: ['無駄な処理防止', 'パフォーマンス向上']
+      name: 'イベントリスナーを登録・解除する',
+      description: 'スクロール位置を追跡するためにウィンドウイベントを購読し、クリーンアップで解除します。',
+      example: `useEffect(() => {
+  const onScroll = () => setY(window.scrollY);
+  window.addEventListener('scroll', onScroll);
+  return () => window.removeEventListener('scroll', onScroll);
+}, []);`,
+      correctUsage: `return () => window.removeEventListener('scroll', onScroll);`,
+      incorrectUsage: `window.addEventListener('scroll', onScroll); // クリーンアップがない`,
+      explanation: 'クリーンアップを返すことで、再レンダーやアンマウント時に不要なリスナーが残りません。',
+      keyPoints: ['イベント購読', 'リスナー解除', '一度だけ実行'],
+      benefits: ['副作用を安全に管理', 'メモリーリークを防ぐ']
     }
   ]
 };
@@ -1258,63 +1251,66 @@ export const useEffectPractice: PracticeQuestion[] = [
 export const useContextData: LearningSection = {
   id: 'useContext',
   title: 'useContext',
-  description: 'useContextは、ReactのContextオブジェクトから値を取得するためのフック。親から子へ逐次propsを渡さずに、コンポーネント間で状態やデータを共有できる。',
+  description:
+    'useContextはcontextカテゴリのフックで、最も近いContext.Providerが提供する値を読み取ります。propsを手渡しで中継しなくても、ツリーの深い階層から共有データにアクセスできます。',
   keyPoints: [
-    'コンシューマー不要: Context.Consumerを使わず、シンプルに値を取得できる',
-    'コンポーネントの分離: 深いツリー構造でもpropsを渡さずにデータを参照でき、可読性が向上',
-    '再レンダリングのトリガー: Contextの値が変わると、それを参照するコンポーネントが再レンダリングされる',
-    '型安全に利用可能: TypeScriptと併用して型定義することで安全にデータアクセスできる'
+    'createContext(defaultValue) でContextオブジェクトを作成し、Providerで値を供給する',
+    'useContext(MyContext) を呼ぶと、ツリー上で最も近いProviderが渡したvalueを返す',
+    'Providerのvalueが変わると、該当Contextを読むコンポーネントが再レンダーされる',
+    'defaultValueはProviderが存在しない場合にのみ使われる。使用前提ならnullチェックやエラーを投げておくと安全'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'hook',
-      name: 'ユーザー情報の共有（UserContext）',
-      description: 'createContextでUser型のContextを作成し、子孫コンポーネントからuseContextでユーザー情報を取得。',
-      example: `type User = { name: string };
-const UserContext = React.createContext<User | null>(null);
-const Profile = () => {
-  const user = useContext(UserContext);
-  return <div>{user ? user.name : '未ログイン'}</div>;
+      name: 'テーマ設定を参照する',
+      description: 'アプリ全体のテーマをContextで供給し、ボタンで読み出します。',
+      example: `const ThemeContext = createContext<'light' | 'dark'>('light');
+const Toolbar = () => {
+  const theme = useContext(ThemeContext);
+  return <button className={theme}>テーマ: {theme}</button>;
 };`,
-      correctUsage: `const user = useContext(UserContext);`,
-      incorrectUsage: `const user = UserContext; // useContextを使わないと値が取得できない`,
-      explanation: 'useContextでContextの値を直接取得できます。',
-      keyPoints: ['createContext', 'useContext', '型定義'],
-      benefits: ['propsバケツリレー解消', '型安全なデータ共有']
+      correctUsage: `const value = useContext(ThemeContext);`,
+      incorrectUsage: `const value = ThemeContext; // Contextオブジェクトのままでは値が読めない`,
+      explanation: 'useContextは最も近いProviderからテーマ値を取得し、UIに反映します。',
+      keyPoints: ['Provider', '最も近い値', '共有状態'],
+      benefits: ['バケツリレーを解消', 'テーマを一括管理']
     },
     {
       id: 'ex2',
       type: 'hook',
-      name: 'タイトルの共有表示（TitleContext）',
-      description: 'Providerでtitle文字列をセットし、TitleコンポーネントでuseContextを使って表示。',
-      example: `const TitleContext = React.createContext('');
-const Title = () => {
-  const title = useContext(TitleContext);
-  return <h1>{title}</h1>;
-};`,
-      correctUsage: `const title = useContext(TitleContext);`,
-      incorrectUsage: `const title = TitleContext; // useContextを使わないと値が取得できない`,
-      explanation: 'useContextでProviderの値を取得し、表示できます。',
-      keyPoints: ['Provider', 'useContext', '値の取得'],
-      benefits: ['柔軟なデータ共有', '可読性向上']
+      name: 'ネストしたProviderで値を上書きする',
+      description: 'ネストしたProviderは親の値を上書きし、useContextは最も内側の値を受け取ります。',
+      example: `<ThemeContext.Provider value="light">
+  <Sidebar />
+  <ThemeContext.Provider value="dark">
+    <Content />
+  </ThemeContext.Provider>
+</ThemeContext.Provider>`,
+      correctUsage: `<ThemeContext.Provider value={value}>...</ThemeContext.Provider>`,
+      incorrectUsage: `<ThemeContext.Provider>...</ThemeContext.Provider> // valueが必須`,
+      explanation: 'Contentはdark、Sidebarはlightを受け取り、それぞれのスタイルを適用できます。',
+      keyPoints: ['ネストしたProvider', '上書き', 'スコープ'],
+      benefits: ['部分的な上書きが可能', '柔軟なテーマ構成']
     },
     {
       id: 'ex3',
       type: 'hook',
-      name: '認証情報の管理（AuthContext）',
-      description: 'ログイン中のユーザー情報・ログイン/ログアウト処理などをまとめてContextで管理し、useContextでどこからでも参照可能。',
-      example: `type Auth = { user: string | null; login: () => void; logout: () => void };
-const AuthContext = React.createContext<Auth | undefined>(undefined);
-const LoginButton = () => {
+      name: 'カスタムフックでContextをラップする',
+      description: 'Contextの値が必須の場合、カスタムフックでnullチェックを行い安全に提供します。',
+      example: `const AuthContext = createContext<User | null>(null);
+const useAuth = () => {
   const auth = useContext(AuthContext);
-  return <button onClick={auth?.login}>ログイン</button>;
+  if (!auth) {
+    throw new Error('AuthContextがProviderでラップされていません');
+  }
+  return auth;
 };`,
-      correctUsage: `const auth = useContext(AuthContext);`,
-      incorrectUsage: `const auth = AuthContext; // useContextを使わないと値が取得できない`,
-      explanation: '認証情報や操作関数もContext経由で取得できます。',
-      keyPoints: ['認証', 'useContext', '関数の共有'],
-      benefits: ['グローバルな状態管理', 'どこからでも参照可能']
+      correctUsage: `const auth = useAuth();`,
+      incorrectUsage: `const auth = useContext(AuthContext)!; // 非null断言だけに頼るのは危険`,
+      explanation: 'カスタムフックでガードすることで、Providerの付け忘れを早期に検知できます。',
+      keyPoints: ['カスタムフック', '安全な取得', 'エラーハンドリング'],
+      benefits: ['型安全を向上', '開発時に問題を早期発見']
     }
   ]
 };
@@ -1381,88 +1377,63 @@ export const useContextPractice: PracticeQuestion[] = [
 export const useLayoutEffectData: LearningSection = {
   id: 'useLayoutEffect',
   title: 'useLayoutEffect',
-  description: 'useLayoutEffect は useEffect とほぼ同じAPIを持つ副作用フックだが、実行タイミングが異なる。DOMの更新直後、ブラウザが画面に描画する前に同期的に実行されるため、レイアウト操作やチラつき防止に向いている。',
+  description:
+    'useLayoutEffectはuseEffectと同じAPIを持つ副作用フックですが、DOMの更新後すぐ、ブラウザが画面を描画する前に同期的に実行されます。レイアウトの測定やチラつき防止など、描画前にDOMを調整したい場面で利用します。',
   keyPoints: [
-    '同期的な実行: useEffectは描画後に非同期実行、useLayoutEffectは描画前に同期実行される',
-    'チラつき防止に有効: 初期描画前に状態やスタイルを調整できるため、一時的な不自然な表示を防げる',
-    '重い処理には注意: 同期的にブロックされるため、長い処理を行うとUI描画が遅れるリスクがある',
-    '使い方はuseEffectと同じ: useLayoutEffect(() => {...}, [依存配列]) のように記述する'
+    'useLayoutEffectは描画前にブロッキングされるため、重い処理を入れるとUIの表示が遅くなる',
+    'レイアウト測定やスクロール位置の復元など、描画前にDOM情報を扱う必要がある場合に限定して使う',
+    '通常はuseEffectを使い、ブラウザに描画が見えてしまう不具合がある場合のみuseLayoutEffectへ切り替える',
+    'useLayoutEffectでもクリーンアップ関数を返すことでイベントリスナーやミューテーションを解除できる'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'hook',
-      name: 'localStorageの読み込みによる初期値反映',
-      description: 'ロケール（locale）をlocalStorageから読み込む処理をuseEffectで行うと、一瞬だけデフォルトのen-USが表示されてチラつく。useLayoutEffectで実行すれば、描画前に値が反映されるためチラつき防止になる。',
-      example: `const [locale, setLocale] = useState('en-US');
+      name: 'ローカルストレージのテーマを描画前に適用する',
+      description: '初回レンダーの直前にテーマを決定し、フラッシュを防ぎます。',
+      example: `const [theme, setTheme] = useState('light');
 useLayoutEffect(() => {
-  const saved = localStorage.getItem('locale');
-  if (saved) setLocale(saved);
+  const saved = localStorage.getItem('theme');
+  if (saved) setTheme(saved);
 }, []);`,
-      correctUsage: `useLayoutEffect(() => {
-  const saved = localStorage.getItem('locale');
-  if (saved) setLocale(saved);
-}, []);`,
-      incorrectUsage: `useEffect(() => {
-  const saved = localStorage.getItem('locale');
-  if (saved) setLocale(saved);
-}, []); // useEffectだとチラつく`,
-      explanation: 'useLayoutEffectで描画前に値を反映することでチラつきを防げます。',
-      keyPoints: ['localStorage', 'チラつき防止', '描画前'],
-      benefits: ['ユーザー体験向上', '自然な初期表示']
+      correctUsage: `useLayoutEffect(() => { /* 描画前に同期 */ }, []);`,
+      incorrectUsage: `useEffect(() => { setTheme(saved); }, []); // useEffectだと一瞬デフォルトが見える`,
+      explanation: '描画前に状態を更新することで、初期レンダー時のチラつきを避けられます。',
+      keyPoints: ['チラつき防止', '初期表示', '同期更新'],
+      benefits: ['ユーザー体験向上', '初期描画が自然になる']
     },
     {
       id: 'ex2',
       type: 'hook',
-      name: '要素サイズの測定とスタイル適用',
-      description: '描画直前に要素サイズを取得し、それに応じてCSSを調整する場面。useLayoutEffectで同期的にDOMを扱う必要がある。',
-      example: `const ref = useRef<HTMLDivElement>(null);
+      name: '要素サイズを測定して位置を調整する',
+      description: 'DOMノードの幅を取得し、それに応じたスタイルを設定します。',
+      example: `const dialogRef = useRef<HTMLDivElement>(null);
 useLayoutEffect(() => {
-  if (ref.current) {
-    const width = ref.current.offsetWidth;
-    // 取得したwidthでスタイル調整
-  }
-}, []);`,
-      correctUsage: `useLayoutEffect(() => {
-  if (ref.current) {
-    const width = ref.current.offsetWidth;
-    // ...
-  }
-}, []);`,
-      incorrectUsage: `useEffect(() => {
-  if (ref.current) {
-    const width = ref.current.offsetWidth;
-    // ...
-  }
-}, []); // useEffectだと描画後で遅い`,
-      explanation: '要素サイズ取得やレイアウト調整はuseLayoutEffectで行うと安全です。',
-      keyPoints: ['要素サイズ', 'DOM操作', '同期実行'],
-      benefits: ['正確なレイアウト', 'チラつき防止']
+  const width = dialogRef.current?.offsetWidth ?? 0;
+  dialogRef.current?.style.setProperty('--dialog-width', \`\${width}px\`);
+});`,
+      correctUsage: `useLayoutEffect(() => { /* DOM計測 */ });`,
+      incorrectUsage: `useEffect(() => { const width = ref.current?.offsetWidth; }); // 描画後にレイアウトがズレる`,
+      explanation: 'useLayoutEffectは描画前に走るため、計測した値で直ちにスタイルを更新できます。',
+      keyPoints: ['DOM計測', '同期的更新', 'Refの活用'],
+      benefits: ['レイアウトの整合性を保つ', '視覚的なズレを防ぐ']
     },
     {
       id: 'ex3',
       type: 'hook',
-      name: 'アニメーション前のレイアウト調整',
-      description: 'アニメーションを始める前に、初期位置やスタイルを確定させるための処理に使われる。',
-      example: `const ref = useRef<HTMLDivElement>(null);
+      name: 'アニメーションの初期値をセットする',
+      description: 'アニメーション開始前にtransformを調整し、初期フレームを整えます。',
+      example: `const itemRef = useRef<HTMLDivElement>(null);
 useLayoutEffect(() => {
-  if (ref.current) {
-    ref.current.style.transform = 'translateX(0)';
+  if (itemRef.current) {
+    itemRef.current.style.transform = 'translateX(0)';
   }
 }, []);`,
-      correctUsage: `useLayoutEffect(() => {
-  if (ref.current) {
-    ref.current.style.transform = 'translateX(0)';
-  }
-}, []);`,
-      incorrectUsage: `useEffect(() => {
-  if (ref.current) {
-    ref.current.style.transform = 'translateX(0)';
-  }
-}, []); // useEffectだとタイミングが遅い`,
-      explanation: 'アニメーション前のレイアウト確定はuseLayoutEffectで行うとスムーズです。',
-      keyPoints: ['アニメーション', 'レイアウト調整', '同期実行'],
-      benefits: ['滑らかなアニメーション', 'チラつき防止']
+      correctUsage: `useLayoutEffect(() => { ref.current!.style.transform = 'translateX(0)'; }, []);`,
+      incorrectUsage: `useEffect(() => { ref.current!.style.transform = 'translateX(0)'; }, []); // 描画後に一瞬ズレる`,
+      explanation: '描画前にtransformを設定することで、アニメーション開始時のジャンプを防げます。',
+      keyPoints: ['アニメーション初期化', '同期処理', '視覚的な一貫性'],
+      benefits: ['滑らかなアニメーション', '初期フレームのチラつきを回避']
     }
   ]
 };
@@ -1529,77 +1500,70 @@ export const useLayoutEffectPractice: PracticeQuestion[] = [
 export const useRefData: LearningSection = {
   id: 'useRef',
   title: 'useRef',
-  description: 'useRefは、コンポーネント内で再描画を伴わずに値を保持したり、DOM要素に直接アクセスするためのReactフックです。',
+  description:
+    'useRefはrefカテゴリのフックで、再レンダーを引き起こさずにデータやDOMノードへの参照を保持します。currentプロパティに格納された値を書き換えても、コンポーネントは再描画されません。',
   keyPoints: [
-    '再描画されない: useStateやuseReducerと異なり、値が更新されてもコンポーネントの再レンダリングは起きない',
-    'データの保持: 状態とは別の、描画に関係ない一時的なデータの保存に使える',
-    'DOMの参照: inputやdivなどのDOM要素にアクセスできる',
-    '.currentプロパティ: refオブジェクトの.currentで値や要素にアクセス',
-    'useImperativeHandle: 親から子の関数やデータをref経由で呼び出せる（forwardRefと併用）'
+    'const ref = useRef(initialValue) で { current: initialValue } を返し、ref.currentに読み書きできる',
+    'refはレンダー間で共有されるため、ミューテーションしてもコンポーネントは再レンダーされない',
+    'DOM要素にref属性を渡すと、レンダー後にその要素がref.currentへ設定される',
+    'forwardRefとuseImperativeHandleを併用すると、親コンポーネントに命令的なメソッドを公開できる'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'hook',
-      name: '画像アップローダー',
-      description: 'inputImageRefを使って非表示の<input type="file">をプログラム的にクリック。fileRefで選択されたファイル情報を保持し、アップロード操作に利用。',
-      example: `const inputImageRef = useRef<HTMLInputElement>(null);
-const fileRef = useRef<File | null>(null);
-const handleClick = () => inputImageRef.current?.click();
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  fileRef.current = e.target.files?.[0] || null;
-};
-return <>
-  <button onClick={handleClick}>画像選択</button>
-  <input type="file" ref={inputImageRef} style={{ display: 'none' }} onChange={handleChange} />
-</>;`,
-      correctUsage: `const inputImageRef = useRef<HTMLInputElement>(null);
-<input type="file" ref={inputImageRef} />`,
-      incorrectUsage: `const inputImageRef = null;
-<input type="file" ref={inputImageRef} /> // useRefを使わない`,
-      explanation: 'refでDOM要素やファイル情報を保持し、再描画せずにアクセスできます。',
-      keyPoints: ['ref', 'DOMアクセス', '再描画なし'],
-      benefits: ['パフォーマンス向上', '柔軟なDOM操作']
+      name: '入力要素へフォーカスを移す',
+      description: 'ボタンのクリックでテキストボックスにフォーカスを当てます。',
+      example: `const inputRef = useRef<HTMLInputElement>(null);
+return (
+  <>
+    <input ref={inputRef} type="text" />
+    <button onClick={() => inputRef.current?.focus()}>フォーカス</button>
+  </>
+);`,
+      correctUsage: `<input ref={inputRef} />`,
+      incorrectUsage: `const inputRef = null; <input ref={inputRef} /> // useRefで作らない`,
+      explanation: 'DOMノードの参照はref.currentに保存され、クリック時にfocus()を呼び出せます。',
+      keyPoints: ['DOMアクセス', 'currentプロパティ', 'イベント操作'],
+      benefits: ['命令的な操作が可能', '再レンダーせずにDOMへアクセス']
     },
     {
       id: 'ex2',
       type: 'hook',
-      name: 'useImperativeHandleとforwardRefの利用',
-      description: '子コンポーネントで定義したshowMessage関数を、親コンポーネントから呼び出せるようにする。ChildはforwardRefでrefを受け取り、useImperativeHandleで公開する関数を定義する。',
-      example: `const Child = React.forwardRef((props, ref) => {
-  useImperativeHandle(ref, () => ({
-    showMessage: () => alert('Hello from child!')
-  }));
-  return <div>Child</div>;
+      name: '前回の値を保持する',
+      description: 'useRefで前回のpropsを保持し、描画間での差分を調べます。',
+      example: `const prevCount = useRef<number | null>(null);
+useEffect(() => {
+  prevCount.current = count;
 });
-const parentRef = useRef<{ showMessage: () => void }>(null);
-<Child ref={parentRef} />;
-// 親から parentRef.current?.showMessage() で呼び出し`,
-      correctUsage: `useImperativeHandle(ref, () => ({ showMessage: () => ... }));`,
-      incorrectUsage: `ref.current.showMessage = () => ...; // useImperativeHandleを使わない`,
-      explanation: 'useImperativeHandleで親から子の関数をref経由で公開できます。',
-      keyPoints: ['useImperativeHandle', 'forwardRef', '関数公開'],
-      benefits: ['柔軟なAPI設計', '親子間の連携']
+return <p>前回: {prevCount.current ?? 'なし'} / 現在: {count}</p>;`,
+      correctUsage: `prev.current = value;`,
+      incorrectUsage: `const prev = { current: value }; // レンダーごとに新しくなる`,
+      explanation: 'refはレンダー間で変わらないため、前回の値を安全に保持できます。',
+      keyPoints: ['レンダー間の共有', '前回値の比較', 'useEffectとの併用'],
+      benefits: ['状態の履歴を追跡', '追加のstateを増やさずに済む']
     },
     {
       id: 'ex3',
       type: 'hook',
-      name: '1回だけ副作用を実行したいケース',
-      description: 'useEffectの実行状態をuseRefで保持し、初回実行済みかを制御する用途に活用される。',
-      example: `const didRun = useRef(false);
-useEffect(() => {
-  if (!didRun.current) {
-    // 初回だけ実行したい処理
-    didRun.current = true;
-  }
-}, []);`,
-      correctUsage: `const didRun = useRef(false);
-if (!didRun.current) { ... }`,
-      incorrectUsage: `let didRun = false;
-if (!didRun) { ... } // useRefを使わないと再描画で値がリセット`,
-      explanation: 'useRefで値を保持すれば、再描画でも値がリセットされません。',
-      keyPoints: ['useRef', '副作用制御', '値の保持'],
-      benefits: ['安定した副作用管理', '再描画に強い']
+      name: 'useImperativeHandleで命令的APIを公開する',
+      description: 'forwardRefした子コンポーネントからメソッドを公開し、親が呼び出せるようにします。',
+      example: `type DialogHandles = { open: () => void; close: () => void };
+const Dialog = forwardRef<DialogHandles>((_, ref) => {
+  const [open, setOpen] = useState(false);
+  useImperativeHandle(ref, () => ({
+    open: () => setOpen(true),
+    close: () => setOpen(false),
+  }));
+  return open ? <div role="dialog">内容</div> : null;
+});
+const dialogRef = useRef<DialogHandles>(null);
+return <Dialog ref={dialogRef} />;`,
+      correctUsage: `useImperativeHandle(ref, () => ({ open: () => setOpen(true) }));`,
+      incorrectUsage: `ref.current = { open: () => setOpen(true) }; // 直接代入は避ける`,
+      explanation: 'useImperativeHandleを使うと、内部実装は隠しつつ親に必要なコマンドだけを提供できます。',
+      keyPoints: ['forwardRef', 'useImperativeHandle', '命令的ハンドル'],
+      benefits: ['コンポーネント間の柔軟な連携', '実装詳細を隠蔽']
     }
   ]
 };
@@ -1666,50 +1630,82 @@ export const useRefPractice: PracticeQuestion[] = [
 export const customHookData: LearningSection = {
   id: 'customHook',
   title: 'カスタムフック',
-  description: 'Reactでは公式のフックだけでなく、自作の「カスタムフック」を作成することで、複雑なロジックを再利用可能にし、コードの可読性や保守性を高めることができる。複数のフックを組み合わせた処理を、トップレベルの関数として定義するのが基本的なスタイル。',
+  description:
+    'カスタムフックは「use」で始まる関数で、他のHooksを組み合わせた再利用可能なロジックをまとめます。状態管理や副作用のパターンを切り出し、複数コンポーネントから共有できます。',
   keyPoints: [
-    'フック名は use で始める（例: useInput）',
-    'useState, useCallback など既存のフックを組み合わせられる',
-    '他のコンポーネントで再利用できる共通ロジックを切り出せる',
-    '条件分岐やループの中でフックを呼び出すことはできない（Reactのルール）',
-    'useDebugValue を使うと、開発ツールで状態を可視化できる'
+    'フックのルールを守るため、カスタムフック内でもトップレベルでHooksを呼び出す',
+    '命名は必ずuseで始め、利用者にHookであることを伝える',
+    '複数のHooksを組み合わせることで、状態と副作用、パフォーマンス最適化などを一括で扱える',
+    'useDebugValueを使うとReact DevToolsでカスタムフックの内部状態を表示できる'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'custom',
-      name: 'useInput フック',
-      description: '入力値の状態管理とonChangeロジックをまとめたカスタムフック。',
-      example: "const useInput = () => {\n  const [state, setState] = useState('');\n  const onChange = useCallback((e) => setState(e.target.value), []);\n  useDebugValue('Input: ' + state);\n  return [state, onChange] as const;\n};",
-      correctUsage: "const [text, onChangeText] = useInput();\n<input type='text' value={text} onChange={onChangeText} />",
-      incorrectUsage: "const [text, onChangeText] = useInput();\n<input type='text' value={text} /> // onChangeがない",
-      explanation: 'useInputで入力値とonChangeをまとめて管理し、再利用性を高めています。',
-      keyPoints: ['useInput', 'useState', 'useCallback', 'useDebugValue'],
-      benefits: ['ロジック共通化', '再利用性向上']
+      name: 'オンライン状態を監視するuseOnlineStatus',
+      description: 'オンライン・オフラインイベントを購読し、現在の接続状態を返します。',
+      example: `const useOnlineStatus = () => {
+  const [online, setOnline] = useState(navigator.onLine);
+  useEffect(() => {
+    const handleOnline = () => setOnline(true);
+    const handleOffline = () => setOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+  return online;
+};`,
+      correctUsage: `const online = useOnlineStatus();`,
+      incorrectUsage: `useOnlineStatus(); // 返り値を使わない`,
+      explanation: 'Hook内でuseStateとuseEffectを組み合わせ、接続状態を再利用可能なAPIとして提供します。',
+      keyPoints: ['状態と副作用の組み合わせ', 'イベント購読', '再利用性'],
+      benefits: ['複数コンポーネントで同じロジックを共有', 'UIを接続状態と同期']
     },
     {
       id: 'ex2',
       type: 'custom',
-      name: 'Input コンポーネントでの利用',
-      description: 'useInputを使って、シンプルな入力コンポーネントを実装。',
-      example: "const [text, onChangeText] = useInput();\n<input type='text' value={text} onChange={onChangeText} />",
-      correctUsage: "<input type='text' value={text} onChange={onChangeText} />",
-      incorrectUsage: "<input type='text' value={text} /> // onChangeがない",
-      explanation: 'カスタムフックでロジックを共通化し、複数コンポーネントで再利用できます。',
-      keyPoints: ['カスタムフック', '再利用', 'onChange'],
-      benefits: ['コードの簡潔化', '保守性向上']
+      name: '入力欄を共通化するuseInput',
+      description: '入力値とonChangeハンドラを返すカスタムフックです。',
+      example: `const useInput = (initial = '') => {
+  const [value, setValue] = useState(initial);
+  const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  }, []);
+  useDebugValue(value);
+  return { value, onChange, reset: () => setValue(initial) };
+};`,
+      correctUsage: `const { value, onChange } = useInput();`,
+      incorrectUsage: `const input = useInput; // フックは呼び出して使う`,
+      explanation: '状態・イベント・デバッグ表示をまとめることで、フォームの入力欄を簡潔に扱えます。',
+      keyPoints: ['useState', 'useCallback', 'useDebugValue'],
+      benefits: ['フォームロジックの共通化', '再利用時も読みやすい']
     },
     {
       id: 'ex3',
       type: 'custom',
-      name: 'useDebugValue の活用',
-      description: 'React Developer ToolsのComponentsタブで useDebugValue に渡した情報が表示される。',
-      example: "const useInput = () => {\n  const [state, setState] = useState('');\n  useDebugValue('Input: ' + state);\n  return [state, (e) => setState(e.target.value)] as const;\n};",
-      correctUsage: "useDebugValue('Input: ' + state);",
-      incorrectUsage: '// useDebugValueを使わない',
-      explanation: 'useDebugValueを使うことで、開発ツールでカスタムフックの状態を可視化できます。',
-      keyPoints: ['useDebugValue', '開発効率', 'デバッグ'],
-      benefits: ['状態の可視化', 'デバッグ効率向上']
+      name: '外部データを取得するuseDataSource',
+      description: 'フェッチ処理と状態をひとまとめにして、呼び出し側はデータの利用に集中できます。',
+      example: `const useDataSource = (resourceId: string) => {
+  const [data, setData] = useState<string | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetchData(resourceId).then((result) => {
+      if (!cancelled) setData(result);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [resourceId]);
+  return data;
+};`,
+      correctUsage: `const user = useDataSource('user:1');`,
+      incorrectUsage: `useDataSource(resourceId); // 依存値を渡さない`,
+      explanation: 'カスタムフックにまとめることで、データ取得とキャンセル処理を複数箇所で安全に再利用できます。',
+      keyPoints: ['データ取得', 'クリーンアップ', '依存配列'],
+      benefits: ['フェッチロジックを共有', 'UIコードを簡潔に保つ']
     }
   ]
 };
@@ -1770,5 +1766,54 @@ export const customHookPractice: PracticeQuestion[] = [
     correctAnswer: 0,
     explanation: 'useDebugValueはReact Developer Toolsで状態を可視化するために使います。',
     type: 'custom'
+  }
+];
+
+export const useMemoPractice: PracticeQuestion[] = [
+  {
+    id: 'q1',
+    question: 'useMemoの主な用途はどれ？',
+    code: '',
+    options: ['値のメモ化', '関数のメモ化', '副作用の管理', '状態管理'],
+    correctAnswer: 0,
+    explanation: 'useMemoは重い計算結果や参照をメモ化するためのフックです。',
+    type: 'hook'
+  },
+  {
+    id: 'q2',
+    question: 'useMemoの依存配列に指定した値が変化した場合、どうなる？',
+    code: '',
+    options: ['値が再計算される', '関数が再生成される', '副作用が発生する', '何も起きない'],
+    correctAnswer: 0,
+    explanation: '依存配列の値が変わると、useMemoでメモ化した値が再計算されます。',
+    type: 'hook'
+  },
+  {
+    id: 'q3',
+    question: 'useMemoを使うと効果的なケースはどれ？',
+    code: '',
+    options: [
+      '重い計算の結果をキャッシュしたいとき',
+      '副作用を管理したいとき',
+      'イベントハンドラを安定させたいとき',
+      'コンポーネントをマウントしたいとき'
+    ],
+    correctAnswer: 0,
+    explanation: '再計算コストが高い処理や、大きな配列・オブジェクトを毎回生成したくない場合にuseMemoが有効です。',
+    type: 'hook'
+  },
+  {
+    id: 'q4',
+    question: 'useMemoとuseCallbackの違いは？',
+    code: '',
+    options: [
+      'useMemoは値、useCallbackは関数をメモ化する',
+      'どちらも値をメモ化する',
+      'どちらも関数をメモ化する',
+      '違いはない'
+    ],
+    correctAnswer: 0,
+    explanation: 'useMemoは値をメモ化し、useCallbackは関数をメモ化します。用途を区別して使い分けます。',
+    type: 'hook'
   }
 ];
