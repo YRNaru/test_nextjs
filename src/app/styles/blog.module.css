@@ -1,0 +1,169 @@
+.container {
+  --gray-rgb: 0, 0, 0;
+  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
+  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: var(--font-geist-sans);
+  line-height: 1.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    --gray-rgb: 255, 255, 255;
+    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
+    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
+  }
+}
+
+.main {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--foreground);
+}
+
+.header p {
+  font-size: 1.125rem;
+  color: var(--foreground);
+  opacity: 0.8;
+  margin: 0;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.post {
+  background: var(--gray-alpha-100);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--gray-alpha-200);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.postHeader {
+  margin-bottom: 1rem;
+}
+
+.postTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--foreground);
+}
+
+.postLink {
+  color: var(--foreground);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.postLink:hover {
+  opacity: 0.8;
+}
+
+.postMeta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  opacity: 0.6;
+}
+
+.postDate,
+.postAuthor {
+  display: flex;
+  align-items: center;
+}
+
+.postExcerpt {
+  margin: 0 0 1rem 0;
+  color: var(--foreground);
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.postTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background: var(--gray-alpha-200);
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--foreground);
+  opacity: 0.8;
+}
+
+.navigation {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--foreground);
+  color: var(--background);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.backLink:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 16px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .post {
+    padding: 1.5rem;
+  }
+
+  .postTitle {
+    font-size: 1.25rem;
+  }
+
+  .postMeta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+} 
