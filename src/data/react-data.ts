@@ -3,48 +3,104 @@ import { LearningSection, PracticeQuestion } from '@/types/react';
 export const basicData: LearningSection = {
   id: 'basic',
   title: 'Reactの基本',
-  description: 'Reactは、UIを構築するためのライブラリです。この節では、Reactアプリケーションの構成要素（HTMLの土台、JSX、描画処理）とその基礎的な仕組みについて学びます。',
+  description:
+    'Reactは、ユーザーインターフェースを構築するためのJavaScriptライブラリです。コンポーネントと呼ばれる再利用可能な部品を組み合わせてUIを構築します。Reactリファレンスは機能別に、React（プログラムから利用する機能）、React DOM（ブラウザのDOM環境）、React Compiler、Reactのルールなどに分かれています。',
   keyPoints: [
-    'JSX（JavaScript XML）：HTMLのような構文をJavaScript内で使用できる',
-    '単一ルート構造：Reactアプリは <div id="root"> に全て描画される',
-    'ReactDOMによる描画：ReactDOM.createRoot().render() を用いて仮想DOMを実DOMへ描画'
+    'ReactはUIを構築するためのライブラリで、コンポーネントベースのアーキテクチャを採用している',
+    'コンポーネントとフックは純粋に保つ必要があり、同じ入力に対して常に同じ出力を返すべき',
+    'コンポーネントやフックを呼び出すのはReact自身であり、開発者は関数として定義するだけ',
+    'ReactDOM.createRoot()でルートを作成し、render()でコンポーネントをDOMに描画する',
+    'JSXはJavaScript内でHTMLライクな構文を記述できる拡張機能で、コンポーネントの構造を直感的に表現できる'
   ],
   examples: [
     {
       id: 'ex1',
       type: 'other',
-      name: '描画の基本構造（index.tsx）',
-      description: 'Reactアプリのエントリーポイントで、React要素を#rootに描画します。',
-      example: `const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);\nroot.render(<App />);`,
-      correctUsage: `// 正しい使用法\nroot.render(<App />);`,
-      incorrectUsage: `// 誤った使用法\nroot.render(App); // JSXで渡す必要がある`,
-      explanation: 'ReactDOM.createRoot()でルート要素を作成し、render()でReactコンポーネントを描画します。',
-      keyPoints: ['ReactDOM.createRoot()', 'renderメソッド', '#rootへの描画'],
-      benefits: ['仮想DOMを効率的に実DOMへ描画できる', 'アプリのエントリーポイントが明確']
+      name: 'Reactアプリの初期化（createRoot）',
+      description: 'React DOMのクライアントAPIを使って、ブラウザのDOMノードにReactコンポーネントを描画します。',
+      example: `import { createRoot } from 'react-dom/client';
+
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+root.render(<App />);`,
+      correctUsage: `const root = createRoot(container);
+root.render(<App />);`,
+      incorrectUsage: `createRoot(container).render(<App />); // ルートオブジェクトを保持すべき`,
+      explanation: 'createRootでルートを作成し、render()でコンポーネントを描画します。これがReactアプリのエントリーポイントです。',
+      keyPoints: ['createRoot', 'renderメソッド', 'クライアントAPI'],
+      benefits: ['効率的なDOM更新', 'アプリの描画起点が明確']
     },
     {
       id: 'ex2',
       type: 'component',
-      name: 'シンプルなJSX（App.tsx）',
-      description: 'JSXを使ってシンプルなUIを記述します。',
-      example: `const App = () => <h1>Hello, React!</h1>;\nexport default App;`,
-      correctUsage: `// 正しい使用法\nconst App = () => <h1>Hello</h1>;`,
-      incorrectUsage: `// 誤った使用法\nconst App = () => { return 'Hello'; }; // JSXで返す必要がある`,
-      explanation: 'JSXはHTMLライクな構文で、ReactコンポーネントのUIを直感的に記述できます。',
-      keyPoints: ['JSX構文', '関数コンポーネント', 'export default'],
-      benefits: ['直感的なUI記述', '再利用性の高いUI部品を作れる']
+      name: '純粋な関数コンポーネント',
+      description: 'コンポーネントは純粋関数として定義し、同じpropsに対して常に同じ結果を返すべきです。',
+      example: `function Greeting({ name }: { name: string }) {
+  return <h1>Hello, {name}!</h1>;
+}
+
+// 使用例
+<Greeting name="World" />`,
+      correctUsage: `function Component({ prop }) {
+  return <div>{prop}</div>;
+}`,
+      incorrectUsage: `function Component({ prop }) {
+  const random = Math.random(); // 副作用を含む
+  return <div>{random}</div>;
+}`,
+      explanation: '純粋なコンポーネントは同じ入力に対して常に同じ出力を返し、副作用を持ちません。これによりReactが自動的に最適化できます。',
+      keyPoints: ['純粋関数', '予測可能な動作', '同じ入力→同じ出力'],
+      benefits: ['デバッグが容易', 'Reactの最適化が効く', '理解しやすいコード']
     },
     {
       id: 'ex3',
       type: 'component',
-      name: '複数要素を返すときはFragmentでラップ',
-      description: '複数の要素を返す場合、<></>（Fragment）でラップします。',
-      example: `const App = () => (\n  <>\n    <h1>タイトル</h1>\n    <p>説明文です。</p>\n  </>\n);`,
-      correctUsage: `// 正しい使用法\nreturn (<>\n  <h1>タイトル</h1>\n  <p>説明文</p>\n</>);`,
-      incorrectUsage: `// 誤った使用法\nreturn (<h1>タイトル</h1><p>説明文</p>); // ルート要素が複数でエラー`,
-      explanation: 'Fragment（<></>）で囲むことで、余計なDOMノードを増やさずに複数要素を返せます。',
-      keyPoints: ['Fragment', '複数要素の返却', '余計なDOMを増やさない'],
-      benefits: ['余計なDOMノードを増やさずに複数要素を返せる', '柔軟なUI構成が可能']
+      name: 'Fragmentで複数要素を返す',
+      description: 'コンポーネントが複数の要素を返す場合、Fragment（<></>）でラップします。',
+      example: `function App() {
+  return (
+    <>
+      <Header />
+      <Main />
+      <Footer />
+    </>
+  );
+}`,
+      correctUsage: `return (
+  <>
+    <h1>タイトル</h1>
+    <p>本文</p>
+  </>
+);`,
+      incorrectUsage: `return (
+  <h1>タイトル</h1>
+  <p>本文</p>
+); // ルート要素が複数でエラー`,
+      explanation: 'Fragmentを使うことで、余計なDOMノードを増やさずに複数の要素を返せます。JSXでは単一のルート要素が必要です。',
+      keyPoints: ['Fragment', '単一ルート要素', 'DOMノードの最小化'],
+      benefits: ['DOMツリーをクリーンに保つ', '柔軟なレイアウト構成']
+    },
+    {
+      id: 'ex4',
+      type: 'other',
+      name: 'Reactがコンポーネントを呼び出す',
+      description: '開発者はコンポーネントを関数として定義するだけで、実際に呼び出すのはReactです。',
+      example: `// コンポーネントを定義
+function Button() {
+  return <button>クリック</button>;
+}
+
+// Reactが呼び出す（JSXで記述）
+function App() {
+  return <Button />; // ReactがButton()を呼び出す
+}`,
+      correctUsage: `// JSXで使用（Reactが呼び出す）
+<Button />`,
+      incorrectUsage: `// 直接呼び出さない
+Button(); // これはReactのルールに反する`,
+      explanation: 'コンポーネントはJSXで記述することで、Reactが必要なタイミングで呼び出します。これにより最適なレンダリングタイミングをReactが制御できます。',
+      keyPoints: ['JSXでの呼び出し', 'Reactによる制御', 'レンダリングタイミング'],
+      benefits: ['Reactが最適化できる', 'ユーザー体験が向上']
     }
   ]
 };
@@ -52,39 +108,39 @@ export const basicData: LearningSection = {
 export const basicPractice: PracticeQuestion[] = [
   {
     id: 'q1',
-    question: 'ReactアプリをHTMLのどこに描画するのが一般的ですか？',
+    question: 'Reactアプリを初期化するために使うAPIはどれ？',
     code: '',
-    options: ['<div id="root">', '<body>', '<main>', '<div id="app">'],
+    options: ['createRoot', 'createElement', 'render', 'mount'],
     correctAnswer: 0,
-    explanation: 'Reactアプリは通常 <div id="root"> に描画されます。',
+    explanation: 'createRootはReact DOMのクライアントAPIで、Reactアプリのルートを作成します。',
     type: 'other'
   },
   {
     id: 'q2',
-    question: '複数の要素を返す場合に使うReactの仕組みはどれ？',
+    question: 'コンポーネントの重要な特性として正しいものはどれ？',
     code: '',
-    options: ['Fragment', 'Section', 'Array', 'Component'],
+    options: ['純粋関数であるべき', '常に副作用を持つ', '毎回異なる結果を返す', 'グローバル変数を変更する'],
     correctAnswer: 0,
-    explanation: 'Fragment（<></>）で複数要素をラップできます。',
+    explanation: 'コンポーネントは純粋関数として定義し、同じ入力に対して常に同じ出力を返すべきです。',
     type: 'component'
   },
   {
     id: 'q3',
-    question: 'JSXの特徴として正しいものはどれ？',
+    question: 'コンポーネントを呼び出すのは誰？',
     code: '',
-    options: ['HTMLライクな構文をJavaScript内で使える', 'JavaScriptのみに限定される', 'CSS専用の記法', 'XMLファイルを直接読み込む'],
+    options: ['React自身', '開発者が直接呼び出す', 'ブラウザ', 'JavaScriptエンジン'],
     correctAnswer: 0,
-    explanation: 'JSXはHTMLライクな構文をJavaScript内で使える仕組みです。',
-    type: 'component'
+    explanation: 'コンポーネントはJSXで記述することで、Reactが必要なタイミングで呼び出します。',
+    type: 'other'
   },
   {
     id: 'q4',
-    question: 'ReactDOM.createRoot()の主な役割は？',
+    question: '複数の要素を返す場合に使うReactの仕組みはどれ？',
     code: '',
-    options: ['Reactアプリのルートを作成する', 'スタイルを適用する', 'API通信を行う', 'イベントをバインドする'],
+    options: ['Fragment', 'div要素', '配列', 'オブジェクト'],
     correctAnswer: 0,
-    explanation: 'ReactDOM.createRoot()はReactアプリのルートを作成します。',
-    type: 'other'
+    explanation: 'Fragment（<></>）を使うことで、余計なDOMノードを増やさずに複数要素を返せます。',
+    type: 'component'
   }
 ];
 
