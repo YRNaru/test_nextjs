@@ -31,35 +31,11 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
-  position: relative;
-  overflow: hidden;
-}
-
-.categoryTab::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(0, 123, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.categoryTab:active::before {
-  width: 300px;
-  height: 300px;
 }
 
 .categoryTab:hover {
   border-color: #007bff;
   color: #007bff;
-}
-
-.categoryTab:active {
-  transform: scale(0.95);
 }
 
 .activeCategory {
@@ -145,26 +121,6 @@
   font-size: 1rem;
   line-height: 1.4;
   color: var(--card-text);
-  position: relative;
-  overflow: hidden;
-}
-
-.option::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(0, 123, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.5s, height 0.5s;
-}
-
-.option:active::before {
-  width: 300px;
-  height: 300px;
 }
 
 .option:hover:not(:disabled) {
@@ -172,14 +128,14 @@
   background: var(--section-background);
 }
 
-.option:active:not(:disabled) {
-  transform: scale(0.97);
-}
-
 .selectedOption {
   border-color: #007bff;
   background: #e3f2fd;
   color: #007bff;
+}
+
+.selectedOption:hover {
+  background: #e3f2fd;
 }
 
 .correctAnswer {
@@ -242,26 +198,6 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.submitButton::before, .nextButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.submitButton:active::before, .nextButton:active::before {
-  width: 300px;
-  height: 300px;
 }
 
 .submitButton {
@@ -271,10 +207,6 @@
 
 .submitButton:hover:not(:disabled) {
   background: #0056b3;
-}
-
-.submitButton:active:not(:disabled) {
-  transform: scale(0.95);
 }
 
 .submitButton:disabled {
@@ -289,10 +221,6 @@
 
 .nextButton:hover {
   background: #1e7e34;
-}
-
-.nextButton:active {
-  transform: scale(0.95);
 }
 
 /* 結果サマリー */
@@ -421,35 +349,11 @@
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.resetButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.resetButton:active::before {
-  width: 300px;
-  height: 300px;
+  transition: background 0.2s ease;
 }
 
 .resetButton:hover {
   background: #0056b3;
-}
-
-.resetButton:active {
-  transform: scale(0.95);
 }
 
 /* レスポンシブ対応 */

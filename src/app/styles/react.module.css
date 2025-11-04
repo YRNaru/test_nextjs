@@ -79,36 +79,12 @@
   font-size: 1.1rem;
   font-weight: 600;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.tab::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(52, 152, 219, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.tab:active::before {
-  width: 300px;
-  height: 300px;
 }
 
 .tab:hover {
   background: #3498db;
   color: white;
   transform: translateY(-2px);
-}
-
-.tab:active {
-  transform: translateY(0) scale(0.95);
 }
   
   .activeTab {
@@ -141,36 +117,12 @@
   font-size: 0.95rem;
   font-weight: 600;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.childTab::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(39, 174, 96, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.childTab:active::before {
-  width: 300px;
-  height: 300px;
 }
 
 .childTab:hover {
   background: #27ae60;
   color: white;
   transform: translateY(-2px);
-}
-
-.childTab:active {
-  transform: translateY(0) scale(0.95);
 }
 
   .activeChildTab {
@@ -466,41 +418,21 @@
   transition: all 0.3s ease;
   font-family: 'Courier New', monospace;
   color: var(--card-text);
-  position: relative;
-  overflow: hidden;
-}
-
-.option::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(52, 152, 219, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.5s, height 0.5s;
-}
-
-.option:active::before {
-  width: 300px;
-  height: 300px;
 }
 
 .option:hover {
   border-color: #3498db;
   background: var(--section-background);
 }
-
-.option:active {
-  transform: scale(0.97);
-}
   
   .selectedOption {
     border-color: #3498db;
     background: #e3f2fd;
     color: #1565c0;
+  }
+
+  .selectedOption:hover {
+    background: #e3f2fd;
   }
   
 .nextButton {
@@ -514,35 +446,11 @@
   font-weight: 600;
   transition: all 0.3s ease;
   width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.nextButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.nextButton:active::before {
-  width: 300px;
-  height: 300px;
 }
 
 .nextButton:hover:not(:disabled) {
   background: #2980b9;
   transform: translateY(-2px);
-}
-
-.nextButton:active:not(:disabled) {
-  transform: translateY(0) scale(0.95);
 }
 
 .nextButton:disabled {
@@ -582,35 +490,11 @@
   font-weight: 600;
   margin-top: 1rem;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.resetButton::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.resetButton:active::before {
-  width: 300px;
-  height: 300px;
 }
 
 .resetButton:hover {
   background: #229954;
   transform: translateY(-2px);
-}
-
-.resetButton:active {
-  transform: translateY(0) scale(0.95);
 }
   
   /* レスポンシブデザイン */
