@@ -36,6 +36,45 @@ export interface User {
   updatedAt: Date;
 }
 
+// 登録フォームの型定義
+export interface RegisterFormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+// 登録リクエストの型定義
+export interface RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
+// 登録レスポンスの型定義
+export interface RegisterResponse {
+  user: User;
+  token: string;
+}
+
+// ログインフォームの型定義
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+// ログインリクエストの型定義
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+// ログインレスポンスの型定義
+export interface LoginResponse {
+  user: User;
+  token: string;
+}
+
 // 投稿関連の型定義
 export interface Post {
   id: string;

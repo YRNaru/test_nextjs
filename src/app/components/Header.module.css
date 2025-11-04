@@ -99,6 +99,28 @@
   background: #3498db;
 }
 
+.loginButton {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginButton:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #21618c 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
 .themeToggle {
   background: transparent;
   border: 2px solid var(--foreground);

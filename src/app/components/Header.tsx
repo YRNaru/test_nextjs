@@ -5,12 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "./ThemeProvider";
 import { useSidebar } from "./SidebarContext";
+import { useAuth } from "@/hooks/useAuth";
 import styles from "./Header.module.css";
 
 export default function Header() {
   const pathname = usePathname();
   const { resolvedTheme, toggleTheme } = useTheme();
   const { leftSidebarOpen, rightSidebarOpen, toggleLeftSidebar, toggleRightSidebar } = useSidebar();
+  const { isAuthenticated, isLoading, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function Header() {
             {leftSidebarOpen ? '◀' : '▶'}
           </button>
           <Link href="/" className={styles.logo}>
-            🚀 Next.js 講座
+            🚀 モダンWebアプリ開発
           </Link>
         </div>
         
@@ -61,6 +63,26 @@ export default function Header() {
           <Link href="/react" className={`${styles.navLink} ${isActive('/react') ? styles.active : ''}`}>
             React
           </Link>
+          {!isLoading && (
+            <>
+              {isAuthenticated ? (
+                <button 
+                  onClick={logout}
+                  className={styles.loginButton}
+                  aria-label="ログアウト"
+                >
+                  ログアウト
+                </button>
+              ) : (
+                <Link 
+                  href="/login" 
+                  className={styles.loginButton}
+                >
+                  ログイン
+                </Link>
+              )}
+            </>
+          )}
           <button 
             onClick={toggleTheme}
             className={styles.themeToggle}
