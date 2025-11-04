@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/react.module.css';
 
-import { basicData, basicPractice, componentData, componentPractice, propsData, propsPractice, useReducerData, useReducerPractice, contextData, contextPractice, hooksData, hooksPractice, useStateData, useStatePractice, useCallbackData, useCallbackPractice, useMemoData, useMemoPractice, useEffectData, useEffectPractice, useContextData, useContextPractice, useLayoutEffectData, useLayoutEffectPractice, useRefData, useRefPractice, customHookData, customHookPractice } from '@/data/react-data';
+import { basicData, basicPractice, componentData, componentPractice, propsData, propsPractice, useReducerData, useReducerPractice, apiData, contextData, contextPractice, hooksData, hooksPractice, useStateData, useStatePractice, useCallbackData, useCallbackPractice, useMemoData, useMemoPractice, useEffectData, useEffectPractice, useContextData, useContextPractice, useLayoutEffectData, useLayoutEffectPractice, useRefData, useRefPractice, customHookData, customHookPractice } from '@/data/react-data';
 import { PracticeQuestion, LearningSection } from '@/types/react';
 import SectionTabs from './components/SectionTabs';
 import ChildSectionTabs from './components/ChildSectionTabs';
@@ -24,9 +24,13 @@ export default function ReactPage() {
     const fixedBasicData = { ...basicData, id: 'basic' };
     const fixedComponentData = { ...componentData, id: 'component' };
     const fixedPropsData = { ...propsData, id: 'props' };
-    const fixedContextData = { ...contextData, id: 'context' };
+    const fixedApiData = { ...apiData, id: 'api' };
     const fixedHooksData = { ...hooksData, id: 'hooks' };
-    const parentSections: LearningSection[] = [fixedBasicData, fixedComponentData, fixedPropsData, fixedContextData, fixedHooksData];
+    const parentSections: LearningSection[] = [fixedBasicData, fixedComponentData, fixedPropsData, fixedApiData, fixedHooksData];
+
+    // 子セクション（API）のデータ
+    const fixedContextData = { ...contextData, id: 'context' };
+    const apiChildSections: LearningSection[] = [fixedContextData];
 
     // 子セクション（フック）のデータ
     const fixedUseStateData = { ...useStateData, id: 'useState' };
@@ -38,12 +42,13 @@ export default function ReactPage() {
     const fixedUseLayoutEffectData = { ...useLayoutEffectData, id: 'useLayoutEffect' };
     const fixedUseRefData = { ...useRefData, id: 'useRef' };
     const fixedCustomHookData = { ...customHookData, id: 'customHook' };
-    const childSections: LearningSection[] = [fixedUseStateData, fixedUseReducerData, fixedUseCallbackData, fixedUseMemoData, fixedUseEffectData, fixedUseContextData, fixedUseLayoutEffectData, fixedUseRefData, fixedCustomHookData];
+    const hooksChildSections: LearningSection[] = [fixedUseStateData, fixedUseReducerData, fixedUseCallbackData, fixedUseMemoData, fixedUseEffectData, fixedUseContextData, fixedUseLayoutEffectData, fixedUseRefData, fixedCustomHookData];
 
     const sectionPracticeQuestions: { [key: string]: PracticeQuestion[] } = {
         basic: basicPractice,
         component: componentPractice,
         props: propsPractice,
+        api: [],
         context: contextPractice,
         hooks: hooksPractice,
         useState: useStatePractice,
@@ -60,7 +65,9 @@ export default function ReactPage() {
     // 現在表示するセクションを決定
     const activeSection = childSection || parentSection;
     const currentSectionData = childSection 
-        ? childSections.find(section => section.id === childSection)
+        ? (parentSection === 'api' 
+            ? apiChildSections.find(section => section.id === childSection)
+            : hooksChildSections.find(section => section.id === childSection))
         : parentSections.find(section => section.id === parentSection);
     const currentSectionQuestions = sectionPracticeQuestions[activeSection] || [];
 
@@ -74,14 +81,14 @@ export default function ReactPage() {
 
     // 親セクションが変更されたとき、子セクションをリセット
     useEffect(() => {
-        if (parentSection !== 'hooks') {
+        if (parentSection !== 'hooks' && parentSection !== 'api') {
             setChildSection(null);
         }
     }, [parentSection]);
 
     const handleParentSectionClick = (section: ParentSection) => {
         setParentSection(section);
-        if (section !== 'hooks') {
+        if (section !== 'hooks' && section !== 'api') {
             setChildSection(null);
         }
     };
@@ -149,7 +156,14 @@ export default function ReactPage() {
                 />
                 {parentSection === 'hooks' && (
                     <ChildSectionTabs
-                        sections={childSections}
+                        sections={hooksChildSections}
+                        activeSection={childSection}
+                        onSectionClick={handleChildSectionClick}
+                    />
+                )}
+                {parentSection === 'api' && (
+                    <ChildSectionTabs
+                        sections={apiChildSections}
                         activeSection={childSection}
                         onSectionClick={handleChildSectionClick}
                     />

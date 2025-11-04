@@ -344,6 +344,21 @@ export const propsPractice: PracticeQuestion[] = [
   }
 ];
 
+export const apiData: LearningSection = {
+  id: 'api',
+  title: 'API',
+  description: 'Reactの組み込みAPIは、コンポーネントの定義やリソースへのアクセスに役立つ機能を提供します。createContext、lazy、memo、startTransition、actなどのAPIがあり、それぞれ異なる用途で使用されます。',
+  keyPoints: [
+    'createContext()でContextを作成し、コンポーネント間でデータを共有できる',
+    'lazy()でコンポーネントのコード読み込みを遅延できる',
+    'memo()で同じpropsを持つコンポーネントの再レンダーをスキップできる',
+    'startTransition()でstateの更新を低緊急度としてマークできる',
+    'act()はテスト環境でレンダーやユーザー操作をラップする',
+    'use()でプロミスやコンテクストから値を読み取れる'
+  ],
+  examples: []
+};
+
 export const contextData: LearningSection = {
   id: 'context',
   title: 'Context(コンテキスト)',

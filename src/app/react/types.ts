@@ -8,6 +8,6 @@ export interface AnswerResult {
     options: string[];
 }
 
-export type ParentSection = 'basic' | 'component' | 'props' | 'context' | 'hooks';
-export type ChildSection = 'useState' | 'useReducer' | 'useCallback' | 'useMemo' | 'useEffect' | 'useContext' | 'useLayoutEffect' | 'useRef' | 'customHook';
+export type ParentSection = 'basic' | 'component' | 'props' | 'api' | 'hooks';
+export type ChildSection = 'context' | 'useState' | 'useReducer' | 'useCallback' | 'useMemo' | 'useEffect' | 'useContext' | 'useLayoutEffect' | 'useRef' | 'customHook';
 

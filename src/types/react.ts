@@ -26,6 +26,7 @@ export interface PracticeQuestion {
 export interface LearningSection {
   id: string;
   title: string;
+  subTitle?: string;
   description: string;
   examples: BasicExample[];
   keyPoints: string[];
