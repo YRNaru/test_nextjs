@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from "./ThemeProvider";
 import styles from "./Header.module.css";
 
 export default function Header() {
   const pathname = usePathname();
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   const isActive = (path: string) => {
     if (!pathname) return false;
@@ -41,6 +43,14 @@ export default function Header() {
           <Link href="/react" className={`${styles.navLink} ${isActive('/react') ? styles.active : ''}`}>
             React
           </Link>
+          <button 
+            onClick={toggleTheme}
+            className={styles.themeToggle}
+            aria-label="テーマを切り替え"
+            title={resolvedTheme === 'dark' ? 'ライトモードに切り替え' : 'ダークモードに切り替え'}
+          >
+            {resolvedTheme === 'dark' ? '☀️' : '🌙'}
+          </button>
         </nav>
       </div>
     </header>

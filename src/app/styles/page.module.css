@@ -15,8 +15,17 @@
   line-height: 1.6;
 }
 
+:root[data-theme="dark"] .page {
+  --gray-rgb: 255, 255, 255;
+  --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
+  --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
+
+  --button-primary-hover: #ccc;
+  --button-secondary-hover: #1a1a1a;
+}
+
 @media (prefers-color-scheme: dark) {
-  .page {
+  :root:not([data-theme]) .page {
     --gray-rgb: 255, 255, 255;
     --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
     --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
@@ -207,8 +216,12 @@ a.secondary {
   }
 }
 
+:root[data-theme="dark"] .logo {
+  filter: invert();
+}
+
 @media (prefers-color-scheme: dark) {
-  .logo {
+  :root:not([data-theme]) .logo {
     filter: invert();
   }
 }

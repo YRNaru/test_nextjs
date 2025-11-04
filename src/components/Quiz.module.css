@@ -31,11 +31,35 @@
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+.categoryTab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 123, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.categoryTab:active::before {
+  width: 300px;
+  height: 300px;
 }
 
 .categoryTab:hover {
   border-color: #007bff;
   color: #007bff;
+}
+
+.categoryTab:active {
+  transform: scale(0.95);
 }
 
 .activeCategory {
@@ -51,32 +75,32 @@
   align-items: center;
   margin-bottom: 20px;
   padding: 15px;
-  background: #f8f9fa;
+  background: var(--section-background);
   border-radius: 8px;
   font-size: 0.9rem;
 }
 
 .overallProgress {
   font-weight: 600;
-  color: #333;
+  color: var(--card-text);
 }
 
 .categoryProgress {
-  color: #666;
+  color: var(--card-text-secondary);
 }
 
 /* 問題カード */
 .questionCard {
-  background: white;
-  border: 1px solid #e1e5e9;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--shadow-color);
 }
 
 .questionCard h3 {
   margin-bottom: 20px;
-  color: #333;
+  color: var(--card-text);
   font-size: 1.3rem;
 }
 
@@ -84,12 +108,12 @@
   font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 20px;
-  color: #444;
+  color: var(--card-text);
 }
 
 .questionCode {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
+  background: var(--section-background);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 15px;
   margin-bottom: 20px;
@@ -99,7 +123,7 @@
 }
 
 .questionCode code {
-  color: #333;
+  color: var(--card-text);
 }
 
 /* 選択肢 */
@@ -112,19 +136,44 @@
 
 .option {
   padding: 15px 20px;
-  border: 2px solid #e1e5e9;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  background: white;
+  background: var(--card-background);
   text-align: left;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 1rem;
   line-height: 1.4;
+  color: var(--card-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 123, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s, height 0.5s;
+}
+
+.option:active::before {
+  width: 300px;
+  height: 300px;
 }
 
 .option:hover:not(:disabled) {
   border-color: #007bff;
-  background: #f8f9ff;
+  background: var(--section-background);
+}
+
+.option:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 .selectedOption {
@@ -193,6 +242,26 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submitButton::before, .nextButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.submitButton:active::before, .nextButton:active::before {
+  width: 300px;
+  height: 300px;
 }
 
 .submitButton {
@@ -202,6 +271,10 @@
 
 .submitButton:hover:not(:disabled) {
   background: #0056b3;
+}
+
+.submitButton:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
 .submitButton:disabled {
@@ -218,19 +291,23 @@
   background: #1e7e34;
 }
 
+.nextButton:active {
+  transform: scale(0.95);
+}
+
 /* 結果サマリー */
 .resultSummary {
-  background: white;
-  border: 1px solid #e1e5e9;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--shadow-color);
 }
 
 .resultSummary h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--card-text);
   font-size: 1.8rem;
 }
 
@@ -238,7 +315,7 @@
   text-align: center;
   margin-bottom: 30px;
   padding: 20px;
-  background: #f8f9fa;
+  background: var(--section-background);
   border-radius: 8px;
 }
 
@@ -246,6 +323,7 @@
   margin: 5px 0;
   font-size: 1.1rem;
   font-weight: 600;
+  color: var(--card-text);
 }
 
 .categoryResults {
@@ -254,7 +332,7 @@
 
 .categoryResults h3 {
   margin-bottom: 15px;
-  color: #333;
+  color: var(--card-text);
 }
 
 .categoryResult {
@@ -263,19 +341,19 @@
   align-items: center;
   padding: 15px;
   margin-bottom: 10px;
-  background: #f8f9fa;
+  background: var(--section-background);
   border-radius: 6px;
 }
 
 .categoryResult h4 {
   margin: 0;
-  color: #333;
+  color: var(--card-text);
 }
 
 .categoryResult p {
   margin: 0;
   font-weight: 600;
-  color: #666;
+  color: var(--card-text-secondary);
 }
 
 .detailedResults {
@@ -284,7 +362,7 @@
 
 .detailedResults h3 {
   margin-bottom: 15px;
-  color: #333;
+  color: var(--card-text);
 }
 
 .resultItem {
@@ -315,11 +393,11 @@
 
 .resultNumber {
   font-weight: 600;
-  color: #333;
+  color: var(--card-text);
 }
 
 .resultCategory {
-  color: #666;
+  color: var(--card-text-secondary);
   font-size: 0.9rem;
 }
 
@@ -328,7 +406,7 @@
 }
 
 .resultExplanation {
-  color: #333;
+  color: var(--card-text);
   line-height: 1.5;
 }
 
@@ -343,11 +421,35 @@
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.resetButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.resetButton:active::before {
+  width: 300px;
+  height: 300px;
 }
 
 .resetButton:hover {
   background: #0056b3;
+}
+
+.resetButton:active {
+  transform: scale(0.95);
 }
 
 /* レスポンシブ対応 */

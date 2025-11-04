@@ -1,12 +1,41 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --card-background: #ffffff;
+  --card-text: #2c3e50;
+  --card-text-secondary: #555;
+  --border-color: #e1e5e9;
+  --code-background: #2c3e50;
+  --code-text: #ecf0f1;
+  --section-background: #f8f9fa;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card-background: #1a1a1a;
+  --card-text: #ededed;
+  --card-text-secondary: #b0b0b0;
+  --border-color: #333;
+  --code-background: #2d2d2d;
+  --code-text: #e0e0e0;
+  --section-background: #151515;
+  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --card-background: #1a1a1a;
+    --card-text: #ededed;
+    --card-text-secondary: #b0b0b0;
+    --border-color: #333;
+    --code-background: #2d2d2d;
+    --code-text: #e0e0e0;
+    --section-background: #151515;
+    --shadow-color: rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -35,8 +64,12 @@ a {
   text-decoration: none;
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
-  html {
+  html:not([data-theme]) {
     color-scheme: dark;
   }
 }

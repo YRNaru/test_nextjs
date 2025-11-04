@@ -18,8 +18,14 @@
     padding: 1rem 2rem;
   }
   
+  :root[data-theme="dark"] .container {
+    --gray-rgb: 255, 255, 255;
+    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
+    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
+  }
+
   @media (prefers-color-scheme: dark) {
-    .container {
+    :root:not([data-theme]) .container {
       --gray-rgb: 255, 255, 255;
       --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
       --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
@@ -59,28 +65,51 @@
     flex-wrap: wrap;
   }
   
-  .tab {
-    width: 300px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #3498db;
-    background: white;
-    color: #3498db;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    
-  }
-  
-  .tab:hover {
-    background: #3498db;
-    color: white;
-    transform: translateY(-2px);
-  }
+.tab {
+  width: 300px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #3498db;
+  background: var(--card-background);
+  color: #3498db;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(52, 152, 219, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.tab:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.tab:hover {
+  background: #3498db;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.tab:active {
+  transform: translateY(0) scale(0.95);
+}
   
   .activeTab {
     background: #3498db;
@@ -98,27 +127,51 @@
     gap: 1rem;
   }
 
-  .childTab {
-    width: 250px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #27ae60;
-    background: white;
-    color: #27ae60;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
+.childTab {
+  width: 250px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #27ae60;
+  background: var(--card-background);
+  color: #27ae60;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
 
-  .childTab:hover {
-    background: #27ae60;
-    color: white;
-    transform: translateY(-2px);
-  }
+.childTab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(39, 174, 96, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.childTab:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.childTab:hover {
+  background: #27ae60;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.childTab:active {
+  transform: translateY(0) scale(0.95);
+}
 
   .activeChildTab {
     background: #27ae60;
@@ -127,15 +180,15 @@
   }
   
   .learningSection {
-    background: white;
+    background: var(--card-background);
     border-radius: 12px;
     padding: 2rem;
     margin-bottom: 3rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 6px var(--shadow-color);
   }
   
   .learningSection h2 {
-    color: #2c3e50;
+    color: var(--card-text);
     margin-bottom: 1rem;
     font-size: 2rem;
   }
@@ -143,12 +196,12 @@
   .description {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #555;
+    color: var(--card-text-secondary);
     margin-bottom: 2rem;
   }
   
   .keyPoints {
-    background: #f8f9fa;
+    background: var(--section-background);
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 2rem;
@@ -156,7 +209,7 @@
   }
   
   .keyPoints h3 {
-    color: #2c3e50;
+    color: var(--card-text);
     margin-bottom: 1rem;
     font-size: 1.3rem;
   }
@@ -170,7 +223,7 @@
     padding: 0.5rem 0;
     padding-left: 1.5rem;
     position: relative;
-    color: #555;
+    color: var(--card-text-secondary);
   }
   
   .keyPoints li:before {
@@ -186,34 +239,34 @@
   }
   
   .examples h3 {
-    color: #2c3e50;
+    color: var(--card-text);
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
   }
   
   .exampleCard {
-    background: #f8f9fa;
+    background: var(--section-background);
     border-radius: 8px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--border-color);
   }
   
   .exampleCard h3 {
-    color: #2c3e50;
+    color: var(--card-text);
     margin-bottom: 1rem;
     font-size: 1.3rem;
   }
   
   .exampleCard p {
-    color: #555;
+    color: var(--card-text-secondary);
     line-height: 1.6;
     margin-bottom: 1rem;
   }
   
   .syntaxBlock {
-    background: #2c3e50;
-    color: #ecf0f1;
+    background: var(--code-background);
+    color: var(--code-text);
     padding: 1rem;
     border-radius: 6px;
     margin-bottom: 1rem;
@@ -225,8 +278,8 @@
   }
   
   .codeBlock {
-    background: #2c3e50;
-    color: #ecf0f1;
+    background: var(--code-background);
+    color: var(--code-text);
     padding: 1rem;
     border-radius: 6px;
     margin-bottom: 1rem;
@@ -324,7 +377,7 @@
   .optionalProperties {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: #f8f9fa;
+    background-color: var(--section-background);
     border-left: 4px solid #17a2b8;
     border-radius: 4px;
   }
@@ -345,24 +398,24 @@
   
   /* 練習問題セクション */
   .practiceSection {
-    background: white;
+    background: var(--card-background);
     border-radius: 12px;
     padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--shadow-color);
   }
   
   .practiceSection h2 {
-    color: #2c3e50;
+    color: var(--card-text);
     margin-bottom: 2rem;
     font-size: 2rem;
     text-align: center;
   }
   
   .questionCard {
-    background: #f8f9fa;
+    background: var(--section-background);
     border-radius: 8px;
     padding: 2rem;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--border-color);
   }
   
   .questionHeader {
@@ -371,9 +424,9 @@
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 2px solid var(--border-color);
     font-weight: 600;
-    color: #495057;
+    color: var(--card-text-secondary);
   }
   
   .question {
@@ -381,14 +434,14 @@
   }
   
   .question h3 {
-    color: #2c3e50;
+    color: var(--card-text);
     margin-bottom: 1rem;
     font-size: 1.3rem;
   }
   
   .questionCode {
-    background: #2c3e50;
-    color: #ecf0f1;
+    background: var(--code-background);
+    color: var(--code-text);
     padding: 1rem;
     border-radius: 6px;
     font-family: 'Courier New', monospace;
@@ -402,22 +455,47 @@
     margin-bottom: 2rem;
   }
   
-  .option {
-    background: white;
-    border: 2px solid #e9ecef;
-    padding: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    font-family: 'Courier New', monospace;
-  }
-  
-  .option:hover {
-    border-color: #3498db;
-    background: #f8f9fa;
-  }
+.option {
+  background: var(--card-background);
+  border: 2px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Courier New', monospace;
+  color: var(--card-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(52, 152, 219, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s, height 0.5s;
+}
+
+.option:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.option:hover {
+  border-color: #3498db;
+  background: var(--section-background);
+}
+
+.option:active {
+  transform: scale(0.97);
+}
   
   .selectedOption {
     border-color: #3498db;
@@ -425,29 +503,53 @@
     color: #1565c0;
   }
   
-  .nextButton {
-    background: #3498db;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    width: 100%;
-  }
-  
-  .nextButton:hover:not(:disabled) {
-    background: #2980b9;
-    transform: translateY(-2px);
-  }
-  
-  .nextButton:disabled {
-    background: #bdc3c7;
-    cursor: not-allowed;
-    transform: none;
-  }
+.nextButton {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.nextButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.nextButton:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.nextButton:hover:not(:disabled) {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+
+.nextButton:active:not(:disabled) {
+  transform: translateY(0) scale(0.95);
+}
+
+.nextButton:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+}
   
   /* 結果表示 */
   .resultCard {
@@ -469,23 +571,47 @@
     font-size: 1.1rem;
   }
   
-  .resetButton {
-    background: #27ae60;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-  }
-  
-  .resetButton:hover {
-    background: #229954;
-    transform: translateY(-2px);
-  }
+.resetButton {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.resetButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.resetButton:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.resetButton:hover {
+  background: #229954;
+  transform: translateY(-2px);
+}
+
+.resetButton:active {
+  transform: translateY(0) scale(0.95);
+}
   
   /* レスポンシブデザイン */
   @media (max-width: 768px) {
@@ -590,9 +716,13 @@
   .warnings {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: #fff3cd;
+    background-color: rgba(255, 243, 205, 0.3);
     border-left: 4px solid #ffc107;
     border-radius: 4px;
+  }
+  
+  :root[data-theme="dark"] .warnings {
+    background-color: rgba(255, 243, 205, 0.1);
   }
   
   .warnings ul {
@@ -601,16 +731,20 @@
   }
   
   .warnings li {
-    color: #856404;
+    color: var(--card-text-secondary);
     margin-bottom: 0.25rem;
   }
   
   .parameters {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: #e3f2fd;
+    background-color: rgba(227, 242, 253, 0.3);
     border-left: 4px solid #2196f3;
     border-radius: 4px;
+  }
+  
+  :root[data-theme="dark"] .parameters {
+    background-color: rgba(227, 242, 253, 0.1);
   }
   
   .parameters ul {
@@ -619,7 +753,7 @@
   }
   
   .parameters li {
-    color: #1565c0;
+    color: var(--card-text-secondary);
     margin-bottom: 0.25rem;
     font-family: 'Courier New', monospace;
   }
@@ -627,9 +761,13 @@
   .benefits {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: #e8f5e8;
+    background-color: rgba(232, 245, 232, 0.3);
     border-left: 4px solid #4caf50;
     border-radius: 4px;
+  }
+  
+  :root[data-theme="dark"] .benefits {
+    background-color: rgba(232, 245, 232, 0.1);
   }
   
   .benefits ul {
@@ -638,16 +776,20 @@
   }
   
   .benefits li {
-    color: #2e7d32;
+    color: var(--card-text-secondary);
     margin-bottom: 0.25rem;
   }
   
   .cautions {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: #fff3cd;
+    background-color: rgba(255, 243, 205, 0.3);
     border-left: 4px solid #ffc107;
     border-radius: 4px;
+  }
+  
+  :root[data-theme="dark"] .cautions {
+    background-color: rgba(255, 243, 205, 0.1);
   }
   
   .cautions ul {
@@ -656,6 +798,6 @@
   }
   
   .cautions li {
-    color: #856404;
+    color: var(--card-text-secondary);
     margin-bottom: 0.25rem;
   } 
