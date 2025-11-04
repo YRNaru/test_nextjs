@@ -154,7 +154,7 @@ export default function ReactPage() {
                         onSectionClick={handleChildSectionClick}
                     />
                 )}
-                <LearningContent sectionData={currentSectionData} />
+                <LearningContent key={activeSection} sectionData={currentSectionData} />
                 <PracticeSection
                     sectionTitle={currentSectionData?.title || ''}
                     questions={currentSectionQuestions}

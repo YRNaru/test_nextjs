@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from '../styles/typescript.module.css';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { primitiveTypesData, arrayTypesData, objectTypesData, anyTypesData, functionTypesData, inferenceTypesData, assertionTypesData, aliasTypesData, variableTypesData, sectionPracticeQuestions, interfaceTypesData, classTypesData, enumTypesData, genericTypesData, unionIntersectionTypesData, literalTypesData, neverTypesData, optionalChainingData, nonNullAssertionData, nullishCoalescingData, typeGuardData, keyofOperatorData, indexSignatureData, readonlyData, unknownTypeData, unknownTypePractice, asyncAwaitData, typeDefinitionData } from '@/data/typescript-data';
 import { PrimitiveExample, ArrayExample, ObjectExample, AnyExample, FunctionExample, InferenceExample, AssertionExample, AliasExample, VariableExample, PracticeQuestion, InterfaceExample, ClassExample, EnumExample, GenericExample, UnionIntersectionExample, LiteralExample, NeverExample } from '@/types/typescript';
 
@@ -22,6 +23,8 @@ interface OptionalChainingExample {
 
 export default function TypeScriptPage() {
   const [activeSection, setActiveSection] = useState<'variables' | 'primitives' | 'arrays' | 'objects' | 'any' | 'unknown' | 'functions' | 'inference' | 'assertion' | 'alias' | 'interface' | 'class' | 'enum' | 'generic' | 'unionintersection' | 'literal' | 'never' | 'optional-chaining' | 'non-null-assertion' | 'nullish-coalescing' | 'type-guard' | 'keyof-operator' | 'index-signature' | 'readonly' | 'async-await'>('variables');
+  const { elementRef: learningSectionRef, isVisible: learningSectionVisible } = useScrollAnimation();
+  const { elementRef: practiceSectionRef, isVisible: practiceSectionVisible } = useScrollAnimation();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -1162,7 +1165,7 @@ export default function TypeScriptPage() {
         </div>
 
         {/* 学習セクション */}
-        <section className={styles.learningSection}>
+        <section key={activeSection} ref={learningSectionRef} className={`${styles.learningSection} ${learningSectionVisible ? styles.visible : ''}`}>
           <h2>{currentSectionData?.title}</h2>
           <p className={styles.description}>{currentSectionData?.description}</p>
           
@@ -1193,7 +1196,7 @@ export default function TypeScriptPage() {
         </section>
 
         {/* 練習問題セクション */}
-        <section className={styles.practiceSection}>
+        <section ref={practiceSectionRef} className={`${styles.practiceSection} ${practiceSectionVisible ? styles.visible : ''}`}>
           <h2>🧪 {currentSectionData?.title}の練習問題</h2>
           {currentSectionQuestions && currentSectionQuestions.length > 0 ? (
             <>

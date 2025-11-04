@@ -1,13 +1,18 @@
+'use client';
+
 import styles from '../../styles/react.module.css';
 import { BasicExample } from '@/types/react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface ExampleCardProps {
     example: BasicExample;
 }
 
 export default function ExampleCard({ example }: ExampleCardProps) {
+    const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
     return (
-        <div className={styles.exampleCard}>
+        <div ref={elementRef} className={`${styles.exampleCard} ${isVisible ? styles.visible : ''}`}>
             <h3>{example.name}</h3>
             <p>{example.description}</p>
             <div className={styles.codeBlock}>
