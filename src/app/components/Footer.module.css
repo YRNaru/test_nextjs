@@ -7,6 +7,8 @@
   border-top: 1px solid var(--gray-alpha-200);
   margin-top: 4rem;
   padding: 3rem 0 1rem;
+  position: relative;
+  z-index: 60;
 }
 
 :root[data-theme="dark"] .footer {

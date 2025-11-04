@@ -4,7 +4,11 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import LeftSidebar from "./components/LeftSidebar";
+import RightSidebar from "./components/RightSidebar";
+import MainContent from "./components/MainContent";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { SidebarProvider } from "./components/SidebarContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,12 +65,16 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>
-          <Header />
-          <main className="min-h-screen" style={{ paddingTop: '80px' }}>
-          {children}
-          </main>
-          <Footer />
-          <ScrollToTop />
+          <SidebarProvider>
+            <Header />
+            <LeftSidebar />
+            <RightSidebar />
+            <MainContent>
+              {children}
+            </MainContent>
+            <Footer />
+            <ScrollToTop />
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

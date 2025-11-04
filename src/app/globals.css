@@ -73,3 +73,29 @@ a {
     color-scheme: dark;
   }
 }
+
+/* メインコンテンツのパディング調整（サイドバー対応） */
+.main-content {
+  padding-top: 80px;
+  transition: padding 0.3s ease;
+}
+
+@media (max-width: 1400px) {
+  .main-content {
+    /* パディングはMainContentコンポーネントで動的に設定 */
+  }
+}
+
+@media (max-width: 1200px) {
+  .main-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

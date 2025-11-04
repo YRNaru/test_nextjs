@@ -71,26 +71,54 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #3498db;
-  background: var(--card-background);
+  border: 2px solid rgba(52, 152, 219, 0.3);
+  background: linear-gradient(135deg, var(--card-background) 0%, rgba(52, 152, 219, 0.05) 100%);
   color: #3498db;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1);
+}
+
+.tab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(52, 152, 219, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
 }
 
 .tab:hover {
-  background: #3498db;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(52, 152, 219, 0.3);
+  border-color: #3498db;
+}
+
+.tab:hover::before {
+  width: 300px;
+  height: 300px;
 }
   
   .activeTab {
-    background: #3498db;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     color: white;
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    box-shadow: 
+      0 8px 24px rgba(52, 152, 219, 0.4),
+      0 4px 12px rgba(52, 152, 219, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: #3498db;
+    transform: translateY(-2px);
   }
 
   /* 子セクションタブ */
@@ -109,42 +137,104 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #27ae60;
-  background: var(--card-background);
+  border: 2px solid rgba(39, 174, 96, 0.3);
+  background: linear-gradient(135deg, var(--card-background) 0%, rgba(39, 174, 96, 0.05) 100%);
   color: #27ae60;
-  border-radius: 6px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.1);
+}
+
+.childTab::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(39, 174, 96, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
 }
 
 .childTab:hover {
-  background: #27ae60;
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
   color: white;
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(39, 174, 96, 0.3);
+  border-color: #27ae60;
+}
+
+.childTab:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
   .activeChildTab {
-    background: #27ae60;
+    background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
     color: white;
-    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+    box-shadow: 
+      0 8px 24px rgba(39, 174, 96, 0.4),
+      0 4px 12px rgba(39, 174, 96, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: #27ae60;
+    transform: translateY(-2px);
   }
   
   .learningSection {
-    background: var(--card-background);
-    border-radius: 12px;
-    padding: 2rem;
+    background: linear-gradient(135deg, var(--card-background) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 20px;
+    padding: 2.5rem;
     margin-bottom: 3rem;
-    box-shadow: 0 4px 6px var(--shadow-color);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      0 2px 8px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .learningSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3498db, #2ecc71, #3498db);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
   }
 
   .learningSection.visible {
     opacity: 1 !important;
-    transform: translateY(0) !important;
+    transform: translateY(0) scale(1) !important;
+  }
+
+  .learningSection.visible::before {
+    opacity: 1;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
   }
 
   @keyframes fadeInSlideUp {
@@ -162,16 +252,23 @@
     color: var(--card-text);
     margin-bottom: 1rem;
     font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
   }
   
   .description {
     font-size: 1.1rem;
-    line-height: 1.6;
+    line-height: 1.8;
     color: var(--card-text-secondary);
     margin-bottom: 2rem;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+    font-weight: 400;
   }
 
   .description.visible {
@@ -180,17 +277,37 @@
   }
   
   .keyPoints {
-    background: var(--section-background);
-    padding: 1.5rem;
-    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.08) 0%, rgba(46, 204, 113, 0.05) 100%);
+    padding: 2rem;
+    border-radius: 16px;
     margin-bottom: 2rem;
-    border-left: 4px solid #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .keyPoints::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #3498db 0%, #2ecc71 100%);
+    border-radius: 0 4px 4px 0;
   }
   
   .keyPoints h3 {
     color: var(--card-text);
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.01em;
   }
   
   .keyPoints ul {
@@ -199,58 +316,122 @@
   }
   
   .keyPoints li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
+    padding: 0.75rem 0;
+    padding-left: 2rem;
     position: relative;
     color: var(--card-text-secondary);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin-bottom: 0.25rem;
   }
-  
+
+  .keyPoints li:hover {
+    background: rgba(52, 152, 219, 0.05);
+    transform: translateX(4px);
+    padding-left: 2.25rem;
+  }
+
   .keyPoints li:before {
     content: "✓";
     position: absolute;
-    left: 0;
-    color: #27ae60;
+    left: 0.5rem;
+    color: #2ecc71;
     font-weight: bold;
+    font-size: 1.2rem;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(46, 204, 113, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .keyPoints li:hover:before {
+    background: rgba(46, 204, 113, 0.2);
+    transform: scale(1.1);
   }
   
   .examples {
     margin-top: 2rem;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(30px) scale(0.98);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .examples.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
   
   .examples h3 {
     color: var(--card-text);
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #3498db 0%, #9b59b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.01em;
   }
   
   .exampleCard {
-    background: var(--section-background);
-    border-radius: 8px;
-    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--section-background) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-radius: 16px;
+    padding: 2rem;
     margin-bottom: 1.5rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(52, 152, 219, 0.15);
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(30px) scale(0.96);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.04),
+      0 2px 8px rgba(0, 0, 0, 0.02);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exampleCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .exampleCard:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 
+      0 12px 32px rgba(0, 0, 0, 0.08),
+      0 4px 16px rgba(52, 152, 219, 0.1);
+    border-color: rgba(52, 152, 219, 0.3);
+  }
+
+  .exampleCard:hover::before {
+    opacity: 1;
   }
 
   .exampleCard.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
   
   .exampleCard h3 {
     color: var(--card-text);
     margin-bottom: 1rem;
     font-size: 1.3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #3498db 0%, #9b59b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.01em;
   }
   
   .exampleCard p {
@@ -260,12 +441,29 @@
   }
   
   .syntaxBlock {
-    background: var(--code-background);
+    background: linear-gradient(135deg, var(--code-background) 0%, rgba(44, 62, 80, 0.95) 100%);
     color: var(--code-text);
-    padding: 1rem;
-    border-radius: 6px;
+    padding: 1.5rem;
+    border-radius: 12px;
     margin-bottom: 1rem;
     font-family: 'Courier New', monospace;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .syntaxBlock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #3498db, #2ecc71);
+    border-radius: 12px 0 0 12px;
   }
   
   .syntaxBlock strong {
@@ -273,12 +471,29 @@
   }
   
   .codeBlock {
-    background: var(--code-background);
+    background: linear-gradient(135deg, var(--code-background) 0%, rgba(44, 62, 80, 0.95) 100%);
     color: var(--code-text);
-    padding: 1rem;
-    border-radius: 6px;
+    padding: 1.5rem;
+    border-radius: 12px;
     margin-bottom: 1rem;
     font-family: 'Courier New', monospace;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .codeBlock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #3498db, #2ecc71);
+    border-radius: 12px 0 0 12px;
   }
   
   .codeBlock strong {
@@ -393,18 +608,43 @@
   
   /* 練習問題セクション */
   .practiceSection {
-    background: var(--card-background);
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 6px var(--shadow-color);
+    background: linear-gradient(135deg, var(--card-background) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      0 2px 8px rgba(0, 0, 0, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .practiceSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b, #ef4444, #f59e0b);
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
   }
 
   .practiceSection.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+
+  .practiceSection.visible::before {
+    opacity: 1;
+    animation: shimmer 3s ease-in-out infinite;
   }
   
   .practiceSection h2 {
@@ -412,13 +652,30 @@
     margin-bottom: 2rem;
     font-size: 2rem;
     text-align: center;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
   }
   
   .questionCard {
-    background: var(--section-background);
-    border-radius: 8px;
+    background: linear-gradient(135deg, var(--section-background) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-radius: 16px;
     padding: 2rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(52, 152, 219, 0.15);
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.04),
+      0 2px 8px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+  }
+
+  .questionCard:hover {
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.08),
+      0 4px 12px rgba(52, 152, 219, 0.1);
+    transform: translateY(-2px);
   }
   
   .questionHeader {
@@ -443,12 +700,29 @@
   }
   
   .questionCode {
-    background: var(--code-background);
+    background: linear-gradient(135deg, var(--code-background) 0%, rgba(44, 62, 80, 0.95) 100%);
     color: var(--code-text);
-    padding: 1rem;
-    border-radius: 6px;
+    padding: 1.5rem;
+    border-radius: 12px;
     font-family: 'Courier New', monospace;
     margin-bottom: 1rem;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow-x: auto;
+  }
+
+  .questionCode::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #3498db, #2ecc71);
+    border-radius: 12px 0 0 12px;
   }
   
   .options {
@@ -459,55 +733,112 @@
   }
   
 .option {
-  background: var(--card-background);
-  border: 2px solid var(--border-color);
-  padding: 1rem;
-  border-radius: 8px;
+  background: linear-gradient(135deg, var(--card-background) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 2px solid rgba(52, 152, 219, 0.2);
+  padding: 1.25rem;
+  border-radius: 12px;
   cursor: pointer;
   text-align: left;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   font-family: 'Courier New', monospace;
   color: var(--card-text);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), transparent);
+  transition: width 0.4s ease;
 }
 
 .option:hover {
   border-color: #3498db;
-  background: var(--section-background);
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.08) 0%, rgba(46, 204, 113, 0.05) 100%);
+  transform: translateX(4px) scale(1.01);
+  box-shadow: 0 4px 16px rgba(52, 152, 219, 0.15);
+}
+
+.option:hover::before {
+  width: 4px;
 }
   
   .selectedOption {
     border-color: #3498db;
-    background: #e3f2fd;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.15) 0%, rgba(46, 204, 113, 0.1) 100%);
     color: #1565c0;
+    box-shadow: 
+      0 4px 16px rgba(52, 152, 219, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateX(4px);
+  }
+
+  .selectedOption::before {
+    width: 4px;
+    background: linear-gradient(180deg, #3498db, #2ecc71);
   }
 
   .selectedOption:hover {
-    background: #e3f2fd;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.2) 0%, rgba(46, 204, 113, 0.15) 100%);
+    transform: translateX(4px) scale(1.01);
   }
   
 .nextButton {
-  background: #3498db;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
   border: none;
   padding: 1rem 2rem;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   width: 100%;
+  box-shadow: 
+    0 4px 16px rgba(52, 152, 219, 0.3),
+    0 2px 8px rgba(52, 152, 219, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.nextButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
 }
 
 .nextButton:hover:not(:disabled) {
-  background: #2980b9;
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 8px 24px rgba(52, 152, 219, 0.4),
+    0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.nextButton:hover:not(:disabled)::before {
+  width: 300px;
+  height: 300px;
 }
 
 .nextButton:disabled {
-  background: #bdc3c7;
+  background: linear-gradient(135deg, #bdc3c7 0%, #95a5a6 100%);
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
   
   /* 結果表示 */

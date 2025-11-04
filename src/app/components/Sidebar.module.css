@@ -1,0 +1,335 @@
+.leftSidebar,
+.rightSidebar {
+  position: fixed;
+  top: 80px;
+  bottom: 0;
+  width: 250px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  background: var(--gray-alpha-100);
+  background-image: 
+    linear-gradient(to right, var(--gray-alpha-200) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--gray-alpha-200) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border-right: 2px solid var(--gray-alpha-200);
+  padding: 1.5rem 1rem;
+  z-index: 50;
+  transition: transform 0.01s ease, opacity 0.01s ease, bottom 0.01s ease;
+  box-shadow: inset 0 0 0 1px var(--gray-alpha-200);
+}
+
+.leftSidebar {
+  left: 0;
+  border-right: 2px solid var(--gray-alpha-200);
+}
+
+.rightSidebar {
+  right: 0;
+  border-left: 2px solid var(--gray-alpha-200);
+}
+
+.leftSidebar.open,
+.rightSidebar.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.leftSidebar.closed {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rightSidebar.closed {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: var(--gray-alpha-100);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px dashed var(--gray-alpha-200);
+}
+
+.sidebarTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: var(--foreground);
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--gray-alpha-200);
+  position: relative;
+}
+
+.sidebarTitle::before,
+.sidebarTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  width: 20px;
+  height: 2px;
+  background: var(--foreground);
+  opacity: 0.3;
+}
+
+.sidebarTitle::before {
+  left: 0;
+}
+
+.sidebarTitle::after {
+  right: 0;
+}
+
+.section {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--gray-alpha-200);
+  border-radius: 8px;
+  background: var(--background);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sectionTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  color: var(--foreground);
+  opacity: 0.9;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--gray-alpha-200);
+  text-decoration: none;
+  color: var(--foreground);
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  background: var(--background);
+  position: relative;
+}
+
+.navItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: #3498db;
+  transition: height 0.2s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+.navItem:hover {
+  background: var(--gray-alpha-200);
+  transform: translateX(4px);
+  border-color: var(--gray-alpha-200);
+}
+
+.navItem:hover::before {
+  height: 60%;
+}
+
+.navItem.active {
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+  font-weight: 600;
+  border-color: #3498db;
+}
+
+.navItem.active::before {
+  height: 80%;
+}
+
+.icon {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.label {
+  flex: 1;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.linkList li {
+  margin: 0;
+}
+
+.externalLink {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--foreground);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+.externalLink:hover {
+  background: var(--gray-alpha-200);
+  opacity: 1;
+}
+
+.timeDisplay {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  text-align: center;
+  padding: 1rem;
+  background: var(--gray-alpha-200);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-geist-mono);
+}
+
+.dateDisplay {
+  font-size: 0.875rem;
+  color: var(--foreground);
+  text-align: center;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+.tip {
+  font-size: 0.875rem;
+  color: var(--foreground);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0.75rem;
+  background: var(--gray-alpha-200);
+  border-radius: 8px;
+  border-left: 3px solid #3498db;
+}
+
+.progressItem {
+  margin-bottom: 1rem;
+}
+
+.progressItem span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: var(--gray-alpha-200);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.bookmarkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bookmarkList li {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  background: var(--gray-alpha-200);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bookmarkList li:hover {
+  background: var(--gray-alpha-200);
+  transform: translateX(4px);
+}
+
+/* スクロールバーのスタイル */
+.leftSidebar::-webkit-scrollbar,
+.rightSidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leftSidebar::-webkit-scrollbar-track,
+.rightSidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.leftSidebar::-webkit-scrollbar-thumb,
+.rightSidebar::-webkit-scrollbar-thumb {
+  background: var(--gray-alpha-200);
+  border-radius: 3px;
+}
+
+.leftSidebar::-webkit-scrollbar-thumb:hover,
+.rightSidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-alpha-200);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1400px) {
+  .leftSidebar,
+  .rightSidebar {
+    width: 220px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .leftSidebar.closed {
+    transform: translateX(-100%);
+  }
+
+  .rightSidebar.closed {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .leftSidebar,
+  .rightSidebar {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .leftSidebar.closed {
+    transform: translateX(-100%);
+  }
+
+  .rightSidebar.closed {
+    transform: translateX(100%);
+  }
+}
+
