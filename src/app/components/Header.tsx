@@ -48,8 +48,8 @@ export default function Header() {
           <Link href="/" className={`${styles.navLink} ${isActive('/') ? styles.active : ''}`}>
             ホーム
           </Link>
-          <Link href="/about" className={`${styles.navLink} ${isActive('/about') ? styles.active : ''}`}>
-            詳細
+          <Link href="/mypage" className={`${styles.navLink} ${isActive('/mypage') ? styles.active : ''}`}>
+            マイページ
           </Link>
           <Link href="/blog" className={`${styles.navLink} ${isActive('/blog') ? styles.active : ''}`}>
             ブログ

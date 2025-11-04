@@ -50,7 +50,7 @@ export default function LeftSidebar() {
 
   const quickLinks = [
     { href: '/', label: 'ホーム', icon: '🏠' },
-    { href: '/about', label: '詳細', icon: '📖' },
+    { href: '/mypage', label: 'マイページ', icon: '👤' },
     { href: '/blog', label: 'ブログ', icon: '📝' },
     { href: '/nextjs', label: 'Next.js', icon: '⚡' },
     { href: '/typescript', label: 'TypeScript', icon: '📘' },
