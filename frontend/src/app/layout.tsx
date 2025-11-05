@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -9,6 +10,7 @@ import RightSidebar from "./components/RightSidebar";
 import MainContent from "./components/MainContent";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { SidebarProvider } from "./components/SidebarContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,18 +66,20 @@ export default function RootLayout({
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ThemeProvider>
-          <SidebarProvider>
-            <Header />
-            <LeftSidebar />
-            <RightSidebar />
-            <MainContent>
-              {children}
-            </MainContent>
-            <Footer />
-            <ScrollToTop />
-          </SidebarProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <SidebarProvider>
+              <Header />
+              <LeftSidebar />
+              <RightSidebar />
+              <MainContent>
+                {children}
+              </MainContent>
+              <Footer />
+              <ScrollToTop />
+            </SidebarProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
