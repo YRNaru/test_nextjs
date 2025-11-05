@@ -42,6 +42,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       }
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     } catch {
+      // エラーが発生した場合は不正な値をクリア
+      try {
+        localStorage.removeItem('theme');
+      } catch {
+        // 無視
+      }
       return 'light';
     }
   });

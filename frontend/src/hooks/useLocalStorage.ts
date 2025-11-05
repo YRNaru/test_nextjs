@@ -10,9 +10,19 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
     }
     try {
       const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      if (!item) {
+        return initialValue;
+      }
+      // JSONパースを試行
+      return JSON.parse(item);
     } catch (error) {
       console.error(`Error reading localStorage key "${key}":`, error);
+      // 不正な値が保存されている場合はクリアする
+      try {
+        window.localStorage.removeItem(key);
+      } catch (e) {
+        console.error(`Error removing invalid localStorage key "${key}":`, e);
+      }
       return initialValue;
     }
   });

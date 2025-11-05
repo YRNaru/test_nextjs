@@ -11,7 +11,7 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "3307:3306"  # ホスト側のポートを3307に変更（ポート競合回避）
+      - "3307:3306"  # ホスト:コンテナ（コンテナ内は3306）
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -40,16 +40,15 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: test_nextjs_backend
+    # 初回セットアップ時はマイグレーションをスキップ
     command: >
-      sh -c "python manage.py migrate &&
-             python manage.py collectstatic --noinput &&
-             gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "gunicorn config.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./backend:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     ports:
-      - "8001:8000"  # ホスト側のポートを8001に変更（ポート競合回避）
+      - "8081:8000"  # ホスト:コンテナ（コンテナ内は8000）
     environment:
       - DEBUG=${DEBUG}
       - SECRET_KEY=${SECRET_KEY}
@@ -131,7 +130,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8001/api
+      - NEXT_PUBLIC_API_URL=http://localhost:8081/api
       - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
     depends_on:
       - backend
