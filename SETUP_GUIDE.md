@@ -41,8 +41,8 @@
 ### 1. リポジトリのクローン
 
 ```bash
-# GitLabからクローン
-git clone https://gitlab.com/your-username/test_nextjs.git
+# GitHubからクローン
+git clone https://github.com/your-username/test_nextjs.git
 cd test_nextjs
 ```
 
@@ -379,18 +379,19 @@ docker-compose exec frontend npm run lint
    - 各サービスのログを確認
    - ヘルスチェックが正常か確認
 
-### GitLab CI/CDの設定
+### GitHub Actionsの設定
 
-1. **GitLab変数の設定**
-   - プロジェクト > Settings > CI/CD > Variables
-   - 追加する変数：
-     - `CI_REGISTRY_USER`: GitLabユーザー名
-     - `CI_REGISTRY_PASSWORD`: アクセストークン
+1. **GitHubシークレットの設定**
+   - リポジトリ > Settings > Secrets and variables > Actions > New repository secret
+   - 追加するシークレット：
+     - `DOCKER_USERNAME`: Docker Hubユーザー名
+     - `DOCKER_PASSWORD`: Docker Hubパスワードまたはアクセストークン
      - `RENDER_DEPLOY_HOOK_URL`: RenderのDeploy Hook URL
 
-2. **パイプラインの実行**
-   - `main`ブランチへのプッシュで自動実行
-   - またはCI/CDパイプラインから手動実行
+2. **ワークフローの実行**
+   - `main`ブランチへのプッシュで自動実行（テスト・ビルド・デプロイ）
+   - Pull Requestの作成で自動実行（テストのみ）
+   - Actions タブから手動実行も可能
 
 ## トラブルシューティング
 

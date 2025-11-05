@@ -31,7 +31,7 @@ React + TypeScript + Django REST Framework を使用した本格的なWebアプ�
 
 ### インフラ
 - **コンテナ**: Docker + Docker Compose
-- **CI/CD**: GitLab CI/CD
+- **CI/CD**: GitHub Actions
 - **デプロイ**: Render
 - **開発環境**: Cursor
 
@@ -64,13 +64,24 @@ test_nextjs/
 │   ├── requirements.txt
 │   └── manage.py
 │
-├── docker-compose.yml      # Docker構成
-├── .gitlab-ci.yml         # GitLab CI/CD設定
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml      # GitHub Actions設定
+├── docker-compose.yml     # Docker構成
 ├── render.yaml            # Render設定
 └── env.example            # 環境変数サンプル
 ```
 
 ## 🛠 環境構築
+
+### 📖 セットアップガイド
+
+**環境に応じたガイドを選択してください：**
+
+- 🐧 **WSL/Ubuntu**: [WSL_SETUP.md](WSL_SETUP.md) - WSL2とUbuntu環境での詳細なセットアップ手順
+- ⚡ **クイックスタート**: [QUICK_START.md](QUICK_START.md) - 5分で起動する最速ガイド
+- 📚 **詳細ガイド**: [SETUP_GUIDE.md](SETUP_GUIDE.md) - 完全なセットアップ手順とトラブルシューティング
+- 🔄 **CI/CD**: [GITHUB_ACTIONS.md](GITHUB_ACTIONS.md) - GitHub Actions設定とデプロイガイド
 
 ### 前提条件
 
@@ -227,7 +238,7 @@ celery -A config beat -l info
    - [Render](https://render.com/)にサインアップ
 
 2. **リポジトリの接続**
-   - GitHubまたはGitLabリポジトリを接続
+   - GitHubリポジトリを接続
 
 3. **環境変数の設定**
    - Renderダッシュボードで各サービスの環境変数を設定
@@ -236,18 +247,18 @@ celery -A config beat -l info
    - `render.yaml`が自動的に検出され、サービスがデプロイされます
    - または手動でデプロイフックをトリガー
 
-### GitLab CI/CDの設定
+### GitHub Actionsの設定
 
-1. **GitLab変数の設定**
-   - Settings > CI/CD > Variables
-   - 以下の変数を設定:
-     - `CI_REGISTRY_USER`
-     - `CI_REGISTRY_PASSWORD`
-     - `RENDER_DEPLOY_HOOK_URL`
+1. **GitHubシークレットの設定**
+   - Settings > Secrets and variables > Actions
+   - 以下のシークレットを設定:
+     - `DOCKER_USERNAME`: Docker Hubユーザー名
+     - `DOCKER_PASSWORD`: Docker Hubパスワードまたはアクセストークン
+     - `RENDER_DEPLOY_HOOK_URL`: RenderのDeploy Hook URL
 
 2. **自動デプロイ**
-   - `main`ブランチへのプッシュで自動的にビルド
-   - 手動でRenderへのデプロイをトリガー
+   - `main`ブランチへのプッシュで自動的にテスト・ビルド・デプロイ
+   - Pull Request時は自動的にテストが実行される
 
 ## ✨ 機能
 
@@ -326,6 +337,14 @@ docker-compose logs celery_worker
 
 ## 📚 参考資料
 
+### プロジェクトドキュメント
+- 🐧 [WSL_SETUP.md](WSL_SETUP.md) - WSL/Ubuntu環境でのセットアップ
+- 💡 [WSL_TIPS.md](WSL_TIPS.md) - WSLでの開発Tips
+- ⚡ [QUICK_START.md](QUICK_START.md) - クイックスタートガイド
+- 📖 [SETUP_GUIDE.md](SETUP_GUIDE.md) - 詳細セットアップガイド
+- 🔄 [GITHUB_ACTIONS.md](GITHUB_ACTIONS.md) - GitHub Actions CI/CD設定ガイド
+
+### 公式ドキュメント
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Django Documentation](https://docs.djangoproject.com/)
 - [Django REST Framework](https://www.django-rest-framework.org/)

@@ -2,10 +2,27 @@
 
 このガイドでは、最速でプロジェクトを起動する方法を説明します。
 
+## 📖 環境別ガイド
+
+**あなたの環境に合わせて選択してください：**
+
+- 🐧 **WSL/Ubuntu**: [WSL_SETUP.md](WSL_SETUP.md) - WSL2環境での詳細セットアップ
+- 💻 **Windows/Mac/Linux**: このガイドをそのまま続けてください
+- 📚 **詳細な手順**: [SETUP_GUIDE.md](SETUP_GUIDE.md) - トラブルシューティング含む完全ガイド
+
 ## 🚀 5分でセットアップ
 
 ### 1. リポジトリをクローン
 
+**WSL/Ubuntu の場合：**
+```bash
+# WSL内で実行（推奨）
+cd ~
+git clone <repository-url>
+cd test_nextjs
+```
+
+**Windows/Mac/Linux の場合：**
 ```bash
 git clone <repository-url>
 cd test_nextjs
@@ -28,16 +45,18 @@ cp env.example .env
 
 ### 3. セットアップスクリプトを実行
 
+**WSL/Ubuntu/Mac/Linux**:
+```bash
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+```
+
 **Windows (PowerShell)**:
 ```powershell
 .\scripts\setup.ps1
 ```
 
-**Mac/Linux**:
-```bash
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-```
+> 💡 **WSLユーザーへ**: WSL内でLinuxコマンドを使用してください。詳細は [WSL_SETUP.md](WSL_SETUP.md) を参照。
 
 ### 4. スーパーユーザーを作成
 
@@ -208,7 +227,7 @@ docker-compose exec backend python manage.py collectstatic --noinput
 問題が発生した場合：
 
 1. [SETUP_GUIDE.md](SETUP_GUIDE.md#トラブルシューティング) のトラブルシューティングを確認
-2. GitLabのIssueを作成
+2. GitHubのIssueを作成
 3. ログを確認: `docker-compose logs`
 
 ---

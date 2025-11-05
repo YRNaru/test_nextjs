@@ -1,0 +1,74 @@
+# WSL2設定ファイル
+# このファイルをWindowsのユーザーホームディレクトリにコピーしてください
+# 場所: C:\Users\<YourUsername>\.wslconfig
+
+# WSL2の全体的な設定
+[wsl2]
+
+# WSL2に割り当てるメモリ量
+# 推奨: システムメモリの50-75%
+# 例: 16GBのシステムなら8GB
+memory=8GB
+
+# WSL2に割り当てるプロセッサ数
+# 推奨: システムのコア数の半分～全部
+processors=4
+
+# スワップファイルのサイズ
+# 0に設定するとスワップを無効化
+swap=2GB
+
+# スワップファイルの場所
+# デフォルト: %USERPROFILE%\AppData\Local\Temp\swap.vhdx
+# swapFile=C:\\temp\\wsl-swap.vhdx
+
+# WSL2 VMのロックされたメモリを解放する
+# メモリを積極的に解放してホストOSに返す
+# デフォルト: false (推奨: true)
+# pageReporting=true
+
+# WSL起動時にWindowsのPATHを継承するか
+# デフォルト: true
+# appendWindowsPath=false
+
+# ネットワーク設定
+# localhostForwardingを有効にすると、WSL内のサービスに
+# Windowsからlocalhostでアクセスできる
+# デフォルト: true
+# localhostForwarding=true
+
+# カーネルデバッグ（通常は不要）
+# debugConsole=false
+
+# ネステッド仮想化を有効化（Docker-in-Dockerなどで必要）
+# デフォルト: true
+# nestedVirtualization=true
+
+# ==========================================
+# 推奨設定（開発用）
+# ==========================================
+# 
+# 高性能マシン（32GB RAM, 8コア以上）:
+# memory=16GB
+# processors=8
+# swap=4GB
+#
+# 標準マシン（16GB RAM, 4-8コア）:
+# memory=8GB
+# processors=4
+# swap=2GB
+#
+# 低スペックマシン（8GB RAM, 4コア以下）:
+# memory=4GB
+# processors=2
+# swap=1GB
+#
+# ==========================================
+
+# 注意事項:
+# - このファイルを変更したら、PowerShellで以下を実行:
+#   wsl --shutdown
+# - WSLを再起動すると設定が反映されます
+# - メモリを多く割り当てるとWindowsが遅くなる可能性があります
+# - 最低でも4GB程度はWindowsに残しておくことを推奨します
+
