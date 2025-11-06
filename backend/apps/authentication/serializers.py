@@ -27,17 +27,26 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         write_only=True,
         required=True,
-        style={'input_type': 'password'}
+        style={'input_type': 'password'},
+        min_length=8,
     )
     password_confirm = serializers.CharField(
         write_only=True,
         required=True,
         style={'input_type': 'password'}
     )
+    display_name = serializers.CharField(
+        max_length=50,
+        required=False,
+        allow_blank=True
+    )
     
     class Meta:
         model = User
         fields = ('email', 'password', 'password_confirm', 'display_name')
+        extra_kwargs = {
+            'email': {'required': True},
+        }
     
     def validate(self, attrs):
         """パスワードの一致を検証"""

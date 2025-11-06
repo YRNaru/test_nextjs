@@ -71,6 +71,7 @@ export default function RegisterForm() {
         name: formData.name,
         email: formData.email,
         password: formData.password,
+        passwordConfirm: formData.confirmPassword,
       });
 
       if (response.success && response.data) {

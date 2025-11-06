@@ -25,6 +25,32 @@ User = get_user_model()
 class CustomTokenObtainPairView(TokenObtainPairView):
     """カスタムトークン取得ビュー"""
     serializer_class = CustomTokenObtainPairSerializer
+    
+    def post(self, request, *args, **kwargs):
+        """ログインレスポンスをカスタマイズ"""
+        response = super().post(request, *args, **kwargs)
+        
+        if response.status_code == 200:
+            # ユーザー情報を追加
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.user
+            
+            # レスポンスを再構築
+            tokens = response.data
+            return Response({
+                'user': {
+                    'id': user.id,
+                    'email': user.email,
+                    'display_name': user.get_display_name(),
+                },
+                'tokens': {
+                    'access': tokens.get('access'),
+                    'refresh': tokens.get('refresh'),
+                }
+            }, status=status.HTTP_200_OK)
+        
+        return response
 
 
 class RegisterView(generics.CreateAPIView):

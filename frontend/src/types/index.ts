@@ -28,12 +28,13 @@ export interface ApiResponse<T = unknown> {
 
 // ユーザー関連の型定義
 export interface User {
-  id: string;
-  name: string;
+  id: string | number;
   email: string;
+  display_name?: string;
+  name?: string; // 互換性のため
   avatar?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 }
 
 // 登録フォームの型定義
@@ -49,6 +50,7 @@ export interface RegisterRequest {
   name: string;
   email: string;
   password: string;
+  passwordConfirm?: string;
 }
 
 // 登録レスポンスの型定義

@@ -10,10 +10,9 @@ ENV PYTHONUNBUFFERED=1 \
 WORKDIR /app
 
 # システム依存関係のインストール
+# PyMySQLを使用するため、libmysqlclient-devは不要（オプショナル）
 RUN apt-get update && apt-get install -y \
     gcc \
-    default-libmysqlclient-dev \
-    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Pythonパッケージのインストール
@@ -30,6 +29,6 @@ RUN mkdir -p staticfiles media
 # ポート公開
 EXPOSE 8000
 
-# デフォルトコマンド
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
+# デフォルトコマンド（開発環境用）
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 

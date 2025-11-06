@@ -107,14 +107,14 @@ export default function MyPage() {
         <div className={styles.profileSection}>
           <div className={styles.avatar}>
             <div className={styles.avatarIcon}>
-              {user.name.charAt(0).toUpperCase()}
+              {(user.display_name || user.name || user.email).charAt(0).toUpperCase()}
             </div>
           </div>
 
           <div className={styles.userInfo}>
             <div className={styles.infoItem}>
               <label className={styles.label}>名前</label>
-              <p className={styles.value}>{user.name}</p>
+              <p className={styles.value}>{user.display_name || user.name || 'ユーザー'}</p>
             </div>
 
             <div className={styles.infoItem}>
@@ -127,10 +127,12 @@ export default function MyPage() {
               <p className={styles.value}>{user.id}</p>
             </div>
 
-            <div className={styles.infoItem}>
-              <label className={styles.label}>登録日</label>
-              <p className={styles.value}>{formatDate(user.createdAt)}</p>
-            </div>
+            {user.createdAt && (
+              <div className={styles.infoItem}>
+                <label className={styles.label}>登録日</label>
+                <p className={styles.value}>{formatDate(user.createdAt)}</p>
+              </div>
+            )}
           </div>
         </div>
 
