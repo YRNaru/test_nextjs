@@ -6,6 +6,10 @@ from pathlib import Path
 from datetime import timedelta
 from decouple import config
 
+# PyMySQLをMySQLdbとして使用（Windows互換性のため）
+import pymysql
+pymysql.install_as_MySQLdb()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,6 +40,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter_oauth2',
+    'allauth.socialaccount.providers.discord',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'django_celery_beat',
@@ -177,7 +183,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
-# Google OAuth Settings
+# Social Account Providers Settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -190,6 +196,26 @@ SOCIALACCOUNT_PROVIDERS = {
         'APP': {
             'client_id': config('GOOGLE_CLIENT_ID', default=''),
             'secret': config('GOOGLE_CLIENT_SECRET', default=''),
+        }
+    },
+    'twitter_oauth2': {
+        'SCOPE': [
+            'tweet.read',
+            'users.read',
+        ],
+        'APP': {
+            'client_id': config('TWITTER_CLIENT_ID', default=''),
+            'secret': config('TWITTER_CLIENT_SECRET', default=''),
+        }
+    },
+    'discord': {
+        'SCOPE': [
+            'identify',
+            'email',
+        ],
+        'APP': {
+            'client_id': config('DISCORD_CLIENT_ID', default=''),
+            'secret': config('DISCORD_CLIENT_SECRET', default=''),
         }
     }
 }

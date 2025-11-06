@@ -58,3 +58,8 @@ class GoogleAuthSerializer(serializers.Serializer):
     """Google認証シリアライザー"""
     access_token = serializers.CharField(required=True)
 
+
+class SocialAuthSerializer(serializers.Serializer):
+    """ソーシャル認証シリアライザー（Twitter、Discord用）"""
+    access_token = serializers.CharField(required=True)
+    provider = serializers.CharField(required=True)

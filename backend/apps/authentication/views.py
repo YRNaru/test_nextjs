@@ -16,6 +16,7 @@ from .serializers import (
     CustomTokenObtainPairSerializer,
     RegisterSerializer,
     GoogleAuthSerializer,
+    SocialAuthSerializer,
 )
 
 User = get_user_model()
@@ -150,4 +151,158 @@ class VerifyTokenView(APIView):
                 'display_name': user.get_display_name(),
             }
         })
+
+
+class TwitterAuthView(APIView):
+    """Twitter OAuth2認証ビュー"""
+    permission_classes = (AllowAny,)
+    serializer_class = SocialAuthSerializer
+    
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        try:
+            import requests as http_requests
+            
+            access_token = serializer.validated_data['access_token']
+            
+            # Twitter API v2からユーザー情報を取得
+            headers = {
+                'Authorization': f'Bearer {access_token}'
+            }
+            
+            response = http_requests.get(
+                'https://api.twitter.com/2/users/me?user.fields=profile_image_url',
+                headers=headers
+            )
+            
+            if response.status_code != 200:
+                return Response(
+                    {'error': 'Twitter認証に失敗しました。'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            twitter_user = response.json().get('data', {})
+            
+            # ユーザー情報を取得
+            twitter_id = twitter_user.get('id')
+            username = twitter_user.get('username')
+            name = twitter_user.get('name')
+            
+            if not twitter_id:
+                return Response(
+                    {'error': 'Twitterユーザー情報が取得できませんでした。'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Twitterはメールアドレスを提供しないことがあるため、
+            # twitter_idをベースにメールアドレスを生成
+            email = f'{twitter_id}@twitter.temp'
+            
+            # ユーザーを取得または作成
+            user, created = User.objects.get_or_create(
+                email=email,
+                defaults={
+                    'display_name': name or username,
+                    'is_active': True,
+                }
+            )
+            
+            # トークンを生成
+            refresh = RefreshToken.for_user(user)
+            
+            return Response({
+                'user': {
+                    'id': user.id,
+                    'email': user.email,
+                    'display_name': user.get_display_name(),
+                },
+                'tokens': {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                },
+                'is_new_user': created,
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Twitter認証エラー: {str(e)}'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+
+class DiscordAuthView(APIView):
+    """Discord OAuth認証ビュー"""
+    permission_classes = (AllowAny,)
+    serializer_class = SocialAuthSerializer
+    
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        try:
+            import requests as http_requests
+            
+            access_token = serializer.validated_data['access_token']
+            
+            # Discord APIからユーザー情報を取得
+            headers = {
+                'Authorization': f'Bearer {access_token}'
+            }
+            
+            response = http_requests.get(
+                'https://discord.com/api/users/@me',
+                headers=headers
+            )
+            
+            if response.status_code != 200:
+                return Response(
+                    {'error': 'Discord認証に失敗しました。'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            discord_user = response.json()
+            
+            # ユーザー情報を取得
+            discord_id = discord_user.get('id')
+            email = discord_user.get('email')
+            username = discord_user.get('username')
+            
+            if not email:
+                return Response(
+                    {'error': 'メールアドレスが取得できませんでした。'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # ユーザーを取得または作成
+            user, created = User.objects.get_or_create(
+                email=email,
+                defaults={
+                    'display_name': username,
+                    'is_active': True,
+                }
+            )
+            
+            # トークンを生成
+            refresh = RefreshToken.for_user(user)
+            
+            return Response({
+                'user': {
+                    'id': user.id,
+                    'email': user.email,
+                    'display_name': user.get_display_name(),
+                },
+                'tokens': {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                },
+                'is_new_user': created,
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Discord認証エラー: {str(e)}'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 

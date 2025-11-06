@@ -8,6 +8,8 @@ from .views import (
     CustomTokenObtainPairView,
     RegisterView,
     GoogleAuthView,
+    TwitterAuthView,
+    DiscordAuthView,
     LogoutView,
     VerifyTokenView,
 )
@@ -22,7 +24,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('verify/', VerifyTokenView.as_view(), name='verify'),
     
-    # Google OAuth
+    # ソーシャル認証
     path('google/', GoogleAuthView.as_view(), name='google_auth'),
+    path('twitter/', TwitterAuthView.as_view(), name='twitter_auth'),
+    path('discord/', DiscordAuthView.as_view(), name='discord_auth'),
 ]
 
