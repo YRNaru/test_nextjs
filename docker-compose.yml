@@ -132,6 +132,8 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8081/api
       - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - WATCHPACK_POLLING=true  # ホットリロード有効化
+      - CHOKIDAR_USEPOLLING=true  # ファイル監視をポーリングモードに
     depends_on:
       - backend
     networks:

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1>📖 サイト説明</h1>
+        <h1>📖 サイト</h1>
         <div className={styles.section}>
           <h2>🎯 この講座について</h2>
           <p>
