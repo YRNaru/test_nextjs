@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     // ログアウト処理（実際のアプリケーションではトークンの無効化などを行う）
     return NextResponse.json(

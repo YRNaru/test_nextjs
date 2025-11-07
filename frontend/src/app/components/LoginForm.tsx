@@ -65,7 +65,7 @@ export default function LoginForm() {
       } else {
         setSubmitError(response.error || 'ログインに失敗しました');
       }
-    } catch (error) {
+    } catch {
       setSubmitError('予期しないエラーが発生しました');
     } finally {
       setIsSubmitting(false);

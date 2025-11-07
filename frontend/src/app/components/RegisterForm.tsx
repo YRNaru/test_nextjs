@@ -87,7 +87,7 @@ export default function RegisterForm() {
       } else {
         setSubmitError(response.error || '登録に失敗しました');
       }
-    } catch (error) {
+    } catch {
       setSubmitError('予期しないエラーが発生しました');
     } finally {
       setIsSubmitting(false);

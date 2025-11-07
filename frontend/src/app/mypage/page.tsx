@@ -34,7 +34,7 @@ export default function MyPage() {
           } else {
             setError(response.error || 'ユーザー情報の取得に失敗しました');
           }
-        } catch (err) {
+        } catch {
           setError('予期しないエラーが発生しました');
         } finally {
           setIsLoading(false);
