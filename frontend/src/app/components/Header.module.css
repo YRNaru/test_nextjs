@@ -163,17 +163,90 @@
   background: var(--gray-alpha-100);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .nav {
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .navLink {
+    font-size: 0.95rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 960px) {
   .container {
     flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
   }
 
   .nav {
+    width: 100%;
+    justify-content: center;
     gap: 1rem;
+    row-gap: 0.5rem;
+  }
+
+  .navLink {
+    flex: 1 1 45%;
+    text-align: center;
+    padding: 0.25rem 0;
+  }
+
+  .nav .themeToggle,
+  .nav .sidebarToggle,
+  .nav .loginButton {
+    flex: 1 1 45%;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    row-gap: 0.5rem;
+  }
+
+  .navLink {
+    flex: 1 1 45%;
+    font-size: 0.9rem;
+  }
+
+  .leftSection {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .logo {
     font-size: 1.25rem;
+  }
+
+  .nav .sidebarToggle,
+  .nav .themeToggle,
+  .nav .loginButton {
+    flex: 1 1 100%;
+  }
+
+  .sidebarToggle {
+    min-width: 36px;
+    height: 36px;
+    padding: 0.4rem 0.6rem;
   }
 } 

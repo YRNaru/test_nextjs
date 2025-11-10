@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from './SidebarContext';
@@ -8,45 +7,7 @@ import styles from './Sidebar.module.css';
 
 export default function LeftSidebar() {
   const pathname = usePathname();
-  const { leftSidebarOpen, closeLeftSidebar } = useSidebar();
-  const [footerHeight, setFooterHeight] = useState(0);
-
-  useEffect(() => {
-    const updateFooterHeight = () => {
-      const footer = document.querySelector('footer');
-      if (footer) {
-        const rect = footer.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        // フッターが画面内に表示されている場合のみ高さを考慮
-        if (rect.top < viewportHeight) {
-          setFooterHeight(viewportHeight - rect.top);
-        } else {
-          setFooterHeight(0);
-        }
-      }
-    };
-
-    updateFooterHeight();
-    window.addEventListener('scroll', updateFooterHeight);
-    window.addEventListener('resize', updateFooterHeight);
-    
-    // リサイズオブザーバーでフッターのサイズ変更を監視
-    const footer = document.querySelector('footer');
-    if (footer) {
-      const resizeObserver = new ResizeObserver(updateFooterHeight);
-      resizeObserver.observe(footer);
-      return () => {
-        window.removeEventListener('scroll', updateFooterHeight);
-        window.removeEventListener('resize', updateFooterHeight);
-        resizeObserver.disconnect();
-      };
-    }
-
-    return () => {
-      window.removeEventListener('scroll', updateFooterHeight);
-      window.removeEventListener('resize', updateFooterHeight);
-    };
-  }, []);
+  const { leftSidebarOpen } = useSidebar();
 
   const quickLinks = [
     { href: '/', label: 'ホーム', icon: '🏠' },
@@ -69,7 +30,6 @@ export default function LeftSidebar() {
   return (
     <aside 
       className={`${styles.leftSidebar} ${leftSidebarOpen ? styles.open : styles.closed}`}
-      style={{ bottom: `${footerHeight}px` }}
     >
       <div className={styles.sidebarContent}>
         <h3 className={styles.sidebarTitle}>📚 クイックナビ</h3>

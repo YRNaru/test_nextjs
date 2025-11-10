@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect, useRef } from 'react';
 
 interface SidebarContextType {
   leftSidebarOpen: boolean;
@@ -16,6 +16,37 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 export function SidebarProvider({ children }: { children: ReactNode }) {
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [rightSidebarOpen, setRightSidebarOpen] = useState(true);
+  const autoClosedRef = useRef(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width < 1200) {
+        setLeftSidebarOpen(false);
+        setRightSidebarOpen(false);
+        autoClosedRef.current = true;
+        return;
+      }
+
+      if (autoClosedRef.current) {
+        setLeftSidebarOpen(true);
+        setRightSidebarOpen(true);
+        autoClosedRef.current = false;
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const toggleLeftSidebar = () => {
     setLeftSidebarOpen(prev => !prev);

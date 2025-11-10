@@ -74,8 +74,8 @@ export default function RootLayout({
               <RightSidebar />
               <MainContent>
                 {children}
+                <Footer />
               </MainContent>
-              <Footer />
               <ScrollToTop />
             </SidebarProvider>
           </ThemeProvider>

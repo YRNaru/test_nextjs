@@ -14,7 +14,7 @@
   border-right: 2px solid var(--gray-alpha-200);
   padding: 1.5rem 1rem;
   z-index: 50;
-  transition: transform 0.01s ease, opacity 0.01s ease, bottom 0.01s ease;
+  transition: transform 0.3s ease, opacity 0.2s ease, bottom 0.3s ease;
   box-shadow: inset 0 0 0 1px var(--gray-alpha-200);
 }
 
@@ -32,6 +32,7 @@
 .rightSidebar.open {
   transform: translateX(0);
   opacity: 1;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
 }
 
 .leftSidebar.closed {
@@ -44,6 +45,27 @@
   transform: translateX(100%);
   opacity: 0;
   pointer-events: none;
+}
+
+.leftSidebar::-webkit-scrollbar,
+.rightSidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leftSidebar::-webkit-scrollbar-track,
+.rightSidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.leftSidebar::-webkit-scrollbar-thumb,
+.rightSidebar::-webkit-scrollbar-thumb {
+  background: var(--gray-alpha-200);
+  border-radius: 3px;
+}
+
+.leftSidebar::-webkit-scrollbar-thumb:hover,
+.rightSidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-alpha-200);
 }
 
 .sidebarContent {
@@ -277,28 +299,6 @@
   transform: translateX(4px);
 }
 
-/* スクロールバーのスタイル */
-.leftSidebar::-webkit-scrollbar,
-.rightSidebar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.leftSidebar::-webkit-scrollbar-track,
-.rightSidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.leftSidebar::-webkit-scrollbar-thumb,
-.rightSidebar::-webkit-scrollbar-thumb {
-  background: var(--gray-alpha-200);
-  border-radius: 3px;
-}
-
-.leftSidebar::-webkit-scrollbar-thumb:hover,
-.rightSidebar::-webkit-scrollbar-thumb:hover {
-  background: var(--gray-alpha-200);
-}
-
 /* レスポンシブデザイン */
 @media (max-width: 1400px) {
   .leftSidebar,
@@ -308,28 +308,50 @@
 }
 
 @media (max-width: 1200px) {
-  .leftSidebar.closed {
-    transform: translateX(-100%);
+  .leftSidebar,
+  .rightSidebar {
+    top: 72px;
+    bottom: auto;
+    max-height: calc(100vh - 96px);
+    width: min(320px, 90vw);
+    margin: 0 16px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+    border: 1px solid var(--gray-alpha-200);
   }
 
-  .rightSidebar.closed {
-    transform: translateX(100%);
+  .leftSidebar {
+    border-right: none;
+    left: 0;
+  }
+
+  .rightSidebar {
+    border-left: none;
+    right: 0;
   }
 }
 
 @media (max-width: 768px) {
   .leftSidebar,
   .rightSidebar {
-    width: 100%;
-    max-width: 300px;
+    width: min(300px, 88vw);
+    margin: 0 12px;
+  }
+
+  .leftSidebar {
+    left: 12px;
+  }
+
+  .rightSidebar {
+    right: 12px;
   }
 
   .leftSidebar.closed {
-    transform: translateX(-100%);
+    transform: translateX(-110%);
   }
 
   .rightSidebar.closed {
-    transform: translateX(100%);
+    transform: translateX(110%);
   }
 }
 

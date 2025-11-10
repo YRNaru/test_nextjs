@@ -5,24 +5,31 @@ import { ReactNode, useEffect, useState } from 'react';
 
 export default function MainContent({ children }: { children: ReactNode }) {
   const { leftSidebarOpen, rightSidebarOpen } = useSidebar();
-  const [sidebarWidth, setSidebarWidth] = useState(250);
+  const [viewportWidth, setViewportWidth] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth;
+    }
+    return 0;
+  });
 
   useEffect(() => {
-    const updateWidth = () => {
-      if (window.innerWidth <= 1400 && window.innerWidth > 1200) {
-        setSidebarWidth(220);
-      } else {
-        setSidebarWidth(250);
-      }
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const handleResize = () => {
+      setViewportWidth(window.innerWidth);
     };
 
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const paddingLeft = leftSidebarOpen ? `${sidebarWidth}px` : '0';
-  const paddingRight = rightSidebarOpen ? `${sidebarWidth}px` : '0';
+  const sidebarWidth = viewportWidth > 1200 && viewportWidth <= 1400 ? 220 : 250;
+  const shouldOffsetSidebars = viewportWidth >= 1200;
+  const paddingLeft = leftSidebarOpen && shouldOffsetSidebars ? `${sidebarWidth}px` : '0';
+  const paddingRight = rightSidebarOpen && shouldOffsetSidebars ? `${sidebarWidth}px` : '0';
 
   return (
     <main 

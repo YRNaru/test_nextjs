@@ -7,45 +7,7 @@ import styles from './Sidebar.module.css';
 export default function RightSidebar() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [randomTip, setRandomTip] = useState<string>('');
-  const { rightSidebarOpen, closeRightSidebar } = useSidebar();
-  const [footerHeight, setFooterHeight] = useState(0);
-
-  useEffect(() => {
-    const updateFooterHeight = () => {
-      const footer = document.querySelector('footer');
-      if (footer) {
-        const rect = footer.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        // フッターが画面内に表示されている場合のみ高さを考慮
-        if (rect.top < viewportHeight) {
-          setFooterHeight(viewportHeight - rect.top);
-        } else {
-          setFooterHeight(0);
-        }
-      }
-    };
-
-    updateFooterHeight();
-    window.addEventListener('scroll', updateFooterHeight);
-    window.addEventListener('resize', updateFooterHeight);
-    
-    // リサイズオブザーバーでフッターのサイズ変更を監視
-    const footer = document.querySelector('footer');
-    if (footer) {
-      const resizeObserver = new ResizeObserver(updateFooterHeight);
-      resizeObserver.observe(footer);
-      return () => {
-        window.removeEventListener('scroll', updateFooterHeight);
-        window.removeEventListener('resize', updateFooterHeight);
-        resizeObserver.disconnect();
-      };
-    }
-
-    return () => {
-      window.removeEventListener('scroll', updateFooterHeight);
-      window.removeEventListener('resize', updateFooterHeight);
-    };
-  }, []);
+  const { rightSidebarOpen } = useSidebar();
 
   const tips = [
     '💡 Next.jsはApp RouterとPages Routerの2つのルーティング方式があります',
@@ -70,7 +32,6 @@ export default function RightSidebar() {
   return (
     <aside 
       className={`${styles.rightSidebar} ${rightSidebarOpen ? styles.open : styles.closed}`}
-      style={{ bottom: `${footerHeight}px` }}
     >
       <div className={styles.sidebarContent}>
         <h3 className={styles.sidebarTitle}>⏰ 現在時刻</h3>
