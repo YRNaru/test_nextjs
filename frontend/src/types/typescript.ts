@@ -242,7 +242,7 @@ export interface PracticeQuestion {
   options: string[];
   correctAnswer: number;
   explanation: string;
-  type: 'string' | 'number' | 'boolean' | 'array' | 'tuple' | 'union' | 'object' | 'optional' | 'alias' | 'any' | 'function' | 'default' | 'callback' | 'arrow' | 'inference' | 'let' | 'const' | 'var' | 'annotation' | 'scope' | 'interface' | 'extends' | 'implements' | 'optional' | 'difference' | 'class' | 'extends' | 'implements' | 'access' | 'summary' | 'enum' | 'string' | 'safety' | 'union' | 'summary' | 'generic' | 'react' | 'summary' | 'union' | 'intersection' | 'alias' | 'summary' | 'string' | 'number' | 'summary';
+  type: 'string' | 'number' | 'boolean' | 'array' | 'tuple' | 'union' | 'object' | 'optional' | 'alias' | 'any' | 'unknown' | 'function' | 'default' | 'callback' | 'arrow' | 'inference' | 'let' | 'const' | 'var' | 'annotation' | 'scope' | 'interface' | 'extends' | 'implements' | 'difference' | 'class' | 'access' | 'summary' | 'enum' | 'safety' | 'generic' | 'react' | 'intersection' | 'never' | 'readonly' | 'async-await' | 'type-definition';
 }
 
 // 学習進捗

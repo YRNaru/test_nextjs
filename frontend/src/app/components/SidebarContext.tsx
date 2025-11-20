@@ -1,6 +1,13 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useState, ReactNode, useEffect, useRef } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+  useRef,
+} from "react";
 
 interface SidebarContextType {
   leftSidebarOpen: boolean;
@@ -19,7 +26,7 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const autoClosedRef = useRef(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 
@@ -41,19 +48,19 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   const toggleLeftSidebar = () => {
-    setLeftSidebarOpen(prev => !prev);
+    setLeftSidebarOpen((prev) => !prev);
   };
 
   const toggleRightSidebar = () => {
-    setRightSidebarOpen(prev => !prev);
+    setRightSidebarOpen((prev) => !prev);
   };
 
   const closeLeftSidebar = () => {
@@ -74,6 +81,7 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         closeLeftSidebar,
         closeRightSidebar,
       }}
+      data-oid="qwmb:o3"
     >
       {children}
     </SidebarContext.Provider>
@@ -83,8 +91,7 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
 export function useSidebar() {
   const context = useContext(SidebarContext);
   if (context === undefined) {
-    throw new Error('useSidebar must be used within a SidebarProvider');
+    throw new Error("useSidebar must be used within a SidebarProvider");
   }
   return context;
 }
-

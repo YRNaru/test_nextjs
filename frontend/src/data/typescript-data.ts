@@ -411,7 +411,7 @@ export const inferenceTypesData: LearningSection = {
 };
 
 // --- ここにunknownTypePracticeの定義を移動 ---
-export const unknownTypePractice = [
+export const unknownTypePractice: PracticeQuestion[] = [
   {
     id: 'unknown-q1',
     question: 'unknown型の特徴として正しいものはどれ？',
@@ -424,7 +424,7 @@ export const unknownTypePractice = [
     ],
     correctAnswer: 1,
     explanation: 'unknown型は型チェックなしでプロパティアクセスできません。型チェックが必要です。',
-    type: 'unknown'
+    type: 'unknown' as const
   },
   {
     id: 'unknown-q2',
@@ -438,7 +438,7 @@ export const unknownTypePractice = [
     ],
     correctAnswer: 1,
     explanation: 'any型は型チェックなしでOKですが、unknown型は型チェックが必要です。',
-    type: 'unknown'
+    type: 'unknown' as const
   },
   {
     id: 'unknown-q3',
@@ -452,7 +452,7 @@ export const unknownTypePractice = [
     ],
     correctAnswer: 0,
     explanation: 'unknown型はtypeofやinstanceofなどで型を判定してから使います。',
-    type: 'unknown'
+    type: 'unknown' as const
   },
   {
     id: 'unknown-q4',
@@ -466,7 +466,7 @@ export const unknownTypePractice = [
     ],
     correctAnswer: 1,
     explanation: 'unknown型はAPIレスポンスやユーザー入力など、何が来るかわからない場合に使います。',
-    type: 'unknown'
+    type: 'unknown' as const
   }
 ];
 export const neverTypePractice = [

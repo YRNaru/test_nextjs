@@ -1,10 +1,16 @@
 /**
  * 認証コンテキスト
  */
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { authAPI } from '@/lib/api';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { authAPI } from "@/lib/api";
 
 interface User {
   id: number;
@@ -16,7 +22,12 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, passwordConfirm: string, displayName?: string) => Promise<void>;
+  register: (
+    email: string,
+    password: string,
+    passwordConfirm: string,
+    displayName?: string,
+  ) => Promise<void>;
   googleLogin: (accessToken: string) => Promise<void>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
@@ -27,7 +38,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
@@ -43,16 +54,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // 初期化時にトークンを検証
   useEffect(() => {
     const initAuth = async () => {
-      const accessToken = localStorage.getItem('access_token');
+      const accessToken = localStorage.getItem("access_token");
       if (accessToken) {
         try {
           const response = await authAPI.verifyToken();
           setUser(response.user);
         } catch (error) {
-          console.error('Token verification failed:', error);
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('refresh_token');
-          localStorage.removeItem('user');
+          console.error("Token verification failed:", error);
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          localStorage.removeItem("user");
         }
       }
       setLoading(false);
@@ -64,12 +75,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (email: string, password: string) => {
     try {
       const data = await authAPI.login(email, password);
-      localStorage.setItem('access_token', data.tokens.access);
-      localStorage.setItem('refresh_token', data.tokens.refresh);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem("access_token", data.tokens.access);
+      localStorage.setItem("refresh_token", data.tokens.refresh);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error("Login failed:", error);
       throw error;
     }
   };
@@ -78,16 +89,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     email: string,
     password: string,
     passwordConfirm: string,
-    displayName?: string
+    displayName?: string,
   ) => {
     try {
-      const data = await authAPI.register(email, password, passwordConfirm, displayName);
-      localStorage.setItem('access_token', data.tokens.access);
-      localStorage.setItem('refresh_token', data.tokens.refresh);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      const data = await authAPI.register(
+        email,
+        password,
+        passwordConfirm,
+        displayName,
+      );
+      localStorage.setItem("access_token", data.tokens.access);
+      localStorage.setItem("refresh_token", data.tokens.refresh);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
     } catch (error) {
-      console.error('Registration failed:', error);
+      console.error("Registration failed:", error);
       throw error;
     }
   };
@@ -95,28 +111,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const googleLogin = async (accessToken: string) => {
     try {
       const data = await authAPI.googleAuth(accessToken);
-      localStorage.setItem('access_token', data.tokens.access);
-      localStorage.setItem('refresh_token', data.tokens.refresh);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem("access_token", data.tokens.access);
+      localStorage.setItem("refresh_token", data.tokens.refresh);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
     } catch (error) {
-      console.error('Google login failed:', error);
+      console.error("Google login failed:", error);
       throw error;
     }
   };
 
   const logout = async () => {
     try {
-      const refreshToken = localStorage.getItem('refresh_token');
+      const refreshToken = localStorage.getItem("refresh_token");
       if (refreshToken) {
         await authAPI.logout(refreshToken);
       }
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error("Logout failed:", error);
     } finally {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-      localStorage.removeItem('user');
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("user");
       setUser(null);
     }
   };
@@ -131,6 +147,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isAuthenticated: !!user,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value} data-oid="gy7r4rv">
+      {children}
+    </AuthContext.Provider>
+  );
 };
-
