@@ -13,7 +13,7 @@ export default function ChildSectionTabs({
   onSectionClick,
 }: ChildSectionTabsProps) {
   return (
-    <div className="flex justify-center gap-2 flex-wrap" data-oid="0m8-615">
+    <div className="flex justify-center gap-2 flex-wrap">
       {sections.map((section) => (
         <button
           key={section.id}
@@ -23,7 +23,6 @@ export default function ChildSectionTabs({
               : "border-[#ccc] bg-white text-[#27ae60] hover:border-[#27ae60] hover:shadow-[0_2px_6px_rgba(39,174,96,0.15)]"
           }`}
           onClick={() => onSectionClick(section.id as ChildSection)}
-          data-oid="h.wvcw0"
         >
           {section.title}
         </button>

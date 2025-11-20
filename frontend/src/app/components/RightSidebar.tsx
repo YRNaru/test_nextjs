@@ -38,28 +38,15 @@ export default function RightSidebar() {
         `,
         backgroundSize: "20px 20px",
       }}
-      data-oid="d6tbtj9"
     >
-      <div
-        className="flex flex-col gap-6 bg-black/5 dark:bg-white/6 p-2 rounded-lg border border-dashed border-black/[0.08] dark:border-white/[0.145]"
-        data-oid="-7q_xk3"
-      >
-        <h3
-          className="text-lg font-semibold mb-4 m-0 text-foreground pb-3 border-b-2 border-black/[0.08] dark:border-white/[0.145] relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-5 before:h-0.5 before:bg-foreground before:opacity-30 after:content-[''] after:absolute after:bottom-[-2px] after:right-0 after:w-5 after:h-0.5 after:bg-foreground after:opacity-30"
-          data-oid="tb5f5sm"
-        >
+      <div className="flex flex-col gap-6 bg-black/5 dark:bg-white/6 p-2 rounded-lg border border-dashed border-black/[0.08] dark:border-white/[0.145]">
+        <h3 className="text-lg font-semibold mb-4 m-0 text-foreground pb-3 border-b-2 border-black/[0.08] dark:border-white/[0.145] relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-5 before:h-0.5 before:bg-foreground before:opacity-30 after:content-[''] after:absolute after:bottom-[-2px] after:right-0 after:w-5 after:h-0.5 after:bg-foreground after:opacity-30">
           ⏰ 現在時刻
         </h3>
-        <div
-          className="text-2xl font-bold text-foreground text-center py-4 bg-black/[0.08] dark:bg-white/[0.145] rounded-lg mb-2 font-mono"
-          data-oid="xtk1w_a"
-        >
+        <div className="text-2xl font-bold text-foreground text-center py-4 bg-black/[0.08] dark:bg-white/[0.145] rounded-lg mb-2 font-mono">
           {currentTime ? currentTime.toLocaleTimeString("ja-JP") : "--:--:--"}
         </div>
-        <div
-          className="text-sm text-foreground text-center opacity-70 mb-4"
-          data-oid="qjdle_7"
-        >
+        <div className="text-sm text-foreground text-center opacity-70 mb-4">
           {currentTime
             ? currentTime.toLocaleDateString("ja-JP", {
                 year: "numeric",
@@ -70,126 +57,69 @@ export default function RightSidebar() {
             : "読み込み中..."}
         </div>
 
-        <div
-          className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
-          data-oid="9ww-0h5"
-        >
-          <h4
-            className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90"
-            data-oid="vqehvjf"
-          >
+        <div className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
+          <h4 className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90">
             💡 今日のヒント
           </h4>
-          <p
-            className="text-sm text-foreground leading-relaxed m-0 px-3 py-3 bg-black/[0.08] dark:bg-white/[0.145] rounded-lg border-l-[3px] border-[#3498db]"
-            data-oid="0leynnb"
-          >
+          <p className="text-sm text-foreground leading-relaxed m-0 px-3 py-3 bg-black/[0.08] dark:bg-white/[0.145] rounded-lg border-l-[3px] border-[#3498db]">
             {randomTip || "読み込み中..."}
           </p>
         </div>
 
-        <div
-          className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
-          data-oid="ippwhoo"
-        >
-          <h4
-            className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90"
-            data-oid="-2utfiq"
-          >
+        <div className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
+          <h4 className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90">
             📊 学習進捗
           </h4>
-          <div className="mb-4" data-oid="5:d8:m7">
-            <span
-              className="block text-xs text-foreground mb-2 opacity-80"
-              data-oid="cu6hx8a"
-            >
+          <div className="mb-4">
+            <span className="block text-xs text-foreground mb-2 opacity-80">
               Next.js基礎
             </span>
-            <div
-              className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden"
-              data-oid="_8c-r4d"
-            >
+            <div className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-[#3498db] to-[#2ecc71] rounded transition-all duration-300"
                 style={{ width: "75%" }}
-                data-oid="3v3jx2s"
               ></div>
             </div>
           </div>
-          <div className="mb-4" data-oid="8cae8a8">
-            <span
-              className="block text-xs text-foreground mb-2 opacity-80"
-              data-oid="zan28t:"
-            >
+          <div className="mb-4">
+            <span className="block text-xs text-foreground mb-2 opacity-80">
               React基礎
             </span>
-            <div
-              className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden"
-              data-oid=":hb4-6m"
-            >
+            <div className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-[#3498db] to-[#2ecc71] rounded transition-all duration-300"
                 style={{ width: "60%" }}
-                data-oid="opohj2."
               ></div>
             </div>
           </div>
-          <div className="mb-4" data-oid="r1:99nx">
-            <span
-              className="block text-xs text-foreground mb-2 opacity-80"
-              data-oid="7nvnfi0"
-            >
+          <div className="mb-4">
+            <span className="block text-xs text-foreground mb-2 opacity-80">
               TypeScript
             </span>
-            <div
-              className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden"
-              data-oid="4y8ei4a"
-            >
+            <div className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-[#3498db] to-[#2ecc71] rounded transition-all duration-300"
                 style={{ width: "85%" }}
-                data-oid="5u-py-2"
               ></div>
             </div>
           </div>
         </div>
 
-        <div
-          className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
-          data-oid="-j2v8i6"
-        >
-          <h4
-            className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90"
-            data-oid="1.bt5z3"
-          >
+        <div className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
+          <h4 className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90">
             🔖 ブックマーク
           </h4>
-          <ul
-            className="list-none p-0 m-0 flex flex-col gap-2"
-            data-oid="pycpani"
-          >
-            <li
-              className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1"
-              data-oid="_qoqc50"
-            >
+          <ul className="list-none p-0 m-0 flex flex-col gap-2">
+            <li className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1">
               ⭐ よく使うコードスニペット
             </li>
-            <li
-              className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1"
-              data-oid="focws:3"
-            >
+            <li className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1">
               📚 参考書籍リスト
             </li>
-            <li
-              className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1"
-              data-oid="l_5b:7m"
-            >
+            <li className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1">
               🎥 おすすめ動画
             </li>
-            <li
-              className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1"
-              data-oid="rd6delt"
-            >
+            <li className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1">
               🛠️ 便利ツール集
             </li>
           </ul>

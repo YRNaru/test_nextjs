@@ -20,8 +20,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ja" suppressHydrationWarning data-oid="61wjhdg">
-      <head data-oid="j-k8q9d">
+    <html lang="ja" suppressHydrationWarning>
+      <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -49,21 +49,20 @@ export default function RootLayout({
               })();
             `,
           }}
-          data-oid="6gp-rid"
         />
       </head>
-      <body className="" data-oid="np147.i">
-        <AuthProvider data-oid="c7w-4.k">
-          <ThemeProvider data-oid="wjrff3q">
-            <SidebarProvider data-oid="tm9apl8">
-              <Header data-oid="dxx440z" />
-              <LeftSidebar data-oid="ojf_8x:" />
-              <RightSidebar data-oid="9a5rgvb" />
-              <MainContent data-oid="dj5u0dp">
+      <body className="">
+        <AuthProvider>
+          <ThemeProvider>
+            <SidebarProvider>
+              <Header />
+              <LeftSidebar />
+              <RightSidebar />
+              <MainContent>
                 {children}
-                <Footer data-oid="3ifzjdk" />
+                <Footer />
               </MainContent>
-              <ScrollToTop data-oid=".i7_cbl" />
+              <ScrollToTop />
             </SidebarProvider>
           </ThemeProvider>
         </AuthProvider>

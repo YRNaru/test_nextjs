@@ -13,7 +13,7 @@ export default function SectionTabs({
   onSectionClick,
 }: SectionTabsProps) {
   return (
-    <div className="flex justify-center gap-4 flex-wrap" data-oid="i-4g2:_">
+    <div className="flex justify-center gap-4 flex-wrap">
       {sections.map((section) => (
         <button
           key={section.id}
@@ -23,7 +23,6 @@ export default function SectionTabs({
               : "border-[rgba(52,152,219,0.3)] bg-gradient-to-br from-[var(--card-background)] to-[rgba(52,152,219,0.05)] text-[#3498db] hover:border-[#3498db] hover:shadow-[0_2px_8px_rgba(52,152,219,0.15)]"
           }`}
           onClick={() => onSectionClick(section.id as ParentSection)}
-          data-oid="c:qdekm"
         >
           {section.title}
         </button>

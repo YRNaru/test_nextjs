@@ -126,42 +126,22 @@ export default function Quiz({ categories }: QuizProps) {
 
   if (quizCompleted) {
     return (
-      <div
-        className="max-w-[800px] mx-auto p-5 font-sans md:p-4"
-        data-oid="u9_37-l"
-      >
-        <div
-          className="bg-[var(--card-background)] border border-[var(--border-color)] rounded-xl p-8 shadow-[0_2px_8px_var(--shadow-color)] md:p-6"
-          data-oid="sk71n8p"
-        >
-          <h2
-            className="text-center mb-8 text-[var(--card-text)] text-3xl md:text-2xl"
-            data-oid="fqij_d1"
-          >
+      <div className="max-w-[800px] mx-auto p-5 font-sans md:p-4">
+        <div className="bg-[var(--card-background)] border border-[var(--border-color)] rounded-xl p-8 shadow-[0_2px_8px_var(--shadow-color)] md:p-6">
+          <h2 className="text-center mb-8 text-[var(--card-text)] text-3xl md:text-2xl">
             🎉 クイズ完了！
           </h2>
-          <div
-            className="text-center mb-8 p-5 bg-[var(--section-background)] rounded-lg"
-            data-oid="d-lzz50"
-          >
-            <p
-              className="m-1 text-lg font-semibold text-[var(--card-text)]"
-              data-oid="rsqecqf"
-            >
+          <div className="text-center mb-8 p-5 bg-[var(--section-background)] rounded-lg">
+            <p className="m-1 text-lg font-semibold text-[var(--card-text)]">
               総合結果: {getCorrectCount()} / {results.length} 問正解
             </p>
-            <p
-              className="m-1 text-lg font-semibold text-[var(--card-text)]"
-              data-oid="hl.8lik"
-            >
+            <p className="m-1 text-lg font-semibold text-[var(--card-text)]">
               正答率: {Math.round((getCorrectCount() / results.length) * 100)}%
             </p>
           </div>
 
-          <div className="mb-8" data-oid="mllhwjb">
-            <h3 className="mb-4 text-[var(--card-text)]" data-oid="qnglfq6">
-              カテゴリ別結果
-            </h3>
+          <div className="mb-8">
+            <h3 className="mb-4 text-[var(--card-text)]">カテゴリ別結果</h3>
             {categories.map((category) => {
               const correct = getCorrectCountByCategory(category.title);
               const total = getTotalQuestionsByCategory(category.title);
@@ -172,18 +152,11 @@ export default function Quiz({ categories }: QuizProps) {
                 <div
                   key={category.id}
                   className="flex justify-between items-center p-4 mb-2.5 bg-[var(--section-background)] rounded-md"
-                  data-oid="k_g:tqj"
                 >
-                  <h4
-                    className="m-0 text-[var(--card-text)]"
-                    data-oid="lma:ost"
-                  >
+                  <h4 className="m-0 text-[var(--card-text)]">
                     {category.title}
                   </h4>
-                  <p
-                    className="m-0 font-semibold text-[var(--card-text-secondary)]"
-                    data-oid="1pveqi3"
-                  >
+                  <p className="m-0 font-semibold text-[var(--card-text-secondary)]">
                     {correct} / {total} 問正解 ({percentage}%)
                   </p>
                 </div>
@@ -191,43 +164,26 @@ export default function Quiz({ categories }: QuizProps) {
             })}
           </div>
 
-          <div className="mb-8" data-oid="qgibywk">
-            <h3 className="mb-4 text-[var(--card-text)]" data-oid="fpde-lq">
-              詳細結果
-            </h3>
+          <div className="mb-8">
+            <h3 className="mb-4 text-[var(--card-text)]">詳細結果</h3>
             {results.map((result, index) => (
               <div
                 key={index}
                 className={`p-4 mb-2.5 rounded-md border-l-4 ${result.isCorrect ? "bg-[#d4edda] border-l-[#28a745]" : "bg-[#f8d7da] border-l-[#dc3545]"}`}
-                data-oid="r_rza2a"
               >
-                <div
-                  className="flex justify-between items-center mb-2.5 flex-wrap gap-2.5"
-                  data-oid="_jonio3"
-                >
-                  <span
-                    className="font-semibold text-[var(--card-text)]"
-                    data-oid="eg5c-ap"
-                  >
+                <div className="flex justify-between items-center mb-2.5 flex-wrap gap-2.5">
+                  <span className="font-semibold text-[var(--card-text)]">
                     問題 {index + 1}
                   </span>
-                  <span
-                    className="text-[var(--card-text-secondary)] text-sm"
-                    data-oid="7dooms5"
-                  >
+                  <span className="text-[var(--card-text-secondary)] text-sm">
                     {result.category}
                   </span>
-                  <span className="font-semibold" data-oid="_u1cvsn">
+                  <span className="font-semibold">
                     {result.isCorrect ? "✅ 正解" : "❌ 不正解"}
                   </span>
                 </div>
-                <div
-                  className="text-[var(--card-text)] leading-relaxed"
-                  data-oid=".vjzrt1"
-                >
-                  <p className="m-0" data-oid="9orp1ny">
-                    {result.explanation}
-                  </p>
+                <div className="text-[var(--card-text)] leading-relaxed">
+                  <p className="m-0">{result.explanation}</p>
                 </div>
               </div>
             ))}
@@ -236,7 +192,6 @@ export default function Quiz({ categories }: QuizProps) {
           <button
             className="block w-full p-4 border-none rounded-md bg-[#007bff] text-white text-lg font-semibold cursor-pointer transition-colors duration-200 hover:bg-[#0056b3]"
             onClick={resetQuiz}
-            data-oid="cp45tx0"
           >
             もう一度挑戦する
           </button>
@@ -246,16 +201,11 @@ export default function Quiz({ categories }: QuizProps) {
   }
 
   return (
-    <div
-      className="max-w-[800px] mx-auto p-5 font-sans md:p-4"
-      data-oid="m::8efo"
-    >
+    <div className="max-w-[800px] mx-auto p-5 font-sans md:p-4">
       {/* カテゴリ選択 */}
-      <div className="mb-8" data-oid="0952_5n">
-        <h3 className="mb-4 text-[#333] text-xl" data-oid="b7-j0:z">
-          カテゴリ選択
-        </h3>
-        <div className="flex gap-2.5 flex-wrap md:flex-col" data-oid="0notn7-">
+      <div className="mb-8">
+        <h3 className="mb-4 text-[#333] text-xl">カテゴリ選択</h3>
+        <div className="flex gap-2.5 flex-wrap md:flex-col">
           {categories.map((category, index) => (
             <button
               key={category.id}
@@ -270,7 +220,6 @@ export default function Quiz({ categories }: QuizProps) {
                 setSelectedAnswer(null);
                 setShowFeedback(false);
               }}
-              data-oid="pn.2zhr"
             >
               {category.title}
             </button>
@@ -279,51 +228,33 @@ export default function Quiz({ categories }: QuizProps) {
       </div>
 
       {/* 進捗表示 */}
-      <div
-        className="flex justify-between items-center mb-5 p-4 bg-[var(--section-background)] rounded-lg text-sm md:flex-col md:gap-2.5 md:text-center"
-        data-oid="hvbl1nu"
-      >
-        <div
-          className="font-semibold text-[var(--card-text)]"
-          data-oid="r3b4hvy"
-        >
+      <div className="flex justify-between items-center mb-5 p-4 bg-[var(--section-background)] rounded-lg text-sm md:flex-col md:gap-2.5 md:text-center">
+        <div className="font-semibold text-[var(--card-text)]">
           全体進捗: {getProgressText()}
         </div>
-        <div className="text-[var(--card-text-secondary)]" data-oid="8r4sms.">
+        <div className="text-[var(--card-text-secondary)]">
           {currentCategoryData?.title}: {getCategoryProgress()}
         </div>
       </div>
 
       {/* 問題表示 */}
-      <div
-        className="bg-[var(--card-background)] border border-[var(--border-color)] rounded-xl p-8 shadow-[0_2px_8px_var(--shadow-color)] md:p-5"
-        data-oid="rnogtn2"
-      >
-        <h3
-          className="mb-5 text-[var(--card-text)] text-2xl"
-          data-oid="nizev1f"
-        >
+      <div className="bg-[var(--card-background)] border border-[var(--border-color)] rounded-xl p-8 shadow-[0_2px_8px_var(--shadow-color)] md:p-5">
+        <h3 className="mb-5 text-[var(--card-text)] text-2xl">
           問題 {currentQuestion + 1}
         </h3>
-        <p
-          className="text-lg leading-relaxed mb-5 text-[var(--card-text)]"
-          data-oid="i1xntw8"
-        >
+        <p className="text-lg leading-relaxed mb-5 text-[var(--card-text)]">
           {currentQuestionData?.question}
         </p>
 
         {currentQuestionData?.code && (
-          <pre
-            className="bg-[var(--section-background)] border border-[var(--border-color)] rounded-md p-4 mb-5 overflow-x-auto font-mono text-sm"
-            data-oid="zfl01wm"
-          >
-            <code className="text-[var(--card-text)]" data-oid="0_72-rj">
+          <pre className="bg-[var(--section-background)] border border-[var(--border-color)] rounded-md p-4 mb-5 overflow-x-auto font-mono text-sm">
+            <code className="text-[var(--card-text)]">
               {currentQuestionData.code}
             </code>
           </pre>
         )}
 
-        <div className="flex flex-col gap-3 mb-6" data-oid="zer1ri2">
+        <div className="flex flex-col gap-3 mb-6">
           {currentQuestionData?.options.map((option, index) => (
             <button
               key={index}
@@ -340,7 +271,6 @@ export default function Quiz({ categories }: QuizProps) {
               }`}
               onClick={() => handleAnswerSelect(index)}
               disabled={showFeedback}
-              data-oid="anib7im"
             >
               {option}
             </button>
@@ -355,27 +285,25 @@ export default function Quiz({ categories }: QuizProps) {
                 ? "bg-[#d4edda] border-l-[#28a745] text-[#155724]"
                 : "bg-[#f8d7da] border-l-[#dc3545] text-[#721c24]"
             }`}
-            data-oid="iq57r68"
           >
-            <h4 className="mb-2.5 text-lg" data-oid="s181437">
+            <h4 className="mb-2.5 text-lg">
               {results[results.length - 1]?.isCorrect
                 ? "✅ 正解！"
                 : "❌ 不正解"}
             </h4>
-            <p className="m-0 leading-relaxed" data-oid="980khe6">
+            <p className="m-0 leading-relaxed">
               {currentQuestionData?.explanation}
             </p>
           </div>
         )}
 
         {/* ボタン */}
-        <div className="flex justify-center" data-oid="gngc_m5">
+        <div className="flex justify-center">
           {!showFeedback ? (
             <button
               className="px-8 py-3 border-none rounded-md text-base font-semibold cursor-pointer transition-all duration-200 bg-[#007bff] text-white hover:bg-[#0056b3] disabled:bg-[#ccc] disabled:cursor-not-allowed"
               onClick={handleSubmitAnswer}
               disabled={selectedAnswer === null}
-              data-oid="i4u7f6h"
             >
               回答する
             </button>
@@ -383,7 +311,6 @@ export default function Quiz({ categories }: QuizProps) {
             <button
               className="px-8 py-3 border-none rounded-md text-base font-semibold cursor-pointer transition-all duration-200 bg-[#28a745] text-white hover:bg-[#1e7e34]"
               onClick={handleNextQuestion}
-              data-oid="g.jtgcb"
             >
               {currentQuestion < currentCategoryData!.questions.length - 1 ||
               currentCategory < categories.length - 1

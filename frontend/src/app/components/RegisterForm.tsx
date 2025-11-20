@@ -110,16 +110,16 @@ export default function RegisterForm() {
     <form
       onSubmit={handleSubmit}
       className="flex flex-col gap-6 w-full max-w-[500px] mx-auto md:max-w-full"
-      data-oid="93kxni4"
+      data-oid="zw45iuu"
     >
-      <div className="flex flex-col gap-2" data-oid="8dmm234">
+      <div className="flex flex-col gap-2" data-oid="u39_rz-">
         <label
           htmlFor="name"
           className="text-sm font-medium text-foreground flex items-center gap-1"
-          data-oid="p.ilskm"
+          data-oid="7szi92s"
         >
           名前{" "}
-          <span className="text-[#e74c3c] font-semibold" data-oid="3q:2eob">
+          <span className="text-[#e74c3c] font-semibold" data-oid="eu6qb.b">
             *
           </span>
         </label>
@@ -131,24 +131,24 @@ export default function RegisterForm() {
           className={`px-4 py-3 text-base border-2 rounded-lg bg-card-background text-foreground transition-all duration-200 w-full box-border focus:outline-none focus:border-[#3498db] focus:shadow-[0_0_0_3px_rgba(52,152,219,0.1)] disabled:opacity-60 disabled:cursor-not-allowed md:text-base ${errors.name ? "border-[#e74c3c] focus:border-[#e74c3c] focus:shadow-[0_0_0_3px_rgba(231,76,60,0.1)]" : "border-[var(--border-color)]"}`}
           placeholder="山田太郎"
           disabled={isSubmitting}
-          data-oid="8hhkshn"
+          data-oid="m.t_:02"
         />
 
         {errors.name && (
-          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="npp.9z2">
+          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="r9b3biq">
             {errors.name}
           </span>
         )}
       </div>
 
-      <div className="flex flex-col gap-2" data-oid="bmv7v2e">
+      <div className="flex flex-col gap-2" data-oid="3_yg6-u">
         <label
           htmlFor="email"
           className="text-sm font-medium text-foreground flex items-center gap-1"
-          data-oid="go2ky18"
+          data-oid="rhfn-.0"
         >
           メールアドレス{" "}
-          <span className="text-[#e74c3c] font-semibold" data-oid="7vcezbn">
+          <span className="text-[#e74c3c] font-semibold" data-oid="m9wpy24">
             *
           </span>
         </label>
@@ -160,24 +160,24 @@ export default function RegisterForm() {
           className={`px-4 py-3 text-base border-2 rounded-lg bg-card-background text-foreground transition-all duration-200 w-full box-border focus:outline-none focus:border-[#3498db] focus:shadow-[0_0_0_3px_rgba(52,152,219,0.1)] disabled:opacity-60 disabled:cursor-not-allowed md:text-base ${errors.email ? "border-[#e74c3c] focus:border-[#e74c3c] focus:shadow-[0_0_0_3px_rgba(231,76,60,0.1)]" : "border-[var(--border-color)]"}`}
           placeholder="example@email.com"
           disabled={isSubmitting}
-          data-oid="_kaq9al"
+          data-oid="7vt32o3"
         />
 
         {errors.email && (
-          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="47bpz:c">
+          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="fkino_k">
             {errors.email}
           </span>
         )}
       </div>
 
-      <div className="flex flex-col gap-2" data-oid=":0qrqxn">
+      <div className="flex flex-col gap-2" data-oid="micxt0_">
         <label
           htmlFor="password"
           className="text-sm font-medium text-foreground flex items-center gap-1"
-          data-oid="k3wumin"
+          data-oid=".7d25ci"
         >
           パスワード{" "}
-          <span className="text-[#e74c3c] font-semibold" data-oid="81uh9bg">
+          <span className="text-[#e74c3c] font-semibold" data-oid="q_65mbd">
             *
           </span>
         </label>
@@ -189,30 +189,30 @@ export default function RegisterForm() {
           className={`px-4 py-3 text-base border-2 rounded-lg bg-card-background text-foreground transition-all duration-200 w-full box-border focus:outline-none focus:border-[#3498db] focus:shadow-[0_0_0_3px_rgba(52,152,219,0.1)] disabled:opacity-60 disabled:cursor-not-allowed md:text-base ${errors.password ? "border-[#e74c3c] focus:border-[#e74c3c] focus:shadow-[0_0_0_3px_rgba(231,76,60,0.1)]" : "border-[var(--border-color)]"}`}
           placeholder="8文字以上、英数字を含む"
           disabled={isSubmitting}
-          data-oid="gst0-jd"
+          data-oid="at6ucty"
         />
 
         {errors.password && (
-          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="crrw0vx">
+          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="4d4rzob">
             {errors.password}
           </span>
         )}
         <p
           className="text-[var(--card-text-secondary)] text-sm -mt-1"
-          data-oid="szq8lf-"
+          data-oid="uk2yn6b"
         >
           パスワードは8文字以上で、英数字を含む必要があります
         </p>
       </div>
 
-      <div className="flex flex-col gap-2" data-oid="_:-nffj">
+      <div className="flex flex-col gap-2" data-oid="o6th44b">
         <label
           htmlFor="confirmPassword"
           className="text-sm font-medium text-foreground flex items-center gap-1"
-          data-oid="r:m:lj2"
+          data-oid="_jca1hz"
         >
           パスワード確認{" "}
-          <span className="text-[#e74c3c] font-semibold" data-oid="jh-jw8c">
+          <span className="text-[#e74c3c] font-semibold" data-oid="40:nj:v">
             *
           </span>
         </label>
@@ -224,11 +224,11 @@ export default function RegisterForm() {
           className={`px-4 py-3 text-base border-2 rounded-lg bg-card-background text-foreground transition-all duration-200 w-full box-border focus:outline-none focus:border-[#3498db] focus:shadow-[0_0_0_3px_rgba(52,152,219,0.1)] disabled:opacity-60 disabled:cursor-not-allowed md:text-base ${errors.confirmPassword ? "border-[#e74c3c] focus:border-[#e74c3c] focus:shadow-[0_0_0_3px_rgba(231,76,60,0.1)]" : "border-[var(--border-color)]"}`}
           placeholder="パスワードを再入力"
           disabled={isSubmitting}
-          data-oid="t1jo3z8"
+          data-oid="cylo-fa"
         />
 
         {errors.confirmPassword && (
-          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="z722k3b">
+          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="zxyyvcr">
             {errors.confirmPassword}
           </span>
         )}
@@ -237,7 +237,7 @@ export default function RegisterForm() {
       {submitError && (
         <div
           className="px-4 py-3 bg-[rgba(231,76,60,0.1)] border border-[rgba(231,76,60,0.3)] rounded-lg text-[#e74c3c] text-sm text-center"
-          data-oid="y8phtjb"
+          data-oid="xyq2_0g"
         >
           {submitError}
         </div>
@@ -247,7 +247,7 @@ export default function RegisterForm() {
         type="submit"
         className="py-3.5 px-6 text-base font-semibold text-white bg-gradient-to-br from-[#3498db] to-[#2980b9] border-none rounded-lg cursor-pointer transition-all duration-200 mt-2 hover:from-[#2980b9] hover:to-[#21618c] hover:-translate-y-[1px] hover:shadow-[0_4px_12px_rgba(52,152,219,0.3)] active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
         disabled={isSubmitting}
-        data-oid="7wyae5_"
+        data-oid="upths.z"
       >
         {isSubmitting ? "登録中..." : "アカウント登録"}
       </button>

@@ -34,15 +34,15 @@ export default function Header() {
   return (
     <header
       className="fixed top-0 left-0 right-0 w-full z-[100] backdrop-blur-[10px] py-4 bg-black/5 dark:bg-white/6 border-b border-black/[0.08] dark:border-white/[0.145]"
-      data-oid="l3672t-"
+      data-oid="_7yp4fn"
     >
       <div
         className="max-w-[1400px] mx-auto px-4 flex items-center justify-between xl:px-5 lg:flex-col lg:items-start lg:gap-4 md:items-stretch md:gap-3 sm:gap-3"
-        data-oid="iychqcc"
+        data-oid="ps16ece"
       >
         <div
           className="flex items-center gap-4 md:w-full md:justify-between"
-          data-oid="lmrgm:8"
+          data-oid="-3_lb16"
         >
           <button
             onClick={toggleLeftSidebar}
@@ -53,14 +53,14 @@ export default function Header() {
             title={
               leftSidebarOpen ? "左サイドバーを閉じる" : "左サイドバーを開く"
             }
-            data-oid="2o55ona"
+            data-oid="yr13nqo"
           >
             {leftSidebarOpen ? "◀" : "▶"}
           </button>
           <Link
             href="/"
             className="text-2xl font-bold no-underline text-foreground transition-opacity duration-200 hover:opacity-80 xl:text-[1.4rem] md:text-xl"
-            data-oid="_wfp2eb"
+            data-oid="atq1bc1"
           >
             🚀 モダンWebアプリ開発
           </Link>
@@ -68,47 +68,47 @@ export default function Header() {
 
         <nav
           className="flex gap-8 items-center xl:gap-5 xl:flex-wrap xl:justify-end xl:text-sm lg:w-full lg:justify-center lg:gap-4 lg:[row-gap:0.5rem] md:flex-wrap md:gap-3 md:[row-gap:0.5rem]"
-          data-oid="i:m0yiq"
+          data-oid="zkjg8vs"
         >
           <Link
             href="/"
             className={`relative no-underline text-foreground font-medium transition-opacity duration-200 hover:opacity-80 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-foreground after:transition-all after:duration-200 hover:after:w-full ${isActive("/") ? "text-[#3498db] font-semibold after:w-full after:bg-[#3498db]" : ""} xl:text-[0.95rem] md:flex-[1_1_45%] md:text-center md:py-1 md:text-sm`}
-            data-oid="ao.cb:g"
+            data-oid="gjz.n04"
           >
             ホーム
           </Link>
           <Link
             href="/mypage"
             className={`relative no-underline text-foreground font-medium transition-opacity duration-200 hover:opacity-80 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-foreground after:transition-all after:duration-200 hover:after:w-full ${isActive("/mypage") ? "text-[#3498db] font-semibold after:w-full after:bg-[#3498db]" : ""} xl:text-[0.95rem] md:flex-[1_1_45%] md:text-center md:py-1 md:text-sm`}
-            data-oid="hs_29d9"
+            data-oid="9-xfosk"
           >
             マイページ
           </Link>
           <Link
             href="/blog"
             className={`relative no-underline text-foreground font-medium transition-opacity duration-200 hover:opacity-80 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-foreground after:transition-all after:duration-200 hover:after:w-full ${isActive("/blog") ? "text-[#3498db] font-semibold after:w-full after:bg-[#3498db]" : ""} xl:text-[0.95rem] md:flex-[1_1_45%] md:text-center md:py-1 md:text-sm`}
-            data-oid="v_9x4ok"
+            data-oid="71du7ir"
           >
             ブログ
           </Link>
           <Link
             href="/nextjs"
             className={`relative no-underline text-foreground font-medium transition-opacity duration-200 hover:opacity-80 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-foreground after:transition-all after:duration-200 hover:after:w-full ${isActive("/nextjs") ? "text-[#3498db] font-semibold after:w-full after:bg-[#3498db]" : ""} xl:text-[0.95rem] md:flex-[1_1_45%] md:text-center md:py-1 md:text-sm`}
-            data-oid="7wu9rit"
+            data-oid="jivd_pq"
           >
             Next.js
           </Link>
           <Link
             href="/typescript"
             className={`relative no-underline text-foreground font-medium transition-opacity duration-200 hover:opacity-80 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-foreground after:transition-all after:duration-200 hover:after:w-full ${isActive("/typescript") ? "text-[#3498db] font-semibold after:w-full after:bg-[#3498db]" : ""} xl:text-[0.95rem] md:flex-[1_1_45%] md:text-center md:py-1 md:text-sm`}
-            data-oid="5ss2dln"
+            data-oid="fg9xl64"
           >
             TypeScript
           </Link>
           <Link
             href="/react"
             className={`relative no-underline text-foreground font-medium transition-opacity duration-200 hover:opacity-80 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-foreground after:transition-all after:duration-200 hover:after:w-full ${isActive("/react") ? "text-[#3498db] font-semibold after:w-full after:bg-[#3498db]" : ""} xl:text-[0.95rem] md:flex-[1_1_45%] md:text-center md:py-1 md:text-sm`}
-            data-oid="le_i9td"
+            data-oid="rskr897"
           >
             React
           </Link>
@@ -119,7 +119,7 @@ export default function Header() {
                   onClick={logout}
                   className="bg-gradient-to-br from-[#3498db] to-[#2980b9] text-white border-none rounded-lg px-4 py-2 text-sm font-semibold cursor-pointer no-underline transition-all duration-200 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#2980b9] hover:to-[#21618c] hover:-translate-y-[1px] hover:shadow-[0_2px_8px_rgba(52,152,219,0.3)] xl:flex-[1_1_45%] xl:justify-center xl:w-full md:flex-[1_1_100%]"
                   aria-label="ログアウト"
-                  data-oid="-8_v:5i"
+                  data-oid="i9ee.d5"
                 >
                   ログアウト
                 </button>
@@ -127,7 +127,7 @@ export default function Header() {
                 <Link
                   href="/login"
                   className="bg-gradient-to-br from-[#3498db] to-[#2980b9] text-white border-none rounded-lg px-4 py-2 text-sm font-semibold cursor-pointer no-underline transition-all duration-200 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#2980b9] hover:to-[#21618c] hover:-translate-y-[1px] hover:shadow-[0_2px_8px_rgba(52,152,219,0.3)] xl:flex-[1_1_45%] xl:justify-center xl:w-full md:flex-[1_1_100%]"
-                  data-oid="2_w0r43"
+                  data-oid="dytzhby"
                 >
                   ログイン
                 </Link>
@@ -143,7 +143,7 @@ export default function Header() {
                 ? "ライトモードに切り替え"
                 : "ダークモードに切り替え"
             }
-            data-oid="wticukm"
+            data-oid="pljhws_"
           >
             {mounted && resolvedTheme === "dark" ? "☀️" : "🌙"}
           </button>
@@ -156,7 +156,7 @@ export default function Header() {
             title={
               rightSidebarOpen ? "右サイドバーを閉じる" : "右サイドバーを開く"
             }
-            data-oid="esm3cb6"
+            data-oid="z-v4pxu"
           >
             {rightSidebarOpen ? "▶" : "◀"}
           </button>

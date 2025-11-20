@@ -192,24 +192,15 @@ export default function ReactPage() {
   };
 
   return (
-    <div
-      className="flex flex-col items-center min-h-screen p-10 px-5 font-sans leading-relaxed max-w-[1200px] mx-auto py-4 px-8"
-      data-oid="plj0oz:"
-    >
-      <main
-        className="max-w-[1000px] w-full flex flex-col gap-4"
-        data-oid="8qx7br9"
-      >
-        <header className="text-center" data-oid="rn:srwa">
-          <h1 className="text-4xl font-bold text-foreground" data-oid="n3oytal">
-            React 学習
-          </h1>
+    <div className="flex flex-col items-center min-h-screen p-10 px-5 font-sans leading-relaxed max-w-[1200px] mx-auto py-4 px-8">
+      <main className="max-w-[1000px] w-full flex flex-col gap-4">
+        <header className="text-center">
+          <h1 className="text-4xl font-bold text-foreground">React 学習</h1>
         </header>
         <SectionTabs
           sections={parentSections}
           activeSection={parentSection}
           onSectionClick={handleParentSectionClick}
-          data-oid="glo-neo"
         />
 
         {parentSection === "hooks" && (
@@ -217,7 +208,6 @@ export default function ReactPage() {
             sections={hooksChildSections}
             activeSection={childSection}
             onSectionClick={handleChildSectionClick}
-            data-oid="2e_p05_"
           />
         )}
         {parentSection === "api" && (
@@ -225,14 +215,9 @@ export default function ReactPage() {
             sections={apiChildSections}
             activeSection={childSection}
             onSectionClick={handleChildSectionClick}
-            data-oid="l8j9_z5"
           />
         )}
-        <LearningContent
-          key={activeSection}
-          sectionData={currentSectionData}
-          data-oid="c1ivhb0"
-        />
+        <LearningContent key={activeSection} sectionData={currentSectionData} />
 
         <PracticeSection
           sectionTitle={currentSectionData?.title || ""}
@@ -246,7 +231,6 @@ export default function ReactPage() {
           onSubmit={handleSubmitAnswer}
           onNext={handleNextQuestion}
           onReset={resetQuiz}
-          data-oid="gxjlg6e"
         />
       </main>
     </div>

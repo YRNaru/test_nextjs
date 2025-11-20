@@ -81,7 +81,6 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
         closeLeftSidebar,
         closeRightSidebar,
       }}
-      data-oid="qwmb:o3"
     >
       {children}
     </SidebarContext.Provider>

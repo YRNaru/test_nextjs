@@ -87,16 +87,16 @@ export default function LoginForm() {
     <form
       onSubmit={handleSubmit}
       className="flex flex-col gap-6 w-full max-w-[500px] mx-auto md:max-w-full"
-      data-oid="fieoqdd"
+      data-oid="gbh_n6g"
     >
-      <div className="flex flex-col gap-2" data-oid=":54y0m:">
+      <div className="flex flex-col gap-2" data-oid="_gep6n2">
         <label
           htmlFor="email"
           className="text-sm font-medium text-foreground flex items-center gap-1"
-          data-oid="06b0-r7"
+          data-oid=".34.-5k"
         >
           メールアドレス{" "}
-          <span className="text-[#e74c3c] font-semibold" data-oid="kewd8jw">
+          <span className="text-[#e74c3c] font-semibold" data-oid="bkp1vy-">
             *
           </span>
         </label>
@@ -109,24 +109,24 @@ export default function LoginForm() {
           placeholder="example@email.com"
           disabled={isSubmitting}
           autoComplete="email"
-          data-oid="qbwh9c9"
+          data-oid="2v.y_63"
         />
 
         {errors.email && (
-          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="iz0a09z">
+          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="aw0bg53">
             {errors.email}
           </span>
         )}
       </div>
 
-      <div className="flex flex-col gap-2" data-oid="0pg2o2x">
+      <div className="flex flex-col gap-2" data-oid="ost5bkl">
         <label
           htmlFor="password"
           className="text-sm font-medium text-foreground flex items-center gap-1"
-          data-oid=":wcv22k"
+          data-oid="15hx_v."
         >
           パスワード{" "}
-          <span className="text-[#e74c3c] font-semibold" data-oid="1wew41d">
+          <span className="text-[#e74c3c] font-semibold" data-oid="lk6y63y">
             *
           </span>
         </label>
@@ -139,11 +139,11 @@ export default function LoginForm() {
           placeholder="パスワードを入力"
           disabled={isSubmitting}
           autoComplete="current-password"
-          data-oid="-utbxc7"
+          data-oid="fco387g"
         />
 
         {errors.password && (
-          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="kih4a5k">
+          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="al:n8gh">
             {errors.password}
           </span>
         )}
@@ -152,7 +152,7 @@ export default function LoginForm() {
       {submitError && (
         <div
           className="px-4 py-3 bg-[rgba(231,76,60,0.1)] border border-[rgba(231,76,60,0.3)] rounded-lg text-[#e74c3c] text-sm text-center"
-          data-oid="ugk5m49"
+          data-oid="ngmdbsb"
         >
           {submitError}
         </div>
@@ -162,7 +162,7 @@ export default function LoginForm() {
         type="submit"
         className="py-3.5 px-6 text-base font-semibold text-white bg-gradient-to-br from-[#3498db] to-[#2980b9] border-none rounded-lg cursor-pointer transition-all duration-200 mt-2 hover:from-[#2980b9] hover:to-[#21618c] hover:-translate-y-[1px] hover:shadow-[0_4px_12px_rgba(52,152,219,0.3)] active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
         disabled={isSubmitting}
-        data-oid="2he6oi:"
+        data-oid="kwbl02b"
       >
         {isSubmitting ? "ログイン中..." : "ログイン"}
       </button>

@@ -5,34 +5,36 @@ import { ReactNode, useEffect, useState } from "react";
 
 export default function MainContent({ children }: { children: ReactNode }) {
   const { leftSidebarOpen, rightSidebarOpen } = useSidebar();
-  const [viewportWidth, setViewportWidth] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth;
-    }
-    return 0;
-  });
+  const [mounted, setMounted] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+    // クライアント側でのみ実行
+    setMounted(true);
+    setViewportWidth(window.innerWidth);
 
     const handleResize = () => {
       setViewportWidth(window.innerWidth);
     };
 
-    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // サーバー側とクライアント側で同じ初期値を返す
   const sidebarWidth =
     viewportWidth > 1200 && viewportWidth <= 1400 ? 220 : 250;
   const shouldOffsetSidebars = viewportWidth >= 1200;
+
+  // mountedになるまではサーバー側と同じ値（0）を返す
   const paddingLeft =
-    leftSidebarOpen && shouldOffsetSidebars ? `${sidebarWidth}px` : "0";
+    mounted && leftSidebarOpen && shouldOffsetSidebars
+      ? `${sidebarWidth}px`
+      : "0";
   const paddingRight =
-    rightSidebarOpen && shouldOffsetSidebars ? `${sidebarWidth}px` : "0";
+    mounted && rightSidebarOpen && shouldOffsetSidebars
+      ? `${sidebarWidth}px`
+      : "0";
 
   return (
     <main
@@ -41,7 +43,7 @@ export default function MainContent({ children }: { children: ReactNode }) {
         paddingLeft,
         paddingRight,
       }}
-      data-oid="ww99tno"
+      data-oid="wz2tdd8"
     >
       {children}
     </main>

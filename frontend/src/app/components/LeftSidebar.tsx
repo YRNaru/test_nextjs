@@ -36,30 +36,30 @@ export default function LeftSidebar() {
         `,
         backgroundSize: "20px 20px",
       }}
-      data-oid="6cli-68"
+      data-oid=":ld3mhb"
     >
       <div
         className="flex flex-col gap-6 bg-black/5 dark:bg-white/6 p-2 rounded-lg border border-dashed border-black/[0.08] dark:border-white/[0.145]"
-        data-oid="u48_bby"
+        data-oid="4a9ducs"
       >
         <h3
           className="text-lg font-semibold mb-4 m-0 text-foreground pb-3 border-b-2 border-black/[0.08] dark:border-white/[0.145] relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-5 before:h-0.5 before:bg-foreground before:opacity-30 after:content-[''] after:absolute after:bottom-[-2px] after:right-0 after:w-5 after:h-0.5 after:bg-foreground after:opacity-30"
-          data-oid="81-:l8b"
+          data-oid="s:mk:tl"
         >
           📚 クイックナビ
         </h3>
-        <nav className="flex flex-col gap-2" data-oid="sw-.p:9">
+        <nav className="flex flex-col gap-2" data-oid="nmaeiu9">
           {quickLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={`relative flex items-center gap-3 px-3 py-3 rounded-lg border border-black/[0.08] dark:border-white/[0.145] no-underline text-foreground transition-all duration-200 text-sm bg-background before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-0.5 before:h-0 before:bg-[#3498db] before:transition-all before:duration-200 before:rounded-l-sm hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1 hover:border-black/[0.08] dark:hover:border-white/[0.145] hover:before:h-[60%] ${isActive(link.href) ? "bg-[rgba(52,152,219,0.1)] text-[#3498db] font-semibold border-[#3498db] before:h-[80%]" : ""}`}
-              data-oid="a_ev:n6"
+              data-oid="k-yy7st"
             >
-              <span className="text-lg shrink-0" data-oid="5nmwlto">
+              <span className="text-lg shrink-0" data-oid="2pcpj50">
                 {link.icon}
               </span>
-              <span className="flex-1" data-oid="umpgaq4">
+              <span className="flex-1" data-oid="-go6-5_">
                 {link.label}
               </span>
             </Link>
@@ -68,47 +68,47 @@ export default function LeftSidebar() {
 
         <div
           className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]"
-          data-oid="va958vb"
+          data-oid="k6i9tpz"
         >
           <h4
             className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90"
-            data-oid="gwr4q:7"
+            data-oid="m5g9orv"
           >
             💡 便利リンク
           </h4>
           <ul
             className="list-none p-0 m-0 flex flex-col gap-2"
-            data-oid="zqfvqqe"
+            data-oid="rqe3g0y"
           >
-            <li className="m-0" data-oid="bdowblx">
+            <li className="m-0" data-oid="g0sp5ck">
               <a
                 href="https://nextjs.org/docs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block px-3 py-2 rounded-md no-underline text-foreground text-sm transition-all duration-200 opacity-80 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:opacity-100"
-                data-oid="az-pdxb"
+                data-oid="nkw0vgs"
               >
                 Next.js 公式ドキュメント
               </a>
             </li>
-            <li className="m-0" data-oid="6nlbyrh">
+            <li className="m-0" data-oid="rvm83u2">
               <a
                 href="https://react.dev"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block px-3 py-2 rounded-md no-underline text-foreground text-sm transition-all duration-200 opacity-80 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:opacity-100"
-                data-oid="i_di00q"
+                data-oid="xuibqc3"
               >
                 React 公式サイト
               </a>
             </li>
-            <li className="m-0" data-oid="ppwlx2m">
+            <li className="m-0" data-oid="0k6ervs">
               <a
                 href="https://www.typescriptlang.org/docs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block px-3 py-2 rounded-md no-underline text-foreground text-sm transition-all duration-200 opacity-80 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:opacity-100"
-                data-oid="78p8d5c"
+                data-oid="_h._a9m"
               >
                 TypeScript ドキュメント
               </a>

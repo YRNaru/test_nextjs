@@ -4,29 +4,29 @@ export default function About() {
   return (
     <div
       className="flex flex-col items-center min-h-screen p-10 px-5 font-sans leading-relaxed md:p-5 md:px-4"
-      data-oid="o1db6_h"
+      data-oid="f7:vb:e"
     >
       <main
         className="max-w-[800px] w-full flex flex-col gap-10"
-        data-oid="tt21nb5"
+        data-oid="664an-1"
       >
         <h1
           className="text-4xl font-bold text-center m-0 text-foreground md:text-3xl"
-          data-oid="v2x6map"
+          data-oid="hu3iuz4"
         >
           📖 About Next.js
         </h1>
         <div
           className="bg-black/5 dark:bg-white/6 p-6 rounded-xl border border-black/[0.08] dark:border-white/[0.145] md:p-5"
-          data-oid="dgnwh2b"
+          data-oid="h1qaayw"
         >
           <h2
             className="text-2xl font-semibold m-0 mb-4 text-foreground md:text-xl"
-            data-oid="cj_56wk"
+            data-oid="u_._8r."
           >
             🎯 この講座について
           </h2>
-          <p className="m-0 mb-4 text-foreground" data-oid="cpceo2f">
+          <p className="m-0 mb-4 text-foreground" data-oid="su1f29f">
             この講座では、Next.jsの基本から実践的な開発まで、段階的に学んでいきます。
             実際にコードを書きながら、Next.jsの強力な機能を体験してください。
           </p>
@@ -34,40 +34,40 @@ export default function About() {
 
         <div
           className="bg-black/5 dark:bg-white/6 p-6 rounded-xl border border-black/[0.08] dark:border-white/[0.145] md:p-5"
-          data-oid=".own7i_"
+          data-oid="3g72xx6"
         >
           <h2
             className="text-2xl font-semibold m-0 mb-4 text-foreground md:text-xl"
-            data-oid=":5j.a66"
+            data-oid="ukhq9zv"
           >
             📚 学習内容
           </h2>
-          <ul className="m-0 pl-5" data-oid="24fafl8">
-            <li className="mb-2 text-foreground" data-oid="bcqom_w">
-              <strong data-oid="q2ijywu">App Router</strong> -
+          <ul className="m-0 pl-5" data-oid="hkz2ifl">
+            <li className="mb-2 text-foreground" data-oid="zeokk43">
+              <strong data-oid=":9:u3lc">App Router</strong> -
               新しいルーティングシステム
             </li>
-            <li className="mb-2 text-foreground" data-oid="iq_0e.b">
-              <strong data-oid="8w4ea1x">コンポーネント</strong> -
+            <li className="mb-2 text-foreground" data-oid="597.yt8">
+              <strong data-oid="5ykr5w:">コンポーネント</strong> -
               再利用可能なUI部品
             </li>
-            <li className="mb-2 text-foreground" data-oid="_qxs2e-">
-              <strong data-oid="1_jj74v">スタイリング</strong> - CSS
+            <li className="mb-2 text-foreground" data-oid="0ag_pkq">
+              <strong data-oid="r3_6bxo">スタイリング</strong> - CSS
               ModulesとTailwind CSS
             </li>
-            <li className="mb-2 text-foreground" data-oid="xeavi54">
-              <strong data-oid="5tew06w">データフェッチ</strong> - API
+            <li className="mb-2 text-foreground" data-oid="oh3xwar">
+              <strong data-oid="suv1t__">データフェッチ</strong> - API
               RoutesとSSR
             </li>
-            <li className="mb-2 text-foreground" data-oid="u6efkb_">
-              <strong data-oid=".m1lwem">デプロイ</strong> - Vercelへの公開
+            <li className="mb-2 text-foreground" data-oid="ul0xu7g">
+              <strong data-oid="an5vqem">デプロイ</strong> - Vercelへの公開
             </li>
-            <li className="mb-2 text-foreground" data-oid="d:2fxn5">
-              <strong data-oid="0mu.w82">React</strong> -
+            <li className="mb-2 text-foreground" data-oid="uyeihcn">
+              <strong data-oid="d1f.0ti">React</strong> -
               コンポーネントベースのUI開発
             </li>
-            <li className="mb-2 text-foreground" data-oid="jfpyeoa">
-              <strong data-oid="..g7je2">TypeScript</strong> -
+            <li className="mb-2 text-foreground" data-oid="f5hol66">
+              <strong data-oid="bsounqr">TypeScript</strong> -
               静的型付けによるコードの安全性
             </li>
           </ul>
@@ -75,71 +75,71 @@ export default function About() {
 
         <div
           className="bg-black/5 dark:bg-white/6 p-6 rounded-xl border border-black/[0.08] dark:border-white/[0.145] md:p-5"
-          data-oid="29hyty8"
+          data-oid="ueizl7k"
         >
           <h2
             className="text-2xl font-semibold m-0 mb-4 text-foreground md:text-xl"
-            data-oid="p5p5iio"
+            data-oid="c32r5l:"
           >
             🛠️ 開発環境
           </h2>
-          <p className="m-0 mb-4 text-foreground" data-oid="fdsgw81">
+          <p className="m-0 mb-4 text-foreground" data-oid="tutqnp4">
             現在使用している技術スタック：
           </p>
           <div
             className="flex flex-wrap gap-3 mt-4 md:gap-2"
-            data-oid="8ns1fyo"
+            data-oid="osfq5b3"
           >
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
-              data-oid="ezeun80"
+              data-oid="u9g67qs"
             >
               Next.js 15.3.4
             </span>
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
-              data-oid="4nkwr4q"
+              data-oid="fd3h2u2"
             >
               React 18
             </span>
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
-              data-oid="08nu.tf"
+              data-oid="c8_dr9y"
             >
               TypeScript
             </span>
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
-              data-oid="e9speu5"
+              data-oid="-eceioq"
             >
               CSS Modules
             </span>
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
-              data-oid="5vgjc.p"
+              data-oid="fnhn7vw"
             >
               Tailwind CSS
             </span>
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
-              data-oid="szq5ik5"
+              data-oid="a62nuek"
             >
               React
             </span>
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
-              data-oid="kduu4om"
+              data-oid="6c5.7in"
             >
               TypeScript
             </span>
           </div>
         </div>
 
-        <div className="text-center mt-5" data-oid="hcvibdn">
+        <div className="text-center mt-5" data-oid="bf7.m_p">
           <Link
             href="/"
             className="inline-flex items-center px-6 py-3 bg-foreground text-background no-underline rounded-lg font-medium transition-opacity duration-200 hover:opacity-80"
-            data-oid="s:ex-n4"
+            data-oid="63emcv-"
           >
             ← ホームに戻る
           </Link>

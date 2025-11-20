@@ -30,40 +30,22 @@ export default function NextjsPage() {
   const subDetail = subRenderingDetails[activeSubRendering];
 
   return (
-    <div
-      className="flex flex-col items-center min-h-screen p-10 px-5 font-sans leading-relaxed md:p-5 md:px-4"
-      data-oid="0ky-b11"
-    >
-      <main
-        className="max-w-[800px] w-full flex flex-col gap-10"
-        data-oid="gk.pyli"
-      >
-        <h1
-          className="text-4xl font-bold text-center m-0 text-foreground md:text-3xl"
-          data-oid="vgcy_mq"
-        >
+    <div className="flex flex-col items-center min-h-screen p-10 px-5 font-sans leading-relaxed md:p-5 md:px-4">
+      <main className="max-w-[800px] w-full flex flex-col gap-10">
+        <h1 className="text-4xl font-bold text-center m-0 text-foreground md:text-3xl">
           📝 Next.jsの主な特徴
         </h1>
-        <div
-          className="bg-black/5 dark:bg-white/6 p-6 rounded-xl border border-black/[0.08] dark:border-white/[0.145] md:p-5"
-          data-oid="a23_t1c"
-        >
-          <h2
-            className="text-2xl font-semibold m-0 mb-4 text-foreground md:text-xl"
-            data-oid=":nn5qt:"
-          >
+        <div className="bg-black/5 dark:bg-white/6 p-6 rounded-xl border border-black/[0.08] dark:border-white/[0.145] md:p-5">
+          <h2 className="text-2xl font-semibold m-0 mb-4 text-foreground md:text-xl">
             Next.jsの主な学習項目
           </h2>
-          <p className="m-0 mb-4 text-foreground" data-oid="aonirnx">
+          <p className="m-0 mb-4 text-foreground">
             Next.jsの代表的な特徴や機能を、タブで切り替えて学べます。
-            <br data-oid="q.4bdla" />
+            <br />
             それぞれの項目を選択して詳細を確認しましょう。
           </p>
         </div>
-        <div
-          className="bg-black/5 dark:bg-white/6 p-6 rounded-xl border border-black/[0.08] dark:border-white/[0.145] md:p-5"
-          data-oid="gyw0-hw"
-        >
+        <div className="bg-black/5 dark:bg-white/6 p-6 rounded-xl border border-black/[0.08] dark:border-white/[0.145] md:p-5">
           <div
             style={{
               display: "flex",
@@ -72,7 +54,6 @@ export default function NextjsPage() {
               flexWrap: "wrap",
               justifyContent: "center",
             }}
-            data-oid="ksbfin:"
           >
             {topics.map((topic) => (
               <button
@@ -99,9 +80,8 @@ export default function NextjsPage() {
                       ? "0 4px 12px rgba(52,152,219,0.15)"
                       : "none",
                 }}
-                data-oid="xe:c.38"
               >
-                <span style={{ marginRight: 8 }} data-oid="4t6-mty">
+                <span style={{ marginRight: 8 }}>
                   {topicDetails[topic.key].icon}
                 </span>
                 {topic.label}
@@ -117,7 +97,6 @@ export default function NextjsPage() {
                   marginBottom: "2rem",
                   justifyContent: "center",
                 }}
-                data-oid="fgsr:oy"
               >
                 {subRenderings.map((sub) => (
                   <button
@@ -143,9 +122,8 @@ export default function NextjsPage() {
                           ? "0 2px 8px rgba(39,174,96,0.15)"
                           : "none",
                     }}
-                    data-oid="2czoy5t"
                   >
-                    <span style={{ marginRight: 8 }} data-oid="stxqmj7">
+                    <span style={{ marginRight: 8 }}>
                       {subRenderingDetails[sub.key].icon}
                     </span>
                     {sub.label}
@@ -159,7 +137,6 @@ export default function NextjsPage() {
                   padding: 24,
                   border: "1px solid var(--gray-alpha-200)",
                 }}
-                data-oid="77i83-6"
               >
                 <h3
                   style={{
@@ -168,63 +145,45 @@ export default function NextjsPage() {
                     fontSize: "1.3rem",
                     marginBottom: 12,
                   }}
-                  data-oid="g_hf-we"
                 >
-                  <span
-                    style={{ fontSize: "2rem", marginRight: 12 }}
-                    data-oid="uf:0935"
-                  >
+                  <span style={{ fontSize: "2rem", marginRight: 12 }}>
                     {subDetail.icon}
                   </span>
                   {subDetail.title}
                 </h3>
-                <p
-                  style={{ fontWeight: 500, marginBottom: 16 }}
-                  data-oid="jtsx3l."
-                >
+                <p style={{ fontWeight: 500, marginBottom: 16 }}>
                   {subDetail.summary}
                 </p>
-                <div style={{ marginBottom: 16 }} data-oid="v3jz9w.">
-                  <strong data-oid="-hb-s08">✅ 主な特徴</strong>
-                  <ul style={{ margin: 0, paddingLeft: 20 }} data-oid="g0ahchz">
+                <div style={{ marginBottom: 16 }}>
+                  <strong>✅ 主な特徴</strong>
+                  <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {subDetail.features.map((f: string, i: number) => (
-                      <li key={i} data-oid="skp_10o">
-                        {f}
-                      </li>
+                      <li key={i}>{f}</li>
                     ))}
                   </ul>
                 </div>
-                <div style={{ marginBottom: 16 }} data-oid="tf4:9ha">
-                  <strong data-oid="1sopal:">✅ 向いているケース</strong>
-                  <ul style={{ margin: 0, paddingLeft: 20 }} data-oid="f0nk:0a">
+                <div style={{ marginBottom: 16 }}>
+                  <strong>✅ 向いているケース</strong>
+                  <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {subDetail.useCases.map((f: string, i: number) => (
-                      <li key={i} data-oid="sb_z3f1">
-                        {f}
-                      </li>
+                      <li key={i}>{f}</li>
                     ))}
                   </ul>
                 </div>
-                <div style={{ marginBottom: 16 }} data-oid="w9cd501">
-                  <strong data-oid="_-nscol">⚠️ 注意点</strong>
-                  <ul style={{ margin: 0, paddingLeft: 20 }} data-oid="liugz1b">
+                <div style={{ marginBottom: 16 }}>
+                  <strong>⚠️ 注意点</strong>
+                  <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {subDetail.cautions.map((f: string, i: number) => (
-                      <li key={i} data-oid="2hxfe3d">
-                        {f}
-                      </li>
+                      <li key={i}>{f}</li>
                     ))}
                   </ul>
                 </div>
                 {subDetail.notes && subDetail.notes.length > 0 && (
-                  <div style={{ marginBottom: 8 }} data-oid="0u.hkry">
-                    <strong data-oid="crwxmsc">💡 補足</strong>
-                    <ul
-                      style={{ margin: 0, paddingLeft: 20 }}
-                      data-oid="fh-e483"
-                    >
+                  <div style={{ marginBottom: 8 }}>
+                    <strong>💡 補足</strong>
+                    <ul style={{ margin: 0, paddingLeft: 20 }}>
                       {subDetail.notes.map((f: string, i: number) => (
-                        <li key={i} data-oid="t3l6yes">
-                          {f}
-                        </li>
+                        <li key={i}>{f}</li>
                       ))}
                     </ul>
                   </div>
@@ -239,7 +198,6 @@ export default function NextjsPage() {
                 padding: 24,
                 border: "1px solid var(--gray-alpha-200)",
               }}
-              data-oid="jgfuxto"
             >
               <h3
                 style={{
@@ -248,66 +206,51 @@ export default function NextjsPage() {
                   fontSize: "1.3rem",
                   marginBottom: 12,
                 }}
-                data-oid="rz8kkw_"
               >
-                <span
-                  style={{ fontSize: "2rem", marginRight: 12 }}
-                  data-oid="ab6ol2:"
-                >
+                <span style={{ fontSize: "2rem", marginRight: 12 }}>
                   {detail.icon}
                 </span>
                 {detail.title}
               </h3>
-              <p
-                style={{ fontWeight: 500, marginBottom: 16 }}
-                data-oid="2i6tz40"
-              >
+              <p style={{ fontWeight: 500, marginBottom: 16 }}>
                 {detail.summary}
               </p>
               {detail.features.length > 0 && (
-                <div style={{ marginBottom: 16 }} data-oid="gq3_e.1">
-                  <strong data-oid="dm24v5i">✅ 主な特徴</strong>
-                  <ul style={{ margin: 0, paddingLeft: 20 }} data-oid="iib6a_s">
+                <div style={{ marginBottom: 16 }}>
+                  <strong>✅ 主な特徴</strong>
+                  <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {detail.features.map((f: string, i: number) => (
-                      <li key={i} data-oid="duchh4x">
-                        {f}
-                      </li>
+                      <li key={i}>{f}</li>
                     ))}
                   </ul>
                 </div>
               )}
               {detail.useCases.length > 0 && (
-                <div style={{ marginBottom: 16 }} data-oid="5dqvu68">
-                  <strong data-oid="ne73wxi">✅ 向いているケース</strong>
-                  <ul style={{ margin: 0, paddingLeft: 20 }} data-oid="y27ektf">
+                <div style={{ marginBottom: 16 }}>
+                  <strong>✅ 向いているケース</strong>
+                  <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {detail.useCases.map((f: string, i: number) => (
-                      <li key={i} data-oid="53k7ijt">
-                        {f}
-                      </li>
+                      <li key={i}>{f}</li>
                     ))}
                   </ul>
                 </div>
               )}
               {detail.cautions.length > 0 && (
-                <div style={{ marginBottom: 16 }} data-oid="xw4-yq3">
-                  <strong data-oid="d_hwc:i">⚠️ 注意点</strong>
-                  <ul style={{ margin: 0, paddingLeft: 20 }} data-oid="p192dyr">
+                <div style={{ marginBottom: 16 }}>
+                  <strong>⚠️ 注意点</strong>
+                  <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {detail.cautions.map((f: string, i: number) => (
-                      <li key={i} data-oid="03bz.34">
-                        {f}
-                      </li>
+                      <li key={i}>{f}</li>
                     ))}
                   </ul>
                 </div>
               )}
               {detail.notes && detail.notes.length > 0 && (
-                <div style={{ marginBottom: 8 }} data-oid="7fm:id9">
-                  <strong data-oid="rtzsurt">💡 補足</strong>
-                  <ul style={{ margin: 0, paddingLeft: 20 }} data-oid="zfiev6p">
+                <div style={{ marginBottom: 8 }}>
+                  <strong>💡 補足</strong>
+                  <ul style={{ margin: 0, paddingLeft: 20 }}>
                     {detail.notes.map((f: string, i: number) => (
-                      <li key={i} data-oid="9wrq-7a">
-                        {f}
-                      </li>
+                      <li key={i}>{f}</li>
                     ))}
                   </ul>
                 </div>
@@ -315,11 +258,10 @@ export default function NextjsPage() {
             </div>
           )}
         </div>
-        <div className="text-center mt-5" data-oid="gm7hztb">
+        <div className="text-center mt-5">
           <Link
             href="/"
             className="inline-flex items-center px-6 py-3 bg-foreground text-background no-underline rounded-lg font-medium transition-opacity duration-200 hover:opacity-80"
-            data-oid="vnilpfi"
           >
             ← ホームに戻る
           </Link>

@@ -38,15 +38,15 @@ export default function GoogleLoginButton({
 
   if (!clientId) {
     return (
-      <div className="alert alert-warning" data-oid="ih-ru7v">
+      <div className="alert alert-warning">
         Google Client IDが設定されていません。
       </div>
     );
   }
 
   return (
-    <GoogleOAuthProvider clientId={clientId} data-oid=":l:vw8a">
-      <div className="d-flex justify-content-center" data-oid=":ufqtcy">
+    <GoogleOAuthProvider clientId={clientId}>
+      <div className="d-flex justify-content-center">
         <GoogleLogin
           onSuccess={handleSuccess}
           onError={handleError}
@@ -54,7 +54,6 @@ export default function GoogleLoginButton({
           size="large"
           text="continue_with"
           locale="ja"
-          data-oid="37_-8s7"
         />
       </div>
     </GoogleOAuthProvider>
