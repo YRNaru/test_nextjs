@@ -130,9 +130,10 @@ export default function Header() {
         <div className="absolute right-4 flex items-center gap-4 xl:right-5">
           <Link
             href="/"
-            className="text-2xl font-bold no-underline text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 transition-all duration-300 hover:scale-105 xl:text-[1.4rem] md:text-xl"
+            className="text-2xl font-bold no-underline transition-all duration-300 hover:scale-105 xl:text-[1.4rem] md:text-xl flex items-center gap-2"
           >
-            🚀 モダンWebアプリ開発
+            <span className="text-3xl xl:text-2xl md:text-xl">🚀</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">モダンWebアプリ開発</span>
           </Link>
           <button
             onClick={toggleRightSidebar}

@@ -11,8 +11,9 @@ export default function Footer() {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-8 mb-8 md:grid-cols-1 md:gap-6">
           {/* セクション1 */}
           <div className="group">
-            <h3 className="text-2xl font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500 md:text-xl">
-              🚀 Next.js 初心者講座
+            <h3 className="text-2xl font-bold mb-4 m-0 md:text-xl flex items-center gap-2">
+              <span className="text-3xl md:text-2xl">🚀</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">Next.js 初心者講座</span>
             </h3>
             <p className="m-0 mb-4 text-foreground/80 leading-relaxed">
               Next.jsの基本から実践的な開発まで、段階的に学べる学習用プロジェクトです。
@@ -21,8 +22,9 @@ export default function Footer() {
 
           {/* セクション2 */}
           <div>
-            <h4 className="text-lg font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
-              📚 学習内容
+            <h4 className="text-lg font-bold mb-4 m-0 flex items-center gap-2">
+              <span className="text-xl">📚</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">学習内容</span>
             </h4>
             <ul className="list-none p-0 m-0 space-y-2">
               {["App Router", "コンポーネント開発", "TypeScript", "API開発"].map((item, index) => (
@@ -36,8 +38,9 @@ export default function Footer() {
 
           {/* セクション3 */}
           <div>
-            <h4 className="text-lg font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">
-              🔗 リンク
+            <h4 className="text-lg font-bold mb-4 m-0 flex items-center gap-2">
+              <span className="text-xl">🔗</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">リンク</span>
             </h4>
             <ul className="list-none p-0 m-0 space-y-2">
               {[

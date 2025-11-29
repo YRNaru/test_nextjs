@@ -43,8 +43,9 @@ export default function LeftSidebar() {
       <div className="flex flex-col gap-6">
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl blur-xl opacity-20"></div>
-          <h3 className="relative text-xl font-bold m-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500 pb-4">
-            📚 クイックナビ
+          <h3 className="relative text-xl font-bold m-0 pb-4 flex items-center gap-2">
+            <span className="text-2xl">📚</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">クイックナビ</span>
           </h3>
         </div>
 
@@ -71,10 +72,11 @@ export default function LeftSidebar() {
           ))}
         </nav>
 
-        <div className="relative mt-4 p-5 rounded-2xl backdrop-blur-md bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 shadow-xl">
+        <div className="relative mt-4 p-3 rounded-2xl backdrop-blur-md bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 shadow-xl">
           <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl opacity-20"></div>
-          <h4 className="relative text-base font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
-            💡 便利リンク
+          <h4 className="relative text-base font-bold mb-4 m-0 flex items-center gap-2">
+            <span className="text-lg">💡</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">便利リンク</span>
           </h4>
           <ul className="relative list-none p-0 m-0 flex flex-col gap-2">
             <li className="m-0">
