@@ -21,9 +21,9 @@ export default function MainContent({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // サーバー側とクライアント側で同じ初期値を返す
-  const sidebarWidth =
-    viewportWidth > 1200 && viewportWidth <= 1400 ? 220 : 250;
+  // サイドバー幅を320pxに固定（パディング6 = 24px を含む）
+  const sidebarWidth = 320;
+  // 1280px以上（xlブレークポイント）でサイドバーが固定表示される
   const shouldOffsetSidebars = viewportWidth >= 1200;
 
   // mountedになるまではサーバー側と同じ値（0）を返す
@@ -38,12 +38,11 @@ export default function MainContent({ children }: { children: ReactNode }) {
 
   return (
     <main
-      className="min-h-screen pt-20 transition-[padding] duration-300 xl:px-0 md:px-0"
+      className="min-h-screen pt-20 transition-[padding] duration-300 ease-in-out"
       style={{
         paddingLeft,
         paddingRight,
       }}
-      data-oid="wz2tdd8"
     >
       {children}
     </main>

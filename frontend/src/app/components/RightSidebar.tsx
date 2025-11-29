@@ -17,7 +17,6 @@ export default function RightSidebar() {
   ];
 
   useEffect(() => {
-    // クライアント側でのみ実行されるようにする
     setCurrentTime(new Date());
     setRandomTip(tips[Math.floor(Math.random() * tips.length)]);
 
@@ -30,13 +29,8 @@ export default function RightSidebar() {
 
   return (
     <aside
-      className={`fixed top-20 bottom-0 w-[320px] max-h-[calc(100vh-80px)] overflow-y-auto bg-black/5 dark:bg-white/6 border-l-2 border-black/[0.08] dark:border-white/[0.145] p-6 pr-4 z-50 transition-all duration-300 right-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.145)] scrollbar-hide xl:w-[280px] lg:top-18 lg:bottom-auto lg:max-h-[calc(100vh-96px)] lg:w-[min(320px,90vw)] lg:mx-4 lg:rounded-2xl lg:shadow-[0_20px_40px_rgba(0,0,0,0.18)] lg:border lg:border-black/[0.08] dark:lg:border-white/[0.145] lg:border-l-0 lg:right-0 md:w-[min(300px,88vw)] md:mx-3 md:right-3 md:closed:translate-x-[110%] ${rightSidebarOpen ? "translate-x-0 opacity-100 shadow-[0_16px_32px_rgba(0,0,0,0.12)]" : "translate-x-[100%] opacity-0 pointer-events-none"}`}
+      className={`fixed top-20 bottom-0 w-[320px] max-h-[calc(100vh-80px)] overflow-y-auto backdrop-blur-xl bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-gray-900/90 dark:via-gray-900/80 dark:to-gray-900/90 border-l border-white/20 dark:border-white/10 p-6 pr-4 z-50 transition-all duration-300 right-0 shadow-2xl shadow-black/10 dark:shadow-black/30 scrollbar-hide xl:translate-x-0 ${rightSidebarOpen ? "translate-x-0 opacity-100" : "translate-x-[100%] opacity-0 pointer-events-none xl:translate-x-0 xl:opacity-100 xl:pointer-events-auto"}`}
       style={{
-        backgroundImage: `
-          linear-gradient(to right, rgba(0,0,0,0.08) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(0,0,0,0.08) 1px, transparent 1px)
-        `,
-        backgroundSize: "20px 20px",
         scrollbarWidth: "none",
         msOverflowStyle: "none",
       }}
@@ -46,92 +40,93 @@ export default function RightSidebar() {
           display: none;
         }
       `}</style>
-      <div className="flex flex-col gap-6 bg-black/5 dark:bg-white/6 p-2 rounded-lg border border-dashed border-black/[0.08] dark:border-white/[0.145]">
-        <h3 className="text-lg font-semibold mb-4 m-0 text-foreground pb-3 border-b-2 border-black/[0.08] dark:border-white/[0.145] relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-5 before:h-0.5 before:bg-foreground before:opacity-30 after:content-[''] after:absolute after:bottom-[-2px] after:right-0 after:w-5 after:h-0.5 after:bg-foreground after:opacity-30">
-          ⏰ 現在時刻
-        </h3>
-        <div className="text-2xl font-bold text-foreground text-center py-4 bg-black/[0.08] dark:bg-white/[0.145] rounded-lg mb-2 font-mono">
-          {currentTime ? currentTime.toLocaleTimeString("ja-JP") : "--:--:--"}
-        </div>
-        <div className="text-sm text-foreground text-center opacity-70 mb-4">
-          {currentTime
-            ? currentTime.toLocaleDateString("ja-JP", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                weekday: "long",
-              })
-            : "読み込み中..."}
+      
+      <div className="flex flex-col gap-6">
+        {/* 現在時刻 */}
+        <div className="relative p-6 rounded-2xl backdrop-blur-md bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 shadow-xl overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full blur-3xl opacity-20"></div>
+          <h3 className="relative text-lg font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">
+            ⏰ 現在時刻
+          </h3>
+          <div className="relative text-3xl font-bold text-center py-5 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white mb-3 font-mono shadow-lg">
+            {currentTime ? currentTime.toLocaleTimeString("ja-JP") : "--:--:--"}
+          </div>
+          <div className="relative text-sm text-center text-foreground/80">
+            {currentTime
+              ? currentTime.toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  weekday: "long",
+                })
+              : "読み込み中..."}
+          </div>
         </div>
 
-        <div className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
-          <h4 className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90">
+        {/* 今日のヒント */}
+        <div className="relative p-5 rounded-2xl backdrop-blur-md bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 shadow-xl overflow-hidden">
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl opacity-20"></div>
+          <h4 className="relative text-base font-bold mb-3 m-0 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
             💡 今日のヒント
           </h4>
-          <p className="text-sm text-foreground leading-relaxed m-0 px-3 py-3 bg-black/[0.08] dark:bg-white/[0.145] rounded-lg border-l-[3px] border-[#3498db]">
+          <p className="relative text-sm text-foreground leading-relaxed m-0 px-4 py-3.5 bg-white/50 dark:bg-gray-800/50 rounded-xl border-l-4 border-purple-500 shadow-md">
             {randomTip || "読み込み中..."}
           </p>
         </div>
 
-        <div className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
-          <h4 className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90">
+        {/* 学習進捗 */}
+        <div className="relative p-5 rounded-2xl backdrop-blur-md bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 shadow-xl overflow-hidden">
+          <div className="absolute top-0 left-0 w-28 h-28 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full blur-3xl opacity-20"></div>
+          <h4 className="relative text-base font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">
             📊 学習進捗
           </h4>
-          <div className="mb-4">
-            <span className="block text-xs text-foreground mb-2 opacity-80">
-              Next.js基礎
-            </span>
-            <div className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-[#3498db] to-[#2ecc71] rounded transition-all duration-300"
-                style={{ width: "75%" }}
-              ></div>
+          <div className="relative space-y-4">
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-foreground">Next.js基礎</span>
+                <span className="text-sm font-bold text-green-500">75%</span>
+              </div>
+              <div className="relative w-full h-3 bg-white/30 dark:bg-gray-800/30 rounded-full overflow-hidden shadow-inner">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full transition-all duration-300 shadow-lg" style={{ width: "75%" }}></div>
+              </div>
             </div>
-          </div>
-          <div className="mb-4">
-            <span className="block text-xs text-foreground mb-2 opacity-80">
-              React基礎
-            </span>
-            <div className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-[#3498db] to-[#2ecc71] rounded transition-all duration-300"
-                style={{ width: "60%" }}
-              ></div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-foreground">React基礎</span>
+                <span className="text-sm font-bold text-blue-500">60%</span>
+              </div>
+              <div className="relative w-full h-3 bg-white/30 dark:bg-gray-800/30 rounded-full overflow-hidden shadow-inner">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-300 shadow-lg" style={{ width: "60%" }}></div>
+              </div>
             </div>
-          </div>
-          <div className="mb-4">
-            <span className="block text-xs text-foreground mb-2 opacity-80">
-              TypeScript
-            </span>
-            <div className="w-full h-2 bg-black/[0.08] dark:bg-white/[0.145] rounded overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-[#3498db] to-[#2ecc71] rounded transition-all duration-300"
-                style={{ width: "85%" }}
-              ></div>
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-foreground">TypeScript</span>
+                <span className="text-sm font-bold text-purple-500">85%</span>
+              </div>
+              <div className="relative w-full h-3 bg-white/30 dark:bg-gray-800/30 rounded-full overflow-hidden shadow-inner">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-300 shadow-lg" style={{ width: "85%" }}></div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-2 p-4 border border-black/[0.08] dark:border-white/[0.145] rounded-lg bg-background shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
-          <h4 className="text-sm font-semibold mb-3 m-0 text-foreground opacity-90">
+        {/* ブックマーク */}
+        <div className="relative p-5 rounded-2xl backdrop-blur-md bg-gradient-to-br from-orange-500/10 to-yellow-500/10 border border-orange-500/20 shadow-xl overflow-hidden">
+          <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full blur-3xl opacity-20"></div>
+          <h4 className="relative text-base font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">
             🔖 ブックマーク
           </h4>
-          <ul className="list-none p-0 m-0 flex flex-col gap-2">
-            <li className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1">
-              ⭐ よく使うコードスニペット
-            </li>
-            <li className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1">
-              📚 参考書籍リスト
-            </li>
-            <li className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1">
-              🎥 おすすめ動画
-            </li>
-            <li className="px-3 py-2 rounded-md text-sm text-foreground bg-black/[0.08] dark:bg-white/[0.145] cursor-pointer transition-all duration-200 hover:bg-black/[0.08] dark:hover:bg-white/[0.145] hover:translate-x-1">
-              🛠️ 便利ツール集
-            </li>
+          <ul className="relative list-none p-0 m-0 flex flex-col gap-2">
+            {["⭐ よく使うコードスニペット", "📚 参考書籍リスト", "🎥 おすすめ動画", "🛠️ 便利ツール集"].map((item, index) => (
+              <li key={index} className="group px-4 py-3 rounded-xl text-sm font-medium text-foreground bg-white/50 dark:bg-gray-800/50 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-gradient-to-r hover:from-orange-500/20 hover:to-yellow-500/20">
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
     </aside>
   );
 }
+

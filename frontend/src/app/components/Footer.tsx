@@ -1,128 +1,73 @@
 export default function Footer() {
   return (
-    <footer
-      className="bg-black/5 dark:bg-white/6 border-t border-black/[0.08] dark:border-white/[0.145] mt-16 pt-12 pb-4 relative z-[60] md:pt-8"
-      data-oid="_s449xo"
-    >
-      <div className="max-w-[1200px] mx-auto px-4" data-oid="rn.b5g_">
-        <div
-          className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-8 mb-8 md:grid-cols-1 md:gap-6"
-          data-oid="z2srcyh"
-        >
-          <div className="section" data-oid="uwxifv3">
-            <h3
-              className="text-xl font-semibold mb-4 m-0 text-foreground md:text-lg"
-              data-oid="bh2hjl:"
-            >
+    <footer className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-t border-white/20 dark:border-white/10 mt-16 pt-12 pb-6 z-[60] shadow-2xl md:pt-8 overflow-hidden">
+      {/* 背景装飾 */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative max-w-[1200px] mx-auto px-4">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-8 mb-8 md:grid-cols-1 md:gap-6">
+          {/* セクション1 */}
+          <div className="group">
+            <h3 className="text-2xl font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500 md:text-xl">
               🚀 Next.js 初心者講座
             </h3>
-            <p
-              className="m-0 mb-4 text-foreground opacity-80 leading-relaxed"
-              data-oid="0qi02la"
-            >
+            <p className="m-0 mb-4 text-foreground/80 leading-relaxed">
               Next.jsの基本から実践的な開発まで、段階的に学べる学習用プロジェクトです。
             </p>
           </div>
 
-          <div className="section" data-oid="c3cfq2f">
-            <h4
-              className="text-base font-semibold mb-3 m-0 text-foreground"
-              data-oid="94npuq0"
-            >
+          {/* セクション2 */}
+          <div>
+            <h4 className="text-lg font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
               📚 学習内容
             </h4>
-            <ul className="list-none p-0 m-0" data-oid="ucwun5u">
-              <li
-                className="mb-2 text-foreground opacity-80"
-                data-oid="xkpzswp"
-              >
-                App Router
-              </li>
-              <li
-                className="mb-2 text-foreground opacity-80"
-                data-oid="2hey4rf"
-              >
-                コンポーネント開発
-              </li>
-              <li
-                className="mb-2 text-foreground opacity-80"
-                data-oid="nsvb0uc"
-              >
-                TypeScript
-              </li>
-              <li
-                className="mb-2 text-foreground opacity-80"
-                data-oid="j2e8240"
-              >
-                API開発
-              </li>
+            <ul className="list-none p-0 m-0 space-y-2">
+              {["App Router", "コンポーネント開発", "TypeScript", "API開発"].map((item, index) => (
+                <li key={index} className="group flex items-center gap-2 text-foreground/80 transition-all duration-300 hover:text-foreground hover:translate-x-2">
+                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></span>
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="section" data-oid="794u0a.">
-            <h4
-              className="text-base font-semibold mb-3 m-0 text-foreground"
-              data-oid="xui8b6e"
-            >
+          {/* セクション3 */}
+          <div>
+            <h4 className="text-lg font-bold mb-4 m-0 text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">
               🔗 リンク
             </h4>
-            <ul className="list-none p-0 m-0" data-oid="fl6ffqw">
-              <li
-                className="mb-2 text-foreground opacity-80"
-                data-oid="i-iu5ij"
-              >
-                <a
-                  href="https://nextjs.org/docs"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground no-underline transition-opacity duration-200 hover:opacity-60"
-                  data-oid="boz_tx2"
-                >
-                  Next.js Docs
-                </a>
-              </li>
-              <li
-                className="mb-2 text-foreground opacity-80"
-                data-oid="a:ocad9"
-              >
-                <a
-                  href="https://react.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground no-underline transition-opacity duration-200 hover:opacity-60"
-                  data-oid="i89ymsy"
-                >
-                  React Docs
-                </a>
-              </li>
-              <li
-                className="mb-2 text-foreground opacity-80"
-                data-oid="gpw918t"
-              >
-                <a
-                  href="https://www.typescriptlang.org/docs"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground no-underline transition-opacity duration-200 hover:opacity-60"
-                  data-oid="p331rgr"
-                >
-                  TypeScript Docs
-                </a>
-              </li>
+            <ul className="list-none p-0 m-0 space-y-2">
+              {[
+                { name: "Next.js Docs", url: "https://nextjs.org/docs" },
+                { name: "React Docs", url: "https://react.dev" },
+                { name: "TypeScript Docs", url: "https://www.typescriptlang.org/docs" },
+              ].map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2 text-foreground/80 no-underline transition-all duration-300 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-500 hover:to-emerald-500 hover:translate-x-2"
+                  >
+                    <span className="transition-transform group-hover:rotate-45">→</span>
+                    {link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        <div
-          className="border-t border-black/[0.08] dark:border-white/[0.145] pt-4 text-center"
-          data-oid="f:oj97f"
-        >
-          <p
-            className="m-0 text-foreground opacity-60 text-sm"
-            data-oid="l58e7t:"
-          >
-            &copy; 2024 Next.js 初心者講座. All rights reserved.
-          </p>
+        {/* コピーライト */}
+        <div className="relative border-t border-white/10 pt-6 text-center">
+          <div className="inline-block px-6 py-3 rounded-2xl backdrop-blur-md bg-white/30 dark:bg-gray-800/30 border border-white/20 shadow-lg">
+            <p className="m-0 text-foreground/70 text-sm font-medium">
+              &copy; 2024 Next.js 初心者講座. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
