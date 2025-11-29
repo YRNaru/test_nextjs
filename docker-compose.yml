@@ -145,6 +145,16 @@ services:
       - backend
     networks:
       - app_network
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /app
+          ignore:
+            - node_modules/
+            - .next/
+        - action: rebuild
+          path: ./frontend/package.json
 
 networks:
   app_network:
