@@ -30,15 +30,22 @@ export default function RightSidebar() {
 
   return (
     <aside
-      className={`fixed top-20 bottom-0 w-[250px] max-h-[calc(100vh-80px)] overflow-y-auto bg-black/5 dark:bg-white/6 border-l-2 border-black/[0.08] dark:border-white/[0.145] p-6 pr-4 z-50 transition-all duration-300 right-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.145)] xl:w-[220px] lg:top-18 lg:bottom-auto lg:max-h-[calc(100vh-96px)] lg:w-[min(320px,90vw)] lg:mx-4 lg:rounded-2xl lg:shadow-[0_20px_40px_rgba(0,0,0,0.18)] lg:border lg:border-black/[0.08] dark:lg:border-white/[0.145] lg:border-l-0 lg:right-0 md:w-[min(300px,88vw)] md:mx-3 md:right-3 md:closed:translate-x-[110%] ${rightSidebarOpen ? "translate-x-0 opacity-100 shadow-[0_16px_32px_rgba(0,0,0,0.12)]" : "translate-x-[100%] opacity-0 pointer-events-none"}`}
+      className={`fixed top-20 bottom-0 w-[320px] max-h-[calc(100vh-80px)] overflow-y-auto bg-black/5 dark:bg-white/6 border-l-2 border-black/[0.08] dark:border-white/[0.145] p-6 pr-4 z-50 transition-all duration-300 right-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.145)] scrollbar-hide xl:w-[280px] lg:top-18 lg:bottom-auto lg:max-h-[calc(100vh-96px)] lg:w-[min(320px,90vw)] lg:mx-4 lg:rounded-2xl lg:shadow-[0_20px_40px_rgba(0,0,0,0.18)] lg:border lg:border-black/[0.08] dark:lg:border-white/[0.145] lg:border-l-0 lg:right-0 md:w-[min(300px,88vw)] md:mx-3 md:right-3 md:closed:translate-x-[110%] ${rightSidebarOpen ? "translate-x-0 opacity-100 shadow-[0_16px_32px_rgba(0,0,0,0.12)]" : "translate-x-[100%] opacity-0 pointer-events-none"}`}
       style={{
         backgroundImage: `
           linear-gradient(to right, rgba(0,0,0,0.08) 1px, transparent 1px),
           linear-gradient(to bottom, rgba(0,0,0,0.08) 1px, transparent 1px)
         `,
         backgroundSize: "20px 20px",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
       }}
     >
+      <style jsx>{`
+        aside::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
       <div className="flex flex-col gap-6 bg-black/5 dark:bg-white/6 p-2 rounded-lg border border-dashed border-black/[0.08] dark:border-white/[0.145]">
         <h3 className="text-lg font-semibold mb-4 m-0 text-foreground pb-3 border-b-2 border-black/[0.08] dark:border-white/[0.145] relative before:content-[''] before:absolute before:bottom-[-2px] before:left-0 before:w-5 before:h-0.5 before:bg-foreground before:opacity-30 after:content-[''] after:absolute after:bottom-[-2px] after:right-0 after:w-5 after:h-0.5 after:bg-foreground after:opacity-30">
           ⏰ 現在時刻
