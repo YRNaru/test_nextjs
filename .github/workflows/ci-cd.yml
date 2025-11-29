@@ -9,12 +9,30 @@ on:
     branches:
       - main
       - develop
+  workflow_dispatch: # 手動トリガーを許可
+
+# 同じワークフローの重複実行を防ぐ
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+# デフォルトのパーミッションを最小限に設定
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '20'
 
 jobs:
   # バックエンドのテスト
   backend-test:
     name: Backend Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    permissions:
+      contents: read
     
     services:
       mysql:
@@ -28,25 +46,41 @@ jobs:
           --health-cmd="mysqladmin ping"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=3
+          --health-retries=5
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          fetch-depth: 0 # SonarQubeなどのツール用に完全な履歴を取得
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: 'pip'
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Install dependencies
+        working-directory: backend
         run: |
-          cd backend
-          pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
 
-      - name: Run tests
+      - name: Wait for MySQL to be ready
+        run: |
+          timeout 60 bash -c 'until mysqladmin ping -h 127.0.0.1 --silent; do sleep 1; done'
+
+      - name: Run migrations
+        working-directory: backend
         env:
           DB_NAME: test_db
           DB_USER: root
@@ -54,49 +88,118 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           SECRET_KEY: test-secret-key-for-ci
-          DEBUG: True
+          DEBUG: 'True'
         run: |
-          cd backend
-          python manage.py test
+          python manage.py migrate --noinput
+
+      - name: Run tests with coverage
+        working-directory: backend
+        env:
+          DB_NAME: test_db
+          DB_USER: root
+          DB_PASSWORD: test_password
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          SECRET_KEY: test-secret-key-for-ci
+          DEBUG: 'True'
+        run: |
+          python manage.py test --verbosity=2
+
+      - name: Check for Python security issues
+        working-directory: backend
+        run: |
+          pip install safety
+          safety check --json || true
 
   # フロントエンドのテスト
   frontend-test:
     name: Frontend Tests & Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
-        run: |
-          cd frontend
-          npm ci
+        working-directory: frontend
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Check TypeScript types
+        working-directory: frontend
+        run: npx tsc --noEmit
 
       - name: Run linter
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Check formatting
+        working-directory: frontend
         run: |
-          cd frontend
-          npm run lint
+          npm run format --check || echo "⚠️ Formatting issues found"
+
+      - name: Build application
+        working-directory: frontend
+        env:
+          NODE_ENV: production
+        run: npm run build
 
       # テストがある場合
-      # - name: Run tests
-      #   run: |
-      #     cd frontend
-      #     npm test
+      # - name: Run tests with coverage
+      #   working-directory: frontend
+      #   run: npm test -- --coverage --watchAll=false
+
+  # セキュリティスキャン
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
 
   # バックエンドのDockerイメージビルド
   backend-build:
     name: Build Backend Docker Image
     runs-on: ubuntu-latest
-    needs: [backend-test]
-    if: github.ref == 'refs/heads/main'
+    timeout-minutes: 20
+    needs: [backend-test, security-scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout code
@@ -105,29 +208,53 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
+      - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/test-nextjs-backend
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
         with:
           context: ./backend
           push: true
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/test-nextjs-backend:latest
-            ${{ secrets.DOCKER_USERNAME }}/test-nextjs-backend:${{ github.sha }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test-nextjs-backend:latest
-          cache-to: type=inline
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test-nextjs-backend:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test-nextjs-backend:buildcache,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+
+      - name: Scan Docker image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/test-nextjs-backend:latest
+          format: 'table'
+          exit-code: '0'
+          severity: 'CRITICAL,HIGH'
 
   # フロントエンドのDockerイメージビルド
   frontend-build:
     name: Build Frontend Docker Image
     runs-on: ubuntu-latest
-    needs: [frontend-test]
-    if: github.ref == 'refs/heads/main'
+    timeout-minutes: 20
+    needs: [frontend-test, security-scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout code
@@ -136,38 +263,115 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
+      - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/test-nextjs-frontend
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
         with:
           context: ./frontend
           push: true
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/test-nextjs-frontend:latest
-            ${{ secrets.DOCKER_USERNAME }}/test-nextjs-frontend:${{ github.sha }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test-nextjs-frontend:latest
-          cache-to: type=inline
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test-nextjs-frontend:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/test-nextjs-frontend:buildcache,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+
+      - name: Scan Docker image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/test-nextjs-frontend:latest
+          format: 'table'
+          exit-code: '0'
+          severity: 'CRITICAL,HIGH'
 
   # Renderへのデプロイ
   deploy-to-render:
     name: Deploy to Render
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: [backend-build, frontend-build]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: production
+      url: ${{ secrets.RENDER_APP_URL }}
+
+    permissions:
+      contents: read
+      deployments: write
 
     steps:
-      - name: Trigger Render Deploy
+      - name: Validate deployment webhook
         run: |
-          if [ -n "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
-            curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-            echo "✅ Deployment triggered on Render"
-          else
-            echo "⚠️ RENDER_DEPLOY_HOOK_URL is not set"
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
+            echo "❌ エラー: RENDER_DEPLOY_HOOK_URL が設定されていません"
             exit 1
+          fi
+
+      - name: Trigger Render deployment
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}")
+          http_code=$(echo "$response" | tail -n1)
+          
+          if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+            echo "✅ デプロイが正常にトリガーされました (HTTP $http_code)"
+          else
+            echo "❌ デプロイのトリガーに失敗しました (HTTP $http_code)"
+            exit 1
+          fi
+
+      - name: Wait for deployment
+        run: |
+          echo "⏳ デプロイの完了を待機中..."
+          sleep 30
+
+      - name: Health check
+        if: vars.RENDER_APP_URL != ''
+        run: |
+          echo "🔍 アプリケーションのヘルスチェックを実行中..."
+          max_attempts=10
+          attempt=0
+          
+          while [ $attempt -lt $max_attempts ]; do
+            if curl -sSf "${{ secrets.RENDER_APP_URL }}/health" > /dev/null 2>&1; then
+              echo "✅ アプリケーションは正常に動作しています"
+              exit 0
+            fi
+            attempt=$((attempt + 1))
+            echo "⏳ 再試行 $attempt/$max_attempts..."
+            sleep 10
+          done
+          
+          echo "⚠️ ヘルスチェックがタイムアウトしました"
+          exit 1
+
+  # デプロイ通知（オプション）
+  notify:
+    name: Notify Deployment Status
+    runs-on: ubuntu-latest
+    needs: [deploy-to-render]
+    if: always() && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deployment result
+        run: |
+          if [ "${{ needs.deploy-to-render.result }}" == "success" ]; then
+            echo "✅ デプロイが成功しました！"
+          else
+            echo "❌ デプロイが失敗しました"
           fi
 
