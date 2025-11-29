@@ -1,0 +1,101 @@
+# Test Next.js プロジェクトルール
+
+このプロジェクトの詳細なルールは `.cursor/rules/PROJECT_RULES.md` を参照してください。
+
+## 重要な原則
+
+### コーディング標準
+
+**フロントエンド (TypeScript/React/Next.js)**
+- TypeScript を使用し、`any` 型は避ける
+- 関数コンポーネントとフックのみを使用（クラスコンポーネント禁止）
+- Next.js App Router を使用（pages ディレクトリは使用しない）
+- サーバーコンポーネントをデフォルトとし、必要な場合のみ `'use client'` を使用
+
+**バックエンド (Python/Django)**
+- PEP 8 に準拠
+- すべての関数に型ヒントと docstring を追加
+- Django REST Framework の Serializer と ViewSet を使用
+- ORM を使用し、生の SQL は避ける
+
+### 命名規則
+
+**TypeScript/React:**
+- コンポーネント: `PascalCase` (例: `UserProfile.tsx`)
+- 関数: `camelCase` (例: `fetchUserData`)
+- 定数: `UPPER_SNAKE_CASE` (例: `API_BASE_URL`)
+- カスタムフック: `useXxx` (例: `useAuth`)
+
+**Python/Django:**
+- クラス: `PascalCase` (例: `UserProfile`)
+- 関数/変数: `snake_case` (例: `get_user_data`)
+- 定数: `UPPER_SNAKE_CASE` (例: `API_BASE_URL`)
+
+### Git ワークフロー
+
+**ブランチ命名:**
+- `feature/xxx` - 新機能
+- `fix/xxx` - バグ修正
+- `hotfix/xxx` - 緊急修正
+
+**コミットメッセージ:**
+```
+<type>(<scope>): <subject>
+
+<body>
+```
+
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`
+
+例:
+```
+feat(auth): Google OAuth認証を追加
+
+Google OAuth 2.0を使用したソーシャルログイン機能を実装
+```
+
+### セキュリティ
+
+- すべての機密情報は環境変数で管理
+- JWT トークン有効期限: アクセス 15分、リフレッシュ 7日
+- すべてのユーザー入力を検証
+- 保護されたエンドポイントには認証を必須とする
+
+### テスト
+
+**カバレッジ目標:**
+- フロントエンド: 80%以上
+- バックエンド: 85%以上
+
+**ツール:**
+- フロントエンド: Jest, React Testing Library, Playwright
+- バックエンド: pytest, Django TestCase
+
+### パフォーマンス
+
+**フロントエンド:**
+- 動的インポートでコード分割
+- `useMemo`, `useCallback` で適切にメモ化
+- Next.js の `Image` コンポーネントを使用
+- バンドルサイズ: 200KB未満（gzip圧縮後）
+
+**バックエンド:**
+- `select_related`, `prefetch_related` で N+1 問題を回避
+- 頻繁に検索されるフィールドにインデックスを追加
+- 大量データにはページネーションを実装
+- Redis でキャッシュを活用
+
+### コードレビュー必須チェック項目
+
+- [ ] スタイルガイドに準拠
+- [ ] すべてのテストがパス
+- [ ] 新機能にテストを追加
+- [ ] ドキュメントを更新
+- [ ] Linter エラーなし
+- [ ] セキュリティ問題なし
+- [ ] パフォーマンスへの悪影響なし
+
+---
+
+**📚 詳細は `.cursor/rules/PROJECT_RULES.md` を参照してください**
+

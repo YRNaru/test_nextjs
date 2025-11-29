@@ -1,7 +1,7 @@
 // API関連の定数
 
-// Next.jsのAPI Routesを使用する場合は相対パスを使用
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
+// バックエンドAPIのベースURL
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
 export const API_ENDPOINTS = {
   // ユーザー関連
