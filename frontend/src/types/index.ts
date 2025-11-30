@@ -86,4 +86,4 @@ export interface Post {
   publishedAt: Date;
   updatedAt: Date;
   tags?: string[];
-} 
+}

@@ -6,10 +6,7 @@ export default function About() {
       className="flex flex-col items-center min-h-screen p-10 px-5 font-sans leading-relaxed md:p-5 md:px-4"
       data-oid="f7:vb:e"
     >
-      <main
-        className="max-w-[800px] w-full flex flex-col gap-10"
-        data-oid="664an-1"
-      >
+      <main className="max-w-[800px] w-full flex flex-col gap-10" data-oid="664an-1">
         <h1
           className="text-4xl font-bold text-center m-0 text-foreground md:text-3xl"
           data-oid="hu3iuz4"
@@ -44,31 +41,25 @@ export default function About() {
           </h2>
           <ul className="m-0 pl-5" data-oid="hkz2ifl">
             <li className="mb-2 text-foreground" data-oid="zeokk43">
-              <strong data-oid=":9:u3lc">App Router</strong> -
-              新しいルーティングシステム
+              <strong data-oid=":9:u3lc">App Router</strong> - 新しいルーティングシステム
             </li>
             <li className="mb-2 text-foreground" data-oid="597.yt8">
-              <strong data-oid="5ykr5w:">コンポーネント</strong> -
-              再利用可能なUI部品
+              <strong data-oid="5ykr5w:">コンポーネント</strong> - 再利用可能なUI部品
             </li>
             <li className="mb-2 text-foreground" data-oid="0ag_pkq">
-              <strong data-oid="r3_6bxo">スタイリング</strong> - CSS
-              ModulesとTailwind CSS
+              <strong data-oid="r3_6bxo">スタイリング</strong> - CSS ModulesとTailwind CSS
             </li>
             <li className="mb-2 text-foreground" data-oid="oh3xwar">
-              <strong data-oid="suv1t__">データフェッチ</strong> - API
-              RoutesとSSR
+              <strong data-oid="suv1t__">データフェッチ</strong> - API RoutesとSSR
             </li>
             <li className="mb-2 text-foreground" data-oid="ul0xu7g">
               <strong data-oid="an5vqem">デプロイ</strong> - Vercelへの公開
             </li>
             <li className="mb-2 text-foreground" data-oid="uyeihcn">
-              <strong data-oid="d1f.0ti">React</strong> -
-              コンポーネントベースのUI開発
+              <strong data-oid="d1f.0ti">React</strong> - コンポーネントベースのUI開発
             </li>
             <li className="mb-2 text-foreground" data-oid="f5hol66">
-              <strong data-oid="bsounqr">TypeScript</strong> -
-              静的型付けによるコードの安全性
+              <strong data-oid="bsounqr">TypeScript</strong> - 静的型付けによるコードの安全性
             </li>
           </ul>
         </div>
@@ -86,10 +77,7 @@ export default function About() {
           <p className="m-0 mb-4 text-foreground" data-oid="tutqnp4">
             現在使用している技術スタック：
           </p>
-          <div
-            className="flex flex-wrap gap-3 mt-4 md:gap-2"
-            data-oid="osfq5b3"
-          >
+          <div className="flex flex-wrap gap-3 mt-4 md:gap-2" data-oid="osfq5b3">
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
               data-oid="u9g67qs"

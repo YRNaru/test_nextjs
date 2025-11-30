@@ -10,12 +10,7 @@ import { useAuth } from "@/hooks/useAuth";
 export default function Header() {
   const pathname = usePathname();
   const { resolvedTheme, toggleTheme } = useTheme();
-  const {
-    leftSidebarOpen,
-    rightSidebarOpen,
-    toggleLeftSidebar,
-    toggleRightSidebar,
-  } = useSidebar();
+  const { leftSidebarOpen, rightSidebarOpen, toggleLeftSidebar, toggleRightSidebar } = useSidebar();
   const { isAuthenticated, isLoading, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
 
@@ -123,7 +118,9 @@ export default function Header() {
             }
           >
             <span className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            <span className="relative z-10">{mounted && resolvedTheme === "dark" ? "☀️" : "🌙"}</span>
+            <span className="relative z-10">
+              {mounted && resolvedTheme === "dark" ? "☀️" : "🌙"}
+            </span>
           </button>
         </nav>
 
@@ -133,7 +130,9 @@ export default function Header() {
             className="text-2xl font-bold no-underline transition-all duration-300 hover:scale-105 xl:text-[1.4rem] md:text-xl flex items-center gap-2"
           >
             <span className="text-3xl xl:text-2xl md:text-xl">🚀</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">モダンWebアプリ開発</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+              モダンWebアプリ開発
+            </span>
           </Link>
           <button
             onClick={toggleRightSidebar}
@@ -148,4 +147,4 @@ export default function Header() {
       </div>
     </header>
   );
-}　
+}

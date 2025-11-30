@@ -18,11 +18,7 @@ export default function ClockCard() {
   }, []);
 
   return (
-    <GradientCard
-      gradientFrom="rgb(59, 130, 246)"
-      gradientTo="rgb(6, 182, 212)"
-      className="p-6"
-    >
+    <GradientCard gradientFrom="rgb(59, 130, 246)" gradientTo="rgb(6, 182, 212)" className="p-6">
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full blur-3xl opacity-20"></div>
       <SectionHeader
         icon="⏰"
@@ -48,4 +44,3 @@ export default function ClockCard() {
     </GradientCard>
   );
 }
-

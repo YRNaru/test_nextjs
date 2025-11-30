@@ -1,36 +1,36 @@
 // API関連の定数
 
 // バックエンドAPIのベースURL
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 export const API_ENDPOINTS = {
   // ユーザー関連
-  USERS: '/users',
-  USER_PROFILE: '/users/profile',
-  USER_AVATAR: '/users/avatar',
-  
+  USERS: "/users",
+  USER_PROFILE: "/users/profile",
+  USER_AVATAR: "/users/avatar",
+
   // 投稿関連
-  POSTS: '/posts',
+  POSTS: "/posts",
   POST_DETAIL: (id: string) => `/posts/${id}`,
   POST_COMMENTS: (id: string) => `/posts/${id}/comments`,
-  
+
   // 認証関連
-  AUTH_LOGIN: '/auth/login',
-  AUTH_LOGOUT: '/auth/logout',
-  AUTH_REFRESH: '/auth/refresh',
-  AUTH_REGISTER: '/auth/register',
-  
+  AUTH_LOGIN: "/auth/login",
+  AUTH_LOGOUT: "/auth/logout",
+  AUTH_REFRESH: "/auth/refresh",
+  AUTH_REGISTER: "/auth/register",
+
   // ファイル関連
-  UPLOAD: '/upload',
-  FILES: '/files',
+  UPLOAD: "/upload",
+  FILES: "/files",
 } as const;
 
 export const HTTP_METHODS = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  PATCH: 'PATCH',
-  DELETE: 'DELETE',
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  PATCH: "PATCH",
+  DELETE: "DELETE",
 } as const;
 
 export const HTTP_STATUS = {
@@ -42,4 +42,4 @@ export const HTTP_STATUS = {
   FORBIDDEN: 403,
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500,
-} as const; 
+} as const;

@@ -54,10 +54,7 @@ export default function LearningContent({ sectionData }: LearningContentProps) {
   }
 
   const renderExamples = () => {
-    if (
-      !Array.isArray(sectionData.examples) ||
-      sectionData.examples.length === 0
-    ) {
+    if (!Array.isArray(sectionData.examples) || sectionData.examples.length === 0) {
       return <p>このセクションには例がありません。</p>;
     }
     return (sectionData.examples as BasicExample[]).map((example) => (

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { LoginRequest, LoginResponse, User } from '@/types';
-import { findUserByEmail } from '../store';
+import { NextRequest, NextResponse } from "next/server";
+import { LoginRequest, LoginResponse, User } from "@/types";
+import { findUserByEmail } from "../store";
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,17 +10,17 @@ export async function POST(request: NextRequest) {
     // バリデーション
     if (!email || !password) {
       return NextResponse.json(
-        { success: false, error: 'メールアドレスとパスワードが必要です' },
+        { success: false, error: "メールアドレスとパスワードが必要です" },
         { status: 400 }
       );
     }
 
     // ユーザーを検索
     const user = findUserByEmail(email);
-    
+
     if (!user) {
       return NextResponse.json(
-        { success: false, error: 'メールアドレスまたはパスワードが正しくありません' },
+        { success: false, error: "メールアドレスまたはパスワードが正しくありません" },
         { status: 401 }
       );
     }
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     // パスワードの検証（実際のアプリケーションではハッシュ化されたパスワードを比較）
     if (user.password !== password) {
       return NextResponse.json(
-        { success: false, error: 'メールアドレスまたはパスワードが正しくありません' },
+        { success: false, error: "メールアドレスまたはパスワードが正しくありません" },
         { status: 401 }
       );
     }
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     };
 
     // 簡易的なトークン生成（実際のアプリケーションではJWTなどを使用）
-    const token = Buffer.from(`${user.id}:${Date.now()}`).toString('base64');
+    const token = Buffer.from(`${user.id}:${Date.now()}`).toString("base64");
 
     const response: LoginResponse = {
       user: userResponse,
@@ -52,11 +52,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    console.error('Login error:', error);
+    console.error("Login error:", error);
     return NextResponse.json(
-      { success: false, error: 'サーバーエラーが発生しました' },
+      { success: false, error: "サーバーエラーが発生しました" },
       { status: 500 }
     );
   }
 }
-

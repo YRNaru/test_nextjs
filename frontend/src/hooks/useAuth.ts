@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { logout } from '@/api/auth';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback } from "react";
+import { logout } from "@/api/auth";
+import { useRouter } from "next/navigation";
 
 export function useAuth() {
   const router = useRouter();
@@ -10,8 +10,8 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true);
 
   const checkAuth = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('authToken');
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("authToken");
       setIsAuthenticated(!!token);
     }
     setIsLoading(false);
@@ -22,7 +22,7 @@ export function useAuth() {
 
     // localStorageの変更を監視
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'authToken') {
+      if (e.key === "authToken") {
         checkAuth();
       }
     };
@@ -32,12 +32,12 @@ export function useAuth() {
       checkAuth();
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('auth-change', handleCustomStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("auth-change", handleCustomStorageChange);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('auth-change', handleCustomStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("auth-change", handleCustomStorageChange);
     };
   }, [checkAuth]);
 
@@ -45,16 +45,16 @@ export function useAuth() {
     try {
       await logout();
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     } finally {
       // トークンを削除
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('authToken');
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("authToken");
         // カスタムイベントを発火して状態を更新
-        window.dispatchEvent(new Event('auth-change'));
+        window.dispatchEvent(new Event("auth-change"));
       }
       setIsAuthenticated(false);
-      router.push('/');
+      router.push("/");
       router.refresh();
     }
   };
@@ -65,4 +65,3 @@ export function useAuth() {
     logout: handleLogout,
   };
 }
-

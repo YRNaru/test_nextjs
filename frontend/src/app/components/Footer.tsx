@@ -13,7 +13,9 @@ export default function Footer() {
           <div className="group">
             <h3 className="text-2xl font-bold mb-4 m-0 md:text-xl flex items-center gap-2">
               <span className="text-3xl md:text-2xl">🚀</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">Next.js 初心者講座</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">
+                Next.js 初心者講座
+              </span>
             </h3>
             <p className="m-0 mb-4 text-foreground/80 leading-relaxed">
               Next.jsの基本から実践的な開発まで、段階的に学べる学習用プロジェクトです。
@@ -24,11 +26,16 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-4 m-0 flex items-center gap-2">
               <span className="text-xl">📚</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">学習内容</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
+                学習内容
+              </span>
             </h4>
             <ul className="list-none p-0 m-0 space-y-2">
               {["App Router", "コンポーネント開発", "TypeScript", "API開発"].map((item, index) => (
-                <li key={index} className="group flex items-center gap-2 text-foreground/80 transition-all duration-300 hover:text-foreground hover:translate-x-2">
+                <li
+                  key={index}
+                  className="group flex items-center gap-2 text-foreground/80 transition-all duration-300 hover:text-foreground hover:translate-x-2"
+                >
                   <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></span>
                   {item}
                 </li>
@@ -40,7 +47,9 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-4 m-0 flex items-center gap-2">
               <span className="text-xl">🔗</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">リンク</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">
+                リンク
+              </span>
             </h4>
             <ul className="list-none p-0 m-0 space-y-2">
               {[

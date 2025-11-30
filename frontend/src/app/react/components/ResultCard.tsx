@@ -26,9 +26,7 @@ export default function ResultCard({
       </p>
       <p className="mb-6 text-[var(--card-text)]">正答率: {correctRate}%</p>
       <div className="mb-8">
-        <h4 className="text-xl font-semibold mb-4 text-[var(--card-text)]">
-          全問題と解説
-        </h4>
+        <h4 className="text-xl font-semibold mb-4 text-[var(--card-text)]">全問題と解説</h4>
         {answerResults.map((result, idx) => (
           <div
             key={idx}
@@ -39,9 +37,7 @@ export default function ResultCard({
             }`}
           >
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2.5">
-              <span className="font-semibold text-[var(--card-text)]">
-                問題{idx + 1}：
-              </span>
+              <span className="font-semibold text-[var(--card-text)]">問題{idx + 1}：</span>
               <span className="text-xl">{result.isCorrect ? "✅" : "❌"}</span>
             </div>
             <div className="mb-3 text-[var(--card-text)]">

@@ -18,10 +18,7 @@ export default function RegisterPage() {
         data-oid="a7-o5:v"
       >
         <div className="text-center mb-10 md:mb-8" data-oid="m0_eli_">
-          <h1
-            className="text-4xl font-bold text-foreground mb-2 md:text-3xl"
-            data-oid="ywc4qkj"
-          >
+          <h1 className="text-4xl font-bold text-foreground mb-2 md:text-3xl" data-oid="ywc4qkj">
             アカウント登録
           </h1>
           <p
@@ -36,14 +33,8 @@ export default function RegisterPage() {
           <RegisterForm data-oid="5w8lnwx" />
         </div>
 
-        <div
-          className="text-center pt-6 border-t border-[var(--border-color)]"
-          data-oid="mx:ukm8"
-        >
-          <p
-            className="text-sm text-[var(--card-text-secondary)]"
-            data-oid="u1c.2xx"
-          >
+        <div className="text-center pt-6 border-t border-[var(--border-color)]" data-oid="mx:ukm8">
+          <p className="text-sm text-[var(--card-text-secondary)]" data-oid="u1c.2xx">
             既にアカウントをお持ちですか？{" "}
             <Link
               href="/login"

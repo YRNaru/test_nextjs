@@ -10,11 +10,7 @@ const bookmarks = [
 
 export default function BookmarksCard() {
   return (
-    <GradientCard
-      gradientFrom="rgb(249, 115, 22)"
-      gradientTo="rgb(234, 179, 8)"
-      className="p-3"
-    >
+    <GradientCard gradientFrom="rgb(249, 115, 22)" gradientTo="rgb(234, 179, 8)" className="p-3">
       <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full blur-3xl opacity-20"></div>
       <SectionHeader
         icon="🔖"
@@ -37,4 +33,3 @@ export default function BookmarksCard() {
     </GradientCard>
   );
 }
-

@@ -28,13 +28,9 @@ export default function MainContent({ children }: { children: ReactNode }) {
 
   // mountedになるまではサーバー側と同じ値（0）を返す
   const paddingLeft =
-    mounted && leftSidebarOpen && shouldOffsetSidebars
-      ? `${sidebarWidth}px`
-      : "0";
+    mounted && leftSidebarOpen && shouldOffsetSidebars ? `${sidebarWidth}px` : "0";
   const paddingRight =
-    mounted && rightSidebarOpen && shouldOffsetSidebars
-      ? `${sidebarWidth}px`
-      : "0";
+    mounted && rightSidebarOpen && shouldOffsetSidebars ? `${sidebarWidth}px` : "0";
 
   return (
     <main

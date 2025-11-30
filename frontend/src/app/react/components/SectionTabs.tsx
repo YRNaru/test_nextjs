@@ -7,11 +7,7 @@ interface SectionTabsProps {
   onSectionClick: (section: ParentSection) => void;
 }
 
-export default function SectionTabs({
-  sections,
-  activeSection,
-  onSectionClick,
-}: SectionTabsProps) {
+export default function SectionTabs({ sections, activeSection, onSectionClick }: SectionTabsProps) {
   return (
     <div className="flex justify-center gap-4 flex-wrap">
       {sections.map((section) => (

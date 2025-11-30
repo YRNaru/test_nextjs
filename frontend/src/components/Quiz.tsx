@@ -94,10 +94,7 @@ export default function Quiz({ categories }: QuizProps) {
   };
 
   const getProgressText = () => {
-    const totalQuestions = categories.reduce(
-      (sum, cat) => sum + cat.questions.length,
-      0,
-    );
+    const totalQuestions = categories.reduce((sum, cat) => sum + cat.questions.length, 0);
     const answeredQuestions = results.length;
     return `${answeredQuestions} / ${totalQuestions}`;
   };
@@ -105,7 +102,7 @@ export default function Quiz({ categories }: QuizProps) {
   const getCategoryProgress = () => {
     const categoryQuestions = currentCategoryData?.questions.length || 0;
     const answeredInCategory = results.filter(
-      (r) => r.category === currentCategoryData?.title,
+      (r) => r.category === currentCategoryData?.title
     ).length;
     return `${answeredInCategory} / ${categoryQuestions}`;
   };
@@ -145,17 +142,14 @@ export default function Quiz({ categories }: QuizProps) {
             {categories.map((category) => {
               const correct = getCorrectCountByCategory(category.title);
               const total = getTotalQuestionsByCategory(category.title);
-              const percentage =
-                total > 0 ? Math.round((correct / total) * 100) : 0;
+              const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
 
               return (
                 <div
                   key={category.id}
                   className="flex justify-between items-center p-4 mb-2.5 bg-[var(--section-background)] rounded-md"
                 >
-                  <h4 className="m-0 text-[var(--card-text)]">
-                    {category.title}
-                  </h4>
+                  <h4 className="m-0 text-[var(--card-text)]">{category.title}</h4>
                   <p className="m-0 font-semibold text-[var(--card-text-secondary)]">
                     {correct} / {total} 問正解 ({percentage}%)
                   </p>
@@ -172,9 +166,7 @@ export default function Quiz({ categories }: QuizProps) {
                 className={`p-4 mb-2.5 rounded-md border-l-4 ${result.isCorrect ? "bg-[#d4edda] border-l-[#28a745]" : "bg-[#f8d7da] border-l-[#dc3545]"}`}
               >
                 <div className="flex justify-between items-center mb-2.5 flex-wrap gap-2.5">
-                  <span className="font-semibold text-[var(--card-text)]">
-                    問題 {index + 1}
-                  </span>
+                  <span className="font-semibold text-[var(--card-text)]">問題 {index + 1}</span>
                   <span className="text-[var(--card-text-secondary)] text-sm">
                     {result.category}
                   </span>
@@ -229,9 +221,7 @@ export default function Quiz({ categories }: QuizProps) {
 
       {/* 進捗表示 */}
       <div className="flex justify-between items-center mb-5 p-4 bg-[var(--section-background)] rounded-lg text-sm md:flex-col md:gap-2.5 md:text-center">
-        <div className="font-semibold text-[var(--card-text)]">
-          全体進捗: {getProgressText()}
-        </div>
+        <div className="font-semibold text-[var(--card-text)]">全体進捗: {getProgressText()}</div>
         <div className="text-[var(--card-text-secondary)]">
           {currentCategoryData?.title}: {getCategoryProgress()}
         </div>
@@ -239,18 +229,14 @@ export default function Quiz({ categories }: QuizProps) {
 
       {/* 問題表示 */}
       <div className="bg-[var(--card-background)] border border-[var(--border-color)] rounded-xl p-8 shadow-[0_2px_8px_var(--shadow-color)] md:p-5">
-        <h3 className="mb-5 text-[var(--card-text)] text-2xl">
-          問題 {currentQuestion + 1}
-        </h3>
+        <h3 className="mb-5 text-[var(--card-text)] text-2xl">問題 {currentQuestion + 1}</h3>
         <p className="text-lg leading-relaxed mb-5 text-[var(--card-text)]">
           {currentQuestionData?.question}
         </p>
 
         {currentQuestionData?.code && (
           <pre className="bg-[var(--section-background)] border border-[var(--border-color)] rounded-md p-4 mb-5 overflow-x-auto font-mono text-sm">
-            <code className="text-[var(--card-text)]">
-              {currentQuestionData.code}
-            </code>
+            <code className="text-[var(--card-text)]">{currentQuestionData.code}</code>
           </pre>
         )}
 
@@ -287,13 +273,9 @@ export default function Quiz({ categories }: QuizProps) {
             }`}
           >
             <h4 className="mb-2.5 text-lg">
-              {results[results.length - 1]?.isCorrect
-                ? "✅ 正解！"
-                : "❌ 不正解"}
+              {results[results.length - 1]?.isCorrect ? "✅ 正解！" : "❌ 不正解"}
             </h4>
-            <p className="m-0 leading-relaxed">
-              {currentQuestionData?.explanation}
-            </p>
+            <p className="m-0 leading-relaxed">{currentQuestionData?.explanation}</p>
           </div>
         )}
 

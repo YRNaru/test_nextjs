@@ -15,9 +15,7 @@ export default function QuestionCard({
 }: QuestionCardProps) {
   return (
     <div className="bg-[var(--card-background)] border border-[var(--border-color)] rounded-xl p-8 shadow-[0_2px_8px_var(--shadow-color)] md:p-6">
-      <h3 className="mb-5 text-[var(--card-text)] text-2xl">
-        {question.question}
-      </h3>
+      <h3 className="mb-5 text-[var(--card-text)] text-2xl">{question.question}</h3>
       {question.code && (
         <pre className="bg-[var(--section-background)] border border-[var(--border-color)] rounded-lg p-4 mb-5 overflow-x-auto font-mono text-sm">
           <code className="text-[var(--card-text)]">{question.code}</code>

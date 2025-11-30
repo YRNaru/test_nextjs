@@ -3,24 +3,21 @@
  */
 "use client";
 
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 
 interface GoogleLoginButtonProps {
   onSuccess?: () => void;
-  onError?: (error: any) => void;
+  onError?: (error: Error) => void;
 }
 
-export default function GoogleLoginButton({
-  onSuccess,
-  onError,
-}: GoogleLoginButtonProps) {
+export default function GoogleLoginButton({ onSuccess, onError }: GoogleLoginButtonProps) {
   const { googleLogin } = useAuth();
   const router = useRouter();
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
 
-  const handleSuccess = async (credentialResponse: any) => {
+  const handleSuccess = async (credentialResponse: CredentialResponse) => {
     try {
       await googleLogin(credentialResponse.credential);
       onSuccess?.();
@@ -37,11 +34,7 @@ export default function GoogleLoginButton({
   };
 
   if (!clientId) {
-    return (
-      <div className="alert alert-warning">
-        Google Client IDが設定されていません。
-      </div>
-    );
+    return <div className="alert alert-warning">Google Client IDが設定されていません。</div>;
   }
 
   return (

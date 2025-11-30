@@ -2,7 +2,19 @@
 
 export interface BasicExample {
   id: string;
-  type: 'component' | 'hook' | 'state' | 'props' | 'event' | 'lifecycle' | 'context' | 'ref' | 'memo' | 'effect' | 'custom' | 'other';
+  type:
+    | "component"
+    | "hook"
+    | "state"
+    | "props"
+    | "event"
+    | "lifecycle"
+    | "context"
+    | "ref"
+    | "memo"
+    | "effect"
+    | "custom"
+    | "other";
   name: string;
   description: string;
   example: string;
@@ -20,7 +32,19 @@ export interface PracticeQuestion {
   options: string[];
   correctAnswer: number;
   explanation: string;
-  type: 'component' | 'hook' | 'state' | 'props' | 'event' | 'lifecycle' | 'context' | 'ref' | 'memo' | 'effect' | 'custom' | 'other';
+  type:
+    | "component"
+    | "hook"
+    | "state"
+    | "props"
+    | "event"
+    | "lifecycle"
+    | "context"
+    | "ref"
+    | "memo"
+    | "effect"
+    | "custom"
+    | "other";
 }
 
 export interface LearningSection {

@@ -23,11 +23,7 @@ const externalLinks: ExternalLink[] = [
 
 export default function UsefulLinksCard() {
   return (
-    <GradientCard
-      gradientFrom="rgb(168, 85, 247)"
-      gradientTo="rgb(236, 72, 153)"
-      className="p-3"
-    >
+    <GradientCard gradientFrom="rgb(168, 85, 247)" gradientTo="rgb(236, 72, 153)" className="p-3">
       <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl opacity-20"></div>
       <SectionHeader
         icon="💡"
@@ -55,4 +51,3 @@ export default function UsefulLinksCard() {
     </GradientCard>
   );
 }
-

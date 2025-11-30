@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { RegisterRequest, RegisterResponse, User } from '@/types';
-import { findUserByEmail, createUser } from '../store';
+import { NextRequest, NextResponse } from "next/server";
+import { RegisterRequest, RegisterResponse, User } from "@/types";
+import { findUserByEmail, createUser } from "../store";
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     // バリデーション
     if (!name || !email || !password) {
       return NextResponse.json(
-        { success: false, error: 'すべてのフィールドが必要です' },
+        { success: false, error: "すべてのフィールドが必要です" },
         { status: 400 }
       );
     }
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { success: false, error: '有効なメールアドレスを入力してください' },
+        { success: false, error: "有効なメールアドレスを入力してください" },
         { status: 400 }
       );
     }
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     // パスワードの長さチェック
     if (password.length < 8) {
       return NextResponse.json(
-        { success: false, error: 'パスワードは8文字以上である必要があります' },
+        { success: false, error: "パスワードは8文字以上である必要があります" },
         { status: 400 }
       );
     }
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     const existingUser = findUserByEmail(email);
     if (existingUser) {
       return NextResponse.json(
-        { success: false, error: 'このメールアドレスは既に登録されています' },
+        { success: false, error: "このメールアドレスは既に登録されています" },
         { status: 409 }
       );
     }
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     };
 
     // 簡易的なトークン生成（実際のアプリケーションではJWTなどを使用）
-    const token = Buffer.from(`${newUser.id}:${Date.now()}`).toString('base64');
+    const token = Buffer.from(`${newUser.id}:${Date.now()}`).toString("base64");
 
     const response: RegisterResponse = {
       user: userResponse,
@@ -67,11 +67,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(response, { status: 201 });
   } catch (error) {
-    console.error('Register error:', error);
+    console.error("Register error:", error);
     return NextResponse.json(
-      { success: false, error: 'サーバーエラーが発生しました' },
+      { success: false, error: "サーバーエラーが発生しました" },
       { status: 500 }
     );
   }
 }
-

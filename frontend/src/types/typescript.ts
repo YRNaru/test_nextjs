@@ -3,7 +3,7 @@
 // プリミティブ型の例
 export interface PrimitiveExample {
   id: string;
-  type: 'string' | 'number' | 'boolean' | 'any';
+  type: "string" | "number" | "boolean" | "any";
   name: string;
   description: string;
   example: string;
@@ -17,7 +17,7 @@ export interface PrimitiveExample {
 // any型の例
 export interface AnyExample {
   id: string;
-  type: 'any';
+  type: "any";
   name: string;
   description: string;
   example: string;
@@ -32,7 +32,7 @@ export interface AnyExample {
 // 関数型の例
 export interface FunctionExample {
   id: string;
-  type: 'function' | 'optional' | 'default' | 'callback' | 'arrow';
+  type: "function" | "optional" | "default" | "callback" | "arrow";
   name: string;
   description: string;
   syntax: string;
@@ -48,7 +48,7 @@ export interface FunctionExample {
 // 型推論の例
 export interface InferenceExample {
   id: string;
-  type: 'inference' | 'object' | 'function' | 'array' | 'assignment';
+  type: "inference" | "object" | "function" | "array" | "assignment";
   name: string;
   description: string;
   example: string;
@@ -62,7 +62,7 @@ export interface InferenceExample {
 // 型アサーションの例
 export interface AssertionExample {
   id: string;
-  type: 'assertion' | 'dom' | 'any' | 'double' | 'caution';
+  type: "assertion" | "dom" | "any" | "double" | "caution";
   name: string;
   description: string;
   example: string;
@@ -77,7 +77,7 @@ export interface AssertionExample {
 // 型エイリアスの例
 export interface AliasExample {
   id: string;
-  type: 'alias' | 'object' | 'function' | 'index';
+  type: "alias" | "object" | "function" | "index";
   name: string;
   description: string;
   example: string;
@@ -91,7 +91,7 @@ export interface AliasExample {
 // 変数の例
 export interface VariableExample {
   id: string;
-  type: 'let' | 'const' | 'var' | 'annotation' | 'scope' | 'summary';
+  type: "let" | "const" | "var" | "annotation" | "scope" | "summary";
   name: string;
   description: string;
   example: string;
@@ -106,7 +106,7 @@ export interface VariableExample {
 // 配列型の例
 export interface ArrayExample {
   id: string;
-  type: 'array' | 'tuple' | 'union';
+  type: "array" | "tuple" | "union";
   name: string;
   description: string;
   syntax: string;
@@ -121,7 +121,7 @@ export interface ArrayExample {
 // オブジェクト型の例
 export interface ObjectExample {
   id: string;
-  type: 'object' | 'optional' | 'alias';
+  type: "object" | "optional" | "alias";
   name: string;
   description: string;
   syntax: string;
@@ -137,7 +137,7 @@ export interface ObjectExample {
 // インタフェース型の例
 export interface InterfaceExample {
   id: string;
-  type: 'interface' | 'extends' | 'implements' | 'optional' | 'difference';
+  type: "interface" | "extends" | "implements" | "optional" | "difference";
   name: string;
   description: string;
   example: string;
@@ -152,7 +152,7 @@ export interface InterfaceExample {
 // クラス型の例
 export interface ClassExample {
   id: string;
-  type: 'class' | 'extends' | 'implements' | 'access' | 'summary';
+  type: "class" | "extends" | "implements" | "access" | "summary";
   name: string;
   description: string;
   example: string;
@@ -167,7 +167,7 @@ export interface ClassExample {
 // Enum型の例
 export interface EnumExample {
   id: string;
-  type: 'enum' | 'string' | 'safety' | 'union' | 'summary';
+  type: "enum" | "string" | "safety" | "union" | "summary";
   name: string;
   description: string;
   example: string;
@@ -182,7 +182,7 @@ export interface EnumExample {
 // Generic型の例
 export interface GenericExample {
   id: string;
-  type: 'generic' | 'safety' | 'react' | 'summary';
+  type: "generic" | "safety" | "react" | "summary";
   name: string;
   description: string;
   example: string;
@@ -197,7 +197,7 @@ export interface GenericExample {
 // Union/Intersection型の例
 export interface UnionIntersectionExample {
   id: string;
-  type: 'union' | 'intersection' | 'alias' | 'summary';
+  type: "union" | "intersection" | "alias" | "summary";
   name: string;
   description: string;
   example: string;
@@ -212,7 +212,7 @@ export interface UnionIntersectionExample {
 // Literal型の例
 export interface LiteralExample {
   id: string;
-  type: 'string' | 'number' | 'summary';
+  type: "string" | "number" | "summary";
   name: string;
   description: string;
   example: string;
@@ -229,7 +229,22 @@ export interface LearningSection {
   id: string;
   title: string;
   description: string;
-  examples: PrimitiveExample[] | ArrayExample[] | ObjectExample[] | AnyExample[] | FunctionExample[] | InferenceExample[] | AssertionExample[] | AliasExample[] | VariableExample[] | InterfaceExample[] | ClassExample[] | EnumExample[] | GenericExample[] | UnionIntersectionExample[] | LiteralExample[];
+  examples:
+    | PrimitiveExample[]
+    | ArrayExample[]
+    | ObjectExample[]
+    | AnyExample[]
+    | FunctionExample[]
+    | InferenceExample[]
+    | AssertionExample[]
+    | AliasExample[]
+    | VariableExample[]
+    | InterfaceExample[]
+    | ClassExample[]
+    | EnumExample[]
+    | GenericExample[]
+    | UnionIntersectionExample[]
+    | LiteralExample[];
   keyPoints?: string[];
   benefits?: string[];
 }
@@ -242,7 +257,44 @@ export interface PracticeQuestion {
   options: string[];
   correctAnswer: number;
   explanation: string;
-  type: 'string' | 'number' | 'boolean' | 'array' | 'tuple' | 'union' | 'object' | 'optional' | 'alias' | 'any' | 'unknown' | 'function' | 'default' | 'callback' | 'arrow' | 'inference' | 'let' | 'const' | 'var' | 'annotation' | 'scope' | 'interface' | 'extends' | 'implements' | 'difference' | 'class' | 'access' | 'summary' | 'enum' | 'safety' | 'generic' | 'react' | 'intersection' | 'never' | 'readonly' | 'async-await' | 'type-definition';
+  type:
+    | "string"
+    | "number"
+    | "boolean"
+    | "array"
+    | "tuple"
+    | "union"
+    | "object"
+    | "optional"
+    | "alias"
+    | "any"
+    | "unknown"
+    | "function"
+    | "default"
+    | "callback"
+    | "arrow"
+    | "inference"
+    | "let"
+    | "const"
+    | "var"
+    | "annotation"
+    | "scope"
+    | "interface"
+    | "extends"
+    | "implements"
+    | "difference"
+    | "class"
+    | "access"
+    | "summary"
+    | "enum"
+    | "safety"
+    | "generic"
+    | "react"
+    | "intersection"
+    | "never"
+    | "readonly"
+    | "async-await"
+    | "type-definition";
 }
 
 // 学習進捗
@@ -257,4 +309,4 @@ export type NeverExample = {
   description: string;
   code: string;
   points?: string[];
-}; 
+};

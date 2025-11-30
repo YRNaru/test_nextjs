@@ -1,0 +1,41 @@
+# Dependencies
+node_modules
+
+# Production builds
+.next
+out
+dist
+build
+
+# Cache
+.turbo
+.vercel
+.cache
+
+# Environment files
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+
+# Coverage
+coverage
+.nyc_output
+htmlcov
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+

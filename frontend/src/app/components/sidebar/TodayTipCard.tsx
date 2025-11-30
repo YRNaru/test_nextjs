@@ -20,11 +20,7 @@ export default function TodayTipCard() {
   }, []);
 
   return (
-    <GradientCard
-      gradientFrom="rgb(168, 85, 247)"
-      gradientTo="rgb(236, 72, 153)"
-      className="p-3"
-    >
+    <GradientCard gradientFrom="rgb(168, 85, 247)" gradientTo="rgb(236, 72, 153)" className="p-3">
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl opacity-20"></div>
       <SectionHeader
         icon="💡"
@@ -40,4 +36,3 @@ export default function TodayTipCard() {
     </GradientCard>
   );
 }
-

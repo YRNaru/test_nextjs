@@ -12,13 +12,10 @@ import { SidebarProvider } from "./components/SidebarContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 export const metadata: Metadata = {
   title: "Next.js 初心者講座",
-  description:
-    "Next.jsの基本から実践的な開発まで、段階的に学べる学習用プロジェクト",
+  description: "Next.jsの基本から実践的な開発まで、段階的に学べる学習用プロジェクト",
   keywords: ["Next.js", "React", "TypeScript", "学習", "講座"],
 };
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
       <head>

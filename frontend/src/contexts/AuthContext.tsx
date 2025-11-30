@@ -3,13 +3,7 @@
  */
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { authAPI } from "@/lib/api";
 
 interface User {
@@ -26,7 +20,7 @@ interface AuthContextType {
     email: string,
     password: string,
     passwordConfirm: string,
-    displayName?: string,
+    displayName?: string
   ) => Promise<void>;
   googleLogin: (accessToken: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -89,15 +83,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     email: string,
     password: string,
     passwordConfirm: string,
-    displayName?: string,
+    displayName?: string
   ) => {
     try {
-      const data = await authAPI.register(
-        email,
-        password,
-        passwordConfirm,
-        displayName,
-      );
+      const data = await authAPI.register(email, password, passwordConfirm, displayName);
       localStorage.setItem("access_token", data.tokens.access);
       localStorage.setItem("refresh_token", data.tokens.refresh);
       localStorage.setItem("user", JSON.stringify(data.user));

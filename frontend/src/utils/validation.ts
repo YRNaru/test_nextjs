@@ -23,7 +23,7 @@ export function isValidUrl(url: string): boolean {
 
 // 必須フィールドのバリデーション
 export function isRequired(value: unknown): boolean {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     return value.trim().length > 0;
   }
   return value !== null && value !== undefined;
@@ -37,4 +37,4 @@ export function hasMinLength(value: string, minLength: number): boolean {
 // 最大文字数のバリデーション
 export function hasMaxLength(value: string, maxLength: number): boolean {
   return value.length <= maxLength;
-} 
+}

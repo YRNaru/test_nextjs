@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 type Theme = "light" | "dark" | "system";
@@ -44,13 +38,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         if (parsedTheme === "dark") return "dark";
         if (parsedTheme === "light") return "light";
         // system
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       }
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     } catch {
       // エラーが発生した場合は不正な値をクリア
       try {
@@ -71,8 +61,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
     const updateResolvedTheme = () => {
       if (theme === "system") {
-        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-          .matches
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light";
         setResolvedTheme(systemTheme);
@@ -117,9 +106,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <ThemeContext.Provider
-      value={{ theme, resolvedTheme, setTheme, toggleTheme }}
-    >
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

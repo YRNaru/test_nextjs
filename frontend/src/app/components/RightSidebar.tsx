@@ -8,15 +8,15 @@ export default function RightSidebar() {
   const [randomTip, setRandomTip] = useState<string>("");
   const { rightSidebarOpen } = useSidebar();
 
-  const tips = [
-    "💡 Next.jsはApp RouterとPages Routerの2つのルーティング方式があります",
-    "🚀 Server Componentsを使うとパフォーマンスが向上します",
-    "⚡ 画像最適化はnext/imageコンポーネントを使いましょう",
-    "🔒 TypeScriptで型安全性を確保しましょう",
-    "📱 レスポンシブデザインを心がけましょう",
-  ];
-
   useEffect(() => {
+    const tips = [
+      "💡 Next.jsはApp RouterとPages Routerの2つのルーティング方式があります",
+      "🚀 Server Componentsを使うとパフォーマンスが向上します",
+      "⚡ 画像最適化はnext/imageコンポーネントを使いましょう",
+      "🔒 TypeScriptで型安全性を確保しましょう",
+      "📱 レスポンシブデザインを心がけましょう",
+    ];
+
     setCurrentTime(new Date());
     setRandomTip(tips[Math.floor(Math.random() * tips.length)]);
 
@@ -40,14 +40,16 @@ export default function RightSidebar() {
           display: none;
         }
       `}</style>
-      
+
       <div className="flex flex-col gap-6">
         {/* 現在時刻 */}
         <div className="relative p-6 rounded-2xl backdrop-blur-md bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 shadow-xl overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full blur-3xl opacity-20"></div>
           <h3 className="relative text-lg font-bold mb-4 m-0 flex items-center gap-2">
             <span className="text-xl">⏰</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">現在時刻</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500">
+              現在時刻
+            </span>
           </h3>
           <div className="relative text-3xl font-bold text-center py-5 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white mb-3 font-mono shadow-lg">
             {currentTime ? currentTime.toLocaleTimeString("ja-JP") : "--:--:--"}
@@ -69,7 +71,9 @@ export default function RightSidebar() {
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-3xl opacity-20"></div>
           <h4 className="relative text-base font-bold mb-3 m-0 flex items-center gap-2">
             <span className="text-lg">💡</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">今日のヒント</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
+              今日のヒント
+            </span>
           </h4>
           <p className="relative text-sm text-foreground leading-relaxed m-0 px-4 py-3.5 bg-white/50 dark:bg-gray-800/50 rounded-xl border-l-4 border-purple-500 shadow-md">
             {randomTip || "読み込み中..."}
@@ -81,7 +85,9 @@ export default function RightSidebar() {
           <div className="absolute top-0 left-0 w-28 h-28 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full blur-3xl opacity-20"></div>
           <h4 className="relative text-base font-bold mb-4 m-0 flex items-center gap-2">
             <span className="text-lg">📊</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">学習進捗</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">
+              学習進捗
+            </span>
           </h4>
           <div className="relative space-y-4">
             <div>
@@ -90,7 +96,10 @@ export default function RightSidebar() {
                 <span className="text-sm font-bold text-green-500">75%</span>
               </div>
               <div className="relative w-full h-3 bg-white/30 dark:bg-gray-800/30 rounded-full overflow-hidden shadow-inner">
-                <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full transition-all duration-300 shadow-lg" style={{ width: "75%" }}></div>
+                <div
+                  className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full transition-all duration-300 shadow-lg"
+                  style={{ width: "75%" }}
+                ></div>
               </div>
             </div>
             <div>
@@ -99,7 +108,10 @@ export default function RightSidebar() {
                 <span className="text-sm font-bold text-blue-500">60%</span>
               </div>
               <div className="relative w-full h-3 bg-white/30 dark:bg-gray-800/30 rounded-full overflow-hidden shadow-inner">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-300 shadow-lg" style={{ width: "60%" }}></div>
+                <div
+                  className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-300 shadow-lg"
+                  style={{ width: "60%" }}
+                ></div>
               </div>
             </div>
             <div>
@@ -108,7 +120,10 @@ export default function RightSidebar() {
                 <span className="text-sm font-bold text-purple-500">85%</span>
               </div>
               <div className="relative w-full h-3 bg-white/30 dark:bg-gray-800/30 rounded-full overflow-hidden shadow-inner">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-300 shadow-lg" style={{ width: "85%" }}></div>
+                <div
+                  className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-300 shadow-lg"
+                  style={{ width: "85%" }}
+                ></div>
               </div>
             </div>
           </div>
@@ -119,11 +134,21 @@ export default function RightSidebar() {
           <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full blur-3xl opacity-20"></div>
           <h4 className="relative text-base font-bold mb-4 m-0 flex items-center gap-2">
             <span className="text-lg">🔖</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">ブックマーク</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">
+              ブックマーク
+            </span>
           </h4>
           <ul className="relative list-none p-0 m-0 flex flex-col gap-2">
-            {["⭐ よく使うコードスニペット", "📚 参考書籍リスト", "🎥 おすすめ動画", "🛠️ 便利ツール集"].map((item, index) => (
-              <li key={index} className="group px-4 py-3 rounded-xl text-sm font-medium text-foreground bg-white/50 dark:bg-gray-800/50 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-gradient-to-r hover:from-orange-500/20 hover:to-yellow-500/20">
+            {[
+              "⭐ よく使うコードスニペット",
+              "📚 参考書籍リスト",
+              "🎥 おすすめ動画",
+              "🛠️ 便利ツール集",
+            ].map((item, index) => (
+              <li
+                key={index}
+                className="group px-4 py-3 rounded-xl text-sm font-medium text-foreground bg-white/50 dark:bg-gray-800/50 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-gradient-to-r hover:from-orange-500/20 hover:to-yellow-500/20"
+              >
                 {item}
               </li>
             ))}
@@ -133,4 +158,3 @@ export default function RightSidebar() {
     </aside>
   );
 }
-

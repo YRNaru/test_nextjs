@@ -93,7 +93,7 @@ export default function MyPage() {
   }
 
   // 登録日をフォーマット
-  const formatDate = (date: Date) => {
+  const formatDate = (date: string | Date) => {
     return new Date(date).toLocaleDateString("ja-JP", {
       year: "numeric",
       month: "long",
@@ -105,20 +105,14 @@ export default function MyPage() {
     <div className="min-h-[calc(100vh-200px)] flex items-center justify-center p-8 px-4 md:p-4 md:min-h-[calc(100vh-150px)]">
       <div className="w-full max-w-[800px] bg-[var(--card-background)] border border-[var(--border-color)] rounded-2xl p-12 px-8 shadow-[0_4px_6px_var(--shadow-color)] md:p-8 md:px-6 md:rounded-xl">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-foreground mb-2 md:text-3xl">
-            マイページ
-          </h1>
-          <p className="text-lg text-[var(--card-text-secondary)] md:text-base">
-            アカウント情報
-          </p>
+          <h1 className="text-4xl font-bold text-foreground mb-2 md:text-3xl">マイページ</h1>
+          <p className="text-lg text-[var(--card-text-secondary)] md:text-base">アカウント情報</p>
         </div>
 
         <div className="mb-10">
           <div className="flex justify-center mb-8">
             <div className="w-30 h-30 rounded-full bg-gradient-to-br from-[#3498db] to-[#2980b9] flex items-center justify-center text-5xl font-bold text-white shadow-[0_4px_12px_rgba(52,152,219,0.3)] md:w-25 md:h-25 md:text-4xl">
-              {(user.display_name || user.name || user.email)
-                .charAt(0)
-                .toUpperCase()}
+              {(user.display_name || user.name || user.email).charAt(0).toUpperCase()}
             </div>
           </div>
 
@@ -136,18 +130,14 @@ export default function MyPage() {
               <label className="block text-sm font-semibold text-[var(--card-text-secondary)] mb-2 uppercase tracking-wider">
                 メールアドレス
               </label>
-              <p className="text-lg font-medium text-foreground m-0 break-all">
-                {user.email}
-              </p>
+              <p className="text-lg font-medium text-foreground m-0 break-all">{user.email}</p>
             </div>
 
             <div className="p-4 bg-[var(--section-background)] rounded-lg border border-[var(--border-color)]">
               <label className="block text-sm font-semibold text-[var(--card-text-secondary)] mb-2 uppercase tracking-wider">
                 ユーザーID
               </label>
-              <p className="text-lg font-medium text-foreground m-0 break-all">
-                {user.id}
-              </p>
+              <p className="text-lg font-medium text-foreground m-0 break-all">{user.id}</p>
             </div>
 
             {user.createdAt && (

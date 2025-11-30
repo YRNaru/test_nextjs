@@ -35,11 +35,7 @@ const progressItems: ProgressItem[] = [
 
 export default function LearningProgressCard() {
   return (
-    <GradientCard
-      gradientFrom="rgb(34, 197, 94)"
-      gradientTo="rgb(16, 185, 129)"
-      className="p-3"
-    >
+    <GradientCard gradientFrom="rgb(34, 197, 94)" gradientTo="rgb(16, 185, 129)" className="p-3">
       <div className="absolute top-0 left-0 w-28 h-28 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full blur-3xl opacity-20"></div>
       <SectionHeader
         icon="📊"
@@ -53,12 +49,8 @@ export default function LearningProgressCard() {
         {progressItems.map((item, index) => (
           <div key={index}>
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-medium text-foreground">
-                {item.label}
-              </span>
-              <span className={`text-sm font-bold ${item.color}`}>
-                {item.percentage}%
-              </span>
+              <span className="text-sm font-medium text-foreground">{item.label}</span>
+              <span className={`text-sm font-bold ${item.color}`}>{item.percentage}%</span>
             </div>
             <div className="relative w-full h-3 bg-white/30 dark:bg-gray-800/30 rounded-full overflow-hidden shadow-inner">
               <div
@@ -75,4 +67,3 @@ export default function LearningProgressCard() {
     </GradientCard>
   );
 }
-

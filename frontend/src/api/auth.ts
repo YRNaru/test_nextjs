@@ -1,18 +1,23 @@
-import { ApiResponse, RegisterRequest, RegisterResponse, LoginRequest, LoginResponse, User } from '@/types';
+import {
+  ApiResponse,
+  RegisterRequest,
+  RegisterResponse,
+  LoginRequest,
+  LoginResponse,
+  User,
+} from "@/types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 /**
  * アカウント登録（バックエンドのDjango APIに直接リクエスト）
  */
-export async function register(
-  data: RegisterRequest
-): Promise<ApiResponse<RegisterResponse>> {
+export async function register(data: RegisterRequest): Promise<ApiResponse<RegisterResponse>> {
   try {
     const response = await fetch(`${API_BASE_URL}/api/auth/register/`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: data.email,
@@ -27,7 +32,7 @@ export async function register(
     if (!response.ok) {
       return {
         success: false,
-        error: responseData.error || 'アカウント登録に失敗しました',
+        error: responseData.error || "アカウント登録に失敗しました",
       };
     }
 
@@ -36,16 +41,16 @@ export async function register(
       data: {
         user: {
           ...responseData.user,
-          name: responseData.user.display_name || responseData.user.email?.split('@')[0],
+          name: responseData.user.display_name || responseData.user.email?.split("@")[0],
         },
         token: responseData.tokens.access,
       },
     };
   } catch (error) {
-    console.error('Register error:', error);
+    console.error("Register error:", error);
     return {
       success: false,
-      error: '通信エラーが発生しました',
+      error: "通信エラーが発生しました",
     };
   }
 }
@@ -53,14 +58,12 @@ export async function register(
 /**
  * ログイン（バックエンドのDjango APIに直接リクエスト）
  */
-export async function login(
-  data: LoginRequest
-): Promise<ApiResponse<LoginResponse>> {
+export async function login(data: LoginRequest): Promise<ApiResponse<LoginResponse>> {
   try {
     const response = await fetch(`${API_BASE_URL}/api/auth/login/`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
@@ -70,16 +73,16 @@ export async function login(
     if (!response.ok) {
       return {
         success: false,
-        error: responseData.detail || responseData.error || 'ログインに失敗しました',
+        error: responseData.detail || responseData.error || "ログインに失敗しました",
       };
     }
 
     // レスポンス形式の検証
     if (!responseData.tokens || !responseData.tokens.access) {
-      console.error('Invalid response format:', responseData);
+      console.error("Invalid response format:", responseData);
       return {
         success: false,
-        error: 'サーバーからの応答が不正です',
+        error: "サーバーからの応答が不正です",
       };
     }
 
@@ -88,16 +91,16 @@ export async function login(
       data: {
         user: {
           ...responseData.user,
-          name: responseData.user.display_name || responseData.user.email?.split('@')[0],
+          name: responseData.user.display_name || responseData.user.email?.split("@")[0],
         },
         token: responseData.tokens.access,
       },
     };
   } catch (error) {
-    console.error('Login error:', error);
+    console.error("Login error:", error);
     return {
       success: false,
-      error: '通信エラーが発生しました',
+      error: "通信エラーが発生しました",
     };
   }
 }
@@ -107,19 +110,19 @@ export async function login(
  */
 export async function logout(): Promise<ApiResponse<void>> {
   try {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     const response = await fetch(`${API_BASE_URL}/api/auth/logout/`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token ? `Bearer ${token}` : '',
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
 
     if (!response.ok) {
       return {
         success: false,
-        error: 'ログアウトに失敗しました',
+        error: "ログアウトに失敗しました",
       };
     }
 
@@ -127,10 +130,10 @@ export async function logout(): Promise<ApiResponse<void>> {
       success: true,
     };
   } catch (error) {
-    console.error('Logout error:', error);
+    console.error("Logout error:", error);
     return {
       success: false,
-      error: '通信エラーが発生しました',
+      error: "通信エラーが発生しました",
     };
   }
 }
@@ -140,12 +143,12 @@ export async function logout(): Promise<ApiResponse<void>> {
  */
 export async function getCurrentUser(): Promise<ApiResponse<User>> {
   try {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     const response = await fetch(`${API_BASE_URL}/api/users/profile/`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token ? `Bearer ${token}` : '',
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
 
@@ -154,7 +157,7 @@ export async function getCurrentUser(): Promise<ApiResponse<User>> {
     if (!response.ok) {
       return {
         success: false,
-        error: 'ユーザー情報の取得に失敗しました',
+        error: "ユーザー情報の取得に失敗しました",
       };
     }
 
@@ -162,15 +165,14 @@ export async function getCurrentUser(): Promise<ApiResponse<User>> {
       success: true,
       data: {
         ...responseData,
-        name: responseData.display_name || responseData.email?.split('@')[0],
+        name: responseData.display_name || responseData.email?.split("@")[0],
       },
     };
   } catch (error) {
-    console.error('Get current user error:', error);
+    console.error("Get current user error:", error);
     return {
       success: false,
-      error: '通信エラーが発生しました',
+      error: "通信エラーが発生しました",
     };
   }
 }
-

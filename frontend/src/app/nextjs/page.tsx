@@ -1,12 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import {
-  TopicKey,
-  SubRenderingKey,
-  topicDetails,
-  subRenderingDetails,
-} from "@/data/nextjs-data";
+import { TopicKey, SubRenderingKey, topicDetails, subRenderingDetails } from "@/data/nextjs-data";
 
 const topics: { key: TopicKey; label: string }[] = [
   { key: "routing", label: "ファイルベースルーティング" },
@@ -24,8 +19,7 @@ const subRenderings: { key: SubRenderingKey; label: string }[] = [
 
 export default function NextjsPage() {
   const [activeKey, setActiveKey] = useState<TopicKey>("routing");
-  const [activeSubRendering, setActiveSubRendering] =
-    useState<SubRenderingKey>("ssg");
+  const [activeSubRendering, setActiveSubRendering] = useState<SubRenderingKey>("ssg");
   const detail = topicDetails[activeKey];
   const subDetail = subRenderingDetails[activeSubRendering];
 
@@ -64,10 +58,7 @@ export default function NextjsPage() {
                 }}
                 style={{
                   padding: "1rem 2rem",
-                  border:
-                    activeKey === topic.key
-                      ? "2px solid #3498db"
-                      : "2px solid #ccc",
+                  border: activeKey === topic.key ? "2px solid #3498db" : "2px solid #ccc",
                   background: activeKey === topic.key ? "#3498db" : "#fff",
                   color: activeKey === topic.key ? "#fff" : "#3498db",
                   borderRadius: "8px",
@@ -75,15 +66,10 @@ export default function NextjsPage() {
                   fontWeight: 600,
                   fontSize: "1.1rem",
                   transition: "all 0.2s",
-                  boxShadow:
-                    activeKey === topic.key
-                      ? "0 4px 12px rgba(52,152,219,0.15)"
-                      : "none",
+                  boxShadow: activeKey === topic.key ? "0 4px 12px rgba(52,152,219,0.15)" : "none",
                 }}
               >
-                <span style={{ marginRight: 8 }}>
-                  {topicDetails[topic.key].icon}
-                </span>
+                <span style={{ marginRight: 8 }}>{topicDetails[topic.key].icon}</span>
                 {topic.label}
               </button>
             ))}
@@ -105,27 +91,19 @@ export default function NextjsPage() {
                     style={{
                       padding: "0.7rem 1.5rem",
                       border:
-                        activeSubRendering === sub.key
-                          ? "2px solid #27ae60"
-                          : "2px solid #ccc",
-                      background:
-                        activeSubRendering === sub.key ? "#27ae60" : "#fff",
-                      color:
-                        activeSubRendering === sub.key ? "#fff" : "#27ae60",
+                        activeSubRendering === sub.key ? "2px solid #27ae60" : "2px solid #ccc",
+                      background: activeSubRendering === sub.key ? "#27ae60" : "#fff",
+                      color: activeSubRendering === sub.key ? "#fff" : "#27ae60",
                       borderRadius: "8px",
                       cursor: "pointer",
                       fontWeight: 600,
                       fontSize: "1rem",
                       transition: "all 0.2s",
                       boxShadow:
-                        activeSubRendering === sub.key
-                          ? "0 2px 8px rgba(39,174,96,0.15)"
-                          : "none",
+                        activeSubRendering === sub.key ? "0 2px 8px rgba(39,174,96,0.15)" : "none",
                     }}
                   >
-                    <span style={{ marginRight: 8 }}>
-                      {subRenderingDetails[sub.key].icon}
-                    </span>
+                    <span style={{ marginRight: 8 }}>{subRenderingDetails[sub.key].icon}</span>
                     {sub.label}
                   </button>
                 ))}
@@ -146,14 +124,10 @@ export default function NextjsPage() {
                     marginBottom: 12,
                   }}
                 >
-                  <span style={{ fontSize: "2rem", marginRight: 12 }}>
-                    {subDetail.icon}
-                  </span>
+                  <span style={{ fontSize: "2rem", marginRight: 12 }}>{subDetail.icon}</span>
                   {subDetail.title}
                 </h3>
-                <p style={{ fontWeight: 500, marginBottom: 16 }}>
-                  {subDetail.summary}
-                </p>
+                <p style={{ fontWeight: 500, marginBottom: 16 }}>{subDetail.summary}</p>
                 <div style={{ marginBottom: 16 }}>
                   <strong>✅ 主な特徴</strong>
                   <ul style={{ margin: 0, paddingLeft: 20 }}>
@@ -207,14 +181,10 @@ export default function NextjsPage() {
                   marginBottom: 12,
                 }}
               >
-                <span style={{ fontSize: "2rem", marginRight: 12 }}>
-                  {detail.icon}
-                </span>
+                <span style={{ fontSize: "2rem", marginRight: 12 }}>{detail.icon}</span>
                 {detail.title}
               </h3>
-              <p style={{ fontWeight: 500, marginBottom: 16 }}>
-                {detail.summary}
-              </p>
+              <p style={{ fontWeight: 500, marginBottom: 16 }}>{detail.summary}</p>
               {detail.features.length > 0 && (
                 <div style={{ marginBottom: 16 }}>
                   <strong>✅ 主な特徴</strong>

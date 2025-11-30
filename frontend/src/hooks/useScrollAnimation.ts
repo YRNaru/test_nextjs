@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState, RefObject } from 'react';
+import { useEffect, useRef, useState, RefObject } from "react";
 
 interface UseScrollAnimationOptions {
   threshold?: number;
@@ -8,8 +8,10 @@ interface UseScrollAnimationOptions {
   triggerOnce?: boolean;
 }
 
-export function useScrollAnimation<T extends HTMLElement = HTMLElement>(options: UseScrollAnimationOptions = {}) {
-  const { threshold = 0.1, rootMargin = '0px 0px -50px 0px', triggerOnce = true } = options;
+export function useScrollAnimation<T extends HTMLElement = HTMLElement>(
+  options: UseScrollAnimationOptions = {}
+) {
+  const { threshold = 0.1, rootMargin = "0px 0px -50px 0px", triggerOnce = true } = options;
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef<T>(null);
 
@@ -43,4 +45,3 @@ export function useScrollAnimation<T extends HTMLElement = HTMLElement>(options:
 
   return { elementRef: elementRef as RefObject<T>, isVisible };
 }
-

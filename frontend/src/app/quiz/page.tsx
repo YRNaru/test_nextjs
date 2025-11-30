@@ -20,9 +20,7 @@ export default function QuizPage() {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 mb-10 md:grid-cols-1 md:gap-5">
           <div className="bg-white/95 p-8 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-[5px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)] md:p-5">
             <span className="text-5xl block mb-5 md:text-4xl">📚</span>
-            <h3 className="text-[#333] text-xl mb-4 font-semibold md:text-lg">
-              カテゴリ別学習
-            </h3>
+            <h3 className="text-[#333] text-xl mb-4 font-semibold md:text-lg">カテゴリ別学習</h3>
             <p className="text-[#666] leading-relaxed m-0">
               プリミティブ型、配列型、オブジェクト型に分けて学習できます
             </p>
@@ -32,15 +30,11 @@ export default function QuizPage() {
             <h3 className="text-[#333] text-xl mb-4 font-semibold md:text-lg">
               即座のフィードバック
             </h3>
-            <p className="text-[#666] leading-relaxed m-0">
-              回答後すぐに正解・不正解がわかります
-            </p>
+            <p className="text-[#666] leading-relaxed m-0">回答後すぐに正解・不正解がわかります</p>
           </div>
           <div className="bg-white/95 p-8 rounded-xl text-center shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-[5px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)] md:p-5">
             <span className="text-5xl block mb-5 md:text-4xl">📊</span>
-            <h3 className="text-[#333] text-xl mb-4 font-semibold md:text-lg">
-              詳細な結果
-            </h3>
+            <h3 className="text-[#333] text-xl mb-4 font-semibold md:text-lg">詳細な結果</h3>
             <p className="text-[#666] leading-relaxed m-0">
               完了後にカテゴリ別の結果と詳細な解説を確認できます
             </p>

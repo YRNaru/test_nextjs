@@ -14,9 +14,7 @@ export default function RegisterForm() {
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof RegisterFormData, string>>
-  >({});
+  const [errors, setErrors] = useState<Partial<Record<keyof RegisterFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string>("");
 
@@ -43,8 +41,7 @@ export default function RegisterForm() {
     if (!isRequired(formData.password)) {
       newErrors.password = "パスワードを入力してください";
     } else if (!isValidPassword(formData.password)) {
-      newErrors.password =
-        "パスワードは8文字以上で、英数字を含む必要があります";
+      newErrors.password = "パスワードは8文字以上で、英数字を含む必要があります";
     }
 
     // パスワード確認のバリデーション
@@ -97,8 +94,7 @@ export default function RegisterForm() {
   };
 
   const handleChange =
-    (field: keyof RegisterFormData) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (field: keyof RegisterFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData((prev) => ({ ...prev, [field]: e.target.value }));
       // エラーをクリア
       if (errors[field]) {
@@ -197,10 +193,7 @@ export default function RegisterForm() {
             {errors.password}
           </span>
         )}
-        <p
-          className="text-[var(--card-text-secondary)] text-sm -mt-1"
-          data-oid="uk2yn6b"
-        >
+        <p className="text-[var(--card-text-secondary)] text-sm -mt-1" data-oid="uk2yn6b">
           パスワードは8文字以上で、英数字を含む必要があります
         </p>
       </div>

@@ -18,9 +18,7 @@ export default function Home() {
         </div>
 
         <div className="mb-8 p-6 bg-[var(--section-background)] rounded-lg border border-[var(--border-color)] md:p-4">
-          <h2 className="text-2xl font-semibold mb-4 text-foreground md:text-xl">
-            📚 学習内容
-          </h2>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground md:text-xl">📚 学習内容</h2>
           <ul className="list-none p-0 space-y-2 text-foreground">
             <li>
               <strong>App Router</strong> - 新しいルーティングシステム
@@ -47,12 +45,8 @@ export default function Home() {
         </div>
 
         <div className="mb-8 p-6 bg-[var(--section-background)] rounded-lg border border-[var(--border-color)] md:p-4">
-          <h2 className="text-2xl font-semibold mb-4 text-foreground md:text-xl">
-            🛠️ 開発環境
-          </h2>
-          <p className="text-foreground mb-4 opacity-90">
-            現在使用している技術スタック：
-          </p>
+          <h2 className="text-2xl font-semibold mb-4 text-foreground md:text-xl">🛠️ 開発環境</h2>
+          <p className="text-foreground mb-4 opacity-90">現在使用している技術スタック：</p>
           <div className="flex flex-wrap gap-2">
             <span className="px-3 py-1.5 bg-[var(--card-background)] border border-[var(--border-color)] rounded-full text-sm text-foreground font-medium">
               Next.js 15.3.4

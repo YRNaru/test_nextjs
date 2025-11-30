@@ -12,9 +12,7 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof LoginFormData, string>>
-  >({});
+  const [errors, setErrors] = useState<Partial<Record<keyof LoginFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string>("");
 
@@ -73,15 +71,13 @@ export default function LoginForm() {
     }
   };
 
-  const handleChange =
-    (field: keyof LoginFormData) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-      // エラーをクリア
-      if (errors[field]) {
-        setErrors((prev) => ({ ...prev, [field]: undefined }));
-      }
-    };
+  const handleChange = (field: keyof LoginFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+    // エラーをクリア
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
 
   return (
     <form

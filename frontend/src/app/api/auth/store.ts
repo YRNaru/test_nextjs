@@ -15,14 +15,14 @@ export interface StoredUser {
 const users: StoredUser[] = [];
 
 export function findUserByEmail(email: string): StoredUser | undefined {
-  return users.find(u => u.email === email);
+  return users.find((u) => u.email === email);
 }
 
 export function findUserById(id: string): StoredUser | undefined {
-  return users.find(u => u.id === id);
+  return users.find((u) => u.id === id);
 }
 
-export function createUser(user: Omit<StoredUser, 'id' | 'createdAt' | 'updatedAt'>): StoredUser {
+export function createUser(user: Omit<StoredUser, "id" | "createdAt" | "updatedAt">): StoredUser {
   const newUser: StoredUser = {
     ...user,
     id: `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -36,4 +36,3 @@ export function createUser(user: Omit<StoredUser, 'id' | 'createdAt' | 'updatedA
 export function getAllUsers(): StoredUser[] {
   return users;
 }
-

@@ -6,8 +6,7 @@ const blogPosts = [
   {
     id: "1",
     title: "Next.js App Routerの基本",
-    excerpt:
-      "Next.js 13で導入されたApp Routerについて、その特徴と使い方を詳しく解説します。",
+    excerpt: "Next.js 13で導入されたApp Routerについて、その特徴と使い方を詳しく解説します。",
     publishedAt: "2024-01-15",
     author: "Next.js講師",
     tags: ["Next.js", "App Router", "React"],
@@ -15,8 +14,7 @@ const blogPosts = [
   {
     id: "2",
     title: "TypeScriptで型安全な開発",
-    excerpt:
-      "TypeScriptを使った型安全なReactコンポーネントの開発方法を学びましょう。",
+    excerpt: "TypeScriptを使った型安全なReactコンポーネントの開発方法を学びましょう。",
     publishedAt: "2024-01-10",
     author: "TypeScript講師",
     tags: ["TypeScript", "React", "型安全性"],
@@ -24,8 +22,7 @@ const blogPosts = [
   {
     id: "3",
     title: "CSS Modulesでスタイリング",
-    excerpt:
-      "CSS Modulesを使ったスコープされたスタイリングの実践的な使い方を紹介します。",
+    excerpt: "CSS Modulesを使ったスコープされたスタイリングの実践的な使い方を紹介します。",
     publishedAt: "2024-01-05",
     author: "CSS講師",
     tags: ["CSS", "CSS Modules", "スタイリング"],
@@ -38,10 +35,7 @@ export default function BlogPage() {
       className="flex flex-col items-center min-h-screen p-10 px-5 font-sans leading-relaxed md:p-5 md:px-4"
       data-oid="6:gedbp"
     >
-      <main
-        className="max-w-[800px] w-full flex flex-col gap-10"
-        data-oid="yyqkp2f"
-      >
+      <main className="max-w-[800px] w-full flex flex-col gap-10" data-oid="yyqkp2f">
         <header className="text-center mb-8" data-oid="7o9eq8t">
           <h1
             className="text-4xl font-bold m-0 mb-4 text-foreground md:text-3xl"
@@ -49,10 +43,7 @@ export default function BlogPage() {
           >
             📝 ブログ
           </h1>
-          <p
-            className="text-lg text-foreground opacity-80 m-0 md:text-base"
-            data-oid="_awba8_"
-          >
+          <p className="text-lg text-foreground opacity-80 m-0 md:text-base" data-oid="_awba8_">
             Next.jsとReactに関する最新の情報やチュートリアルをお届けします。
           </p>
         </header>
@@ -90,10 +81,7 @@ export default function BlogPage() {
                 </div>
               </div>
 
-              <p
-                className="m-0 mb-4 text-foreground opacity-80 leading-relaxed"
-                data-oid="i4ioa21"
-              >
+              <p className="m-0 mb-4 text-foreground opacity-80 leading-relaxed" data-oid="i4ioa21">
                 {post.excerpt}
               </p>
 

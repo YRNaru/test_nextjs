@@ -12,9 +12,7 @@ export default function LoginPage() {
     <div className="min-h-[calc(100vh-200px)] flex items-center justify-center p-8 px-4 md:p-4 md:min-h-[calc(100vh-150px)]">
       <div className="w-full max-w-[600px] bg-[var(--card-background)] border border-[var(--border-color)] rounded-2xl p-12 px-8 shadow-[0_4px_6px_var(--shadow-color)] md:p-8 md:px-6 md:rounded-xl">
         <div className="text-center mb-10 md:mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2 md:text-3xl">
-            ログイン
-          </h1>
+          <h1 className="text-4xl font-bold text-foreground mb-2 md:text-3xl">ログイン</h1>
           <p className="text-base text-[var(--card-text-secondary)] leading-relaxed md:text-sm">
             アカウントにログインして、Next.js学習を続けましょう
           </p>

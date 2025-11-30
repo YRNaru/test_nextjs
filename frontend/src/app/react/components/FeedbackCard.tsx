@@ -21,9 +21,7 @@ export default function FeedbackCard({
           : "bg-[#f8d7da] border-l-[#dc3545] text-[#721c24]"
       }`}
     >
-      <h3 className="text-2xl font-semibold mb-3">
-        {isCorrect ? "✅ 正解！" : "❌ 不正解"}
-      </h3>
+      <h3 className="text-2xl font-semibold mb-3">{isCorrect ? "✅ 正解！" : "❌ 不正解"}</h3>
       <p className="mb-6 leading-relaxed">{question.explanation}</p>
       <button
         className="w-full py-3 px-6 border-none rounded-lg text-base font-semibold cursor-pointer transition-all duration-200 bg-[#3498db] text-white hover:bg-[#2980b9]"

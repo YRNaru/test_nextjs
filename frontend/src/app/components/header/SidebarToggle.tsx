@@ -7,21 +7,19 @@ interface SidebarToggleProps {
 }
 
 export default function SidebarToggle({ side }: SidebarToggleProps) {
-  const {
-    leftSidebarOpen,
-    rightSidebarOpen,
-    toggleLeftSidebar,
-    toggleRightSidebar,
-  } = useSidebar();
+  const { leftSidebarOpen, rightSidebarOpen, toggleLeftSidebar, toggleRightSidebar } = useSidebar();
 
   const isOpen = side === "left" ? leftSidebarOpen : rightSidebarOpen;
   const toggle = side === "left" ? toggleLeftSidebar : toggleRightSidebar;
-  const icon = side === "left"
-    ? (isOpen ? "◀" : "▶")
-    : (isOpen ? "▶" : "◀");
-  const label = side === "left"
-    ? (isOpen ? "左サイドバーを閉じる" : "左サイドバーを開く")
-    : (isOpen ? "右サイドバーを閉じる" : "右サイドバーを開く");
+  const icon = side === "left" ? (isOpen ? "◀" : "▶") : isOpen ? "▶" : "◀";
+  const label =
+    side === "left"
+      ? isOpen
+        ? "左サイドバーを閉じる"
+        : "左サイドバーを開く"
+      : isOpen
+        ? "右サイドバーを閉じる"
+        : "右サイドバーを開く";
 
   return (
     <button
@@ -35,4 +33,3 @@ export default function SidebarToggle({ side }: SidebarToggleProps) {
     </button>
   );
 }
-

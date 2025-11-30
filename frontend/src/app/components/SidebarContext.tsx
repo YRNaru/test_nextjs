@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-  useRef,
-} from "react";
+import { createContext, useContext, useState, ReactNode, useEffect, useRef } from "react";
 
 interface SidebarContextType {
   leftSidebarOpen: boolean;
