@@ -19,34 +19,34 @@ User = get_user_model()
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
     カスタムトークン取得シリアライザー
-    
+
     JWTトークンにカスタムクレームを追加します。
     """
-    
+
     @classmethod
     def get_token(cls, user: User) -> Token:
         """
         ユーザーのJWTトークンを生成し、カスタムクレームを追加
-        
+
         Args:
             user: トークンを生成するユーザー
-            
+
         Returns:
             Token: 生成されたJWTトークン
         """
         token = super().get_token(user)
-        
+
         # カスタムクレームを追加
         token['email'] = user.email
         token['display_name'] = user.get_display_name()
-        
+
         return token
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     """
     ユーザー登録シリアライザー
-    
+
     新規ユーザー登録のためのシリアライザー。
     パスワードの確認と強度チェックを行います。
     """
@@ -70,7 +70,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         trim_whitespace=True,
         help_text="表示名（オプション）"
     )
-    
+
     class Meta:
         model = User
         fields = ('email', 'password', 'password_confirm', 'display_name')
@@ -80,17 +80,17 @@ class RegisterSerializer(serializers.ModelSerializer):
                 'help_text': "有効なメールアドレスを入力してください。"
             },
         }
-    
+
     def validate_email(self, value: str) -> str:
         """
         メールアドレスのバリデーション
-        
+
         Args:
             value: 検証するメールアドレス
-            
+
         Returns:
             str: 検証済みのメールアドレス（小文字）
-            
+
         Raises:
             serializers.ValidationError: メールアドレスが既に使用されている場合
         """
@@ -100,20 +100,20 @@ class RegisterSerializer(serializers.ModelSerializer):
                 "このメールアドレスは既に使用されています。"
             )
         return email
-    
+
     def validate_password(self, value: str) -> str:
         """
         パスワードのバリデーション
-        
+
         Djangoのパスワードバリデーターを使用して
         パスワードの強度をチェックします。
-        
+
         Args:
             value: 検証するパスワード
-            
+
         Returns:
             str: 検証済みのパスワード
-            
+
         Raises:
             serializers.ValidationError: パスワードが弱い場合
         """
@@ -122,19 +122,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         except DjangoValidationError as e:
             raise serializers.ValidationError(list(e.messages))
         return value
-    
+
     def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
         """
         クロスフィールドバリデーション
-        
+
         パスワードと確認用パスワードの一致を検証します。
-        
+
         Args:
             attrs: 検証する属性の辞書
-            
+
         Returns:
             Dict[str, Any]: 検証済みの属性
-            
+
         Raises:
             serializers.ValidationError: パスワードが一致しない場合
         """
@@ -143,14 +143,14 @@ class RegisterSerializer(serializers.ModelSerializer):
                 {"password": "パスワードが一致しません。"}
             )
         return attrs
-    
+
     def create(self, validated_data: Dict[str, Any]) -> User:
         """
         ユーザーを作成
-        
+
         Args:
             validated_data: 検証済みのデータ
-            
+
         Returns:
             User: 作成されたユーザーインスタンス
         """
@@ -162,24 +162,24 @@ class RegisterSerializer(serializers.ModelSerializer):
 class GoogleAuthSerializer(serializers.Serializer):
     """
     Google認証シリアライザー
-    
+
     Google OAuthトークンの検証とユーザー認証を行います。
     """
     access_token = serializers.CharField(
         required=True,
         help_text="Googleから取得したアクセストークン"
     )
-    
+
     def validate_access_token(self, value: str) -> str:
         """
         アクセストークンのバリデーション
-        
+
         Args:
             value: 検証するアクセストークン
-            
+
         Returns:
             str: 検証済みのアクセストークン
-            
+
         Raises:
             serializers.ValidationError: トークンが空の場合
         """
@@ -193,7 +193,7 @@ class GoogleAuthSerializer(serializers.Serializer):
 class SocialAuthSerializer(serializers.Serializer):
     """
     ソーシャル認証シリアライザー
-    
+
     Twitter、Discord等のソーシャルOAuthトークンの検証を行います。
     """
     access_token = serializers.CharField(
@@ -204,23 +204,23 @@ class SocialAuthSerializer(serializers.Serializer):
         required=True,
         help_text="認証プロバイダー（twitter, discord等）"
     )
-    
+
     def validate_provider(self, value: str) -> str:
         """
         プロバイダーのバリデーション
-        
+
         Args:
             value: 検証するプロバイダー名
-            
+
         Returns:
             str: 検証済みのプロバイダー名（小文字）
-            
+
         Raises:
             serializers.ValidationError: サポートされていないプロバイダーの場合
         """
         allowed_providers = ['twitter', 'discord']
         provider = value.lower()
-        
+
         if provider not in allowed_providers:
             raise serializers.ValidationError(
                 f"サポートされていないプロバイダーです。使用可能: {', '.join(allowed_providers)}"

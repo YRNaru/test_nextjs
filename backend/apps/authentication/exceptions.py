@@ -57,4 +57,3 @@ class DiscordAuthError(SocialAuthError):
     """
     default_detail = 'Discord認証に失敗しました。'
     default_code = 'discord_auth_error'
-
