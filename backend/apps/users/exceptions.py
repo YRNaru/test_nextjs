@@ -42,4 +42,3 @@ class PermissionDeniedError(APIException):
     status_code = status.HTTP_403_FORBIDDEN
     default_detail = 'この操作を実行する権限がありません。'
     default_code = 'permission_denied'
-
