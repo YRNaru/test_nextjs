@@ -148,4 +148,3 @@ def send_password_reset_email(user_email: str, reset_token: str) -> str:
             exc_info=True
         )
         raise
-

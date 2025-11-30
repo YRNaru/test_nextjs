@@ -81,7 +81,9 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
         """
         try:
             response = super().update(request, *args, **kwargs)
-            logger.info(f"User {request.user.id} updated their profile successfully")
+            logger.info(
+                f"User {request.user.id} updated their profile successfully"
+            )
             return response
         except Exception as e:
             logger.error(
@@ -166,7 +168,9 @@ class UserDetailView(generics.RetrieveAPIView):
         # パフォーマンス最適化: アクティブなユーザーのみ
         return User.objects.filter(is_active=True)
 
-    def retrieve(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+    def retrieve(
+        self, request: Request, *args: Any, **kwargs: Any
+    ) -> Response:
         """
         ユーザー詳細の取得処理
 
@@ -183,7 +187,9 @@ class UserDetailView(generics.RetrieveAPIView):
         """
         try:
             user_id = kwargs.get('pk')
-            logger.info(f"User {request.user.id} accessed details of user {user_id}")
+            logger.info(
+                f"User {request.user.id} accessed details of user {user_id}"
+            )
             return super().retrieve(request, *args, **kwargs)
         except Exception as e:
             # Http404は正常な動作なのでそのままraise
@@ -200,4 +206,3 @@ class UserDetailView(generics.RetrieveAPIView):
                 {"error": "ユーザー情報の取得に失敗しました。"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-

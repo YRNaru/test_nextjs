@@ -15,4 +15,3 @@ urlpatterns = [
     path('list/', UserListView.as_view(), name='list'),
     path('<int:pk>/', UserDetailView.as_view(), name='detail'),
 ]
-

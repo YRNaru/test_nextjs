@@ -94,7 +94,9 @@ class SendPasswordResetEmailTestCase(TestCase):
     @patch('apps.users.tasks.send_mail')
     def test_send_password_reset_email_success(self, mock_send_mail):
         """パスワードリセットメール送信成功"""
-        result = send_password_reset_email('test@example.com', 'reset-token-123')
+        result = send_password_reset_email(
+            'test@example.com', 'reset-token-123'
+        )
 
         mock_send_mail.assert_called_once()
         self.assertIn('test@example.com', result)
@@ -109,4 +111,3 @@ class SendPasswordResetEmailTestCase(TestCase):
 
         with self.assertRaises(Exception):
             send_password_reset_email('test@example.com', 'token')
-

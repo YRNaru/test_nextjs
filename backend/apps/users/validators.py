@@ -4,7 +4,7 @@
 このモジュールはカスタムバリデーション関数を提供します。
 """
 import re
-from typing import Any, List, Optional
+from typing import Any, List
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -150,4 +150,3 @@ def validate_image_file(file: Any) -> None:
 
     # ファイルサイズを検証（5MB以下）
     validate_file_size(file, max_size_mb=5)
-

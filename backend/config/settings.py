@@ -1,7 +1,7 @@
 """
 Django settings for test_nextjs project.
 """
-import os
+import sys
 from pathlib import Path
 from datetime import timedelta
 from decouple import config
@@ -14,12 +14,16 @@ pymysql.install_as_MySQLdb()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-production')
+SECRET_KEY = config(
+    'SECRET_KEY', default='django-insecure-change-this-in-production'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS', default='localhost,127.0.0.1'
+).split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -30,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+
     # Third party apps
     'rest_framework',
     'rest_framework.authtoken',
@@ -47,7 +51,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'django_celery_beat',
     'django_celery_results',
-    
+
     # Local apps
     'apps.users',
     'apps.authentication',
@@ -112,7 +116,6 @@ DATABASES = {
 }
 
 # テスト環境では SQLite を使用（オプション）
-import sys
 if 'test' in sys.argv or 'pytest' in sys.modules:
     DATABASES = {
         'default': {
@@ -124,16 +127,28 @@ if 'test' in sys.argv or 'pytest' in sys.modules:
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'MinimumLengthValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'CommonPasswordValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation.'
+            'NumericPasswordValidator'
+        ),
     },
 ]
 
@@ -166,7 +181,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': (
+        'rest_framework.pagination.PageNumberPagination'
+    ),
     'PAGE_SIZE': 20,
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -269,7 +286,10 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '[{levelname}] {asctime} {name} {module} {process:d} {thread:d} {message}',
+            'format': (
+                '[{levelname}] {asctime} {name} {module} '
+                '{process:d} {thread:d} {message}'
+            ),
             'style': '{',
         },
         'simple': {
@@ -337,8 +357,8 @@ LOGGING = {
 }
 
 # ログディレクトリを作成
-import os
+import os  # noqa: E402, F401
+
 log_dir = BASE_DIR / 'logs'
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
-

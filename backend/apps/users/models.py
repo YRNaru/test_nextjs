@@ -160,4 +160,3 @@ class User(AbstractUser):
         if self.display_name:
             return self.display_name
         return self.email.split('@')[0]
-
