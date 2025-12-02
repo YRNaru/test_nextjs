@@ -40,6 +40,11 @@ const nextConfig: NextConfig = {
     // Next.js 16の新機能
     optimizeCss: true,
     optimizePackageImports: ['react-bootstrap', 'bootstrap', 'axios'],
+    // キャッシュ設定の改善
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
+    },
   },
   
   // ヘッダー設定（セキュリティ＆パフォーマンス）

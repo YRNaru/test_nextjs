@@ -33,8 +33,8 @@ export default function Home() {
   ];
 
   const techStack = [
-    "Next.js 16.0.0",
-    "React 19",
+    "Next.js 16.0.6",
+    "React 19.2.0",
     "TypeScript",
     "Tailwind CSS",
     "shadcn/ui",

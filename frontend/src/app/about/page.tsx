@@ -1,4 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About - Next.js 初心者講座",
+  description: "Next.jsの基本から実践的な開発まで、段階的に学べる学習用プロジェクトについて",
+  keywords: ["Next.js", "学習", "講座", "React", "TypeScript"],
+};
 
 export default function About() {
   return (
@@ -82,13 +89,13 @@ export default function About() {
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
               data-oid="u9g67qs"
             >
-              Next.js 15.3.4
+              Next.js 16.0.6
             </span>
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"
               data-oid="fd3h2u2"
             >
-              React 18
+              React 19
             </span>
             <span
               className="bg-black/[0.08] dark:bg-white/[0.145] px-4 py-2 rounded-2xl text-sm font-medium text-foreground md:text-xs md:px-3 md:py-1.5"

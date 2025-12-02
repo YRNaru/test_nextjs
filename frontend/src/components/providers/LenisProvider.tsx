@@ -19,6 +19,12 @@ export default function LenisProvider({ children }: LenisProviderProps) {
       gestureOrientation: "vertical",
       smoothWheel: true,
       touchMultiplier: 2,
+      // サイドバーや特定の要素でのスクロールを除外
+      prevent: (node) => {
+        // data-lenis-prevent属性を持つ要素とその子要素は除外
+        return node.hasAttribute('data-lenis-prevent') || 
+               node.closest('[data-lenis-prevent]') !== null;
+      },
     });
 
     // アニメーションフレームでLenisを更新

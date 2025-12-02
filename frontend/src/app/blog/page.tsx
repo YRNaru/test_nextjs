@@ -1,5 +1,12 @@
 import Link from "next/link";
 import { formatDate } from "@/utils/format";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ブログ - Next.js 初心者講座",
+  description: "Next.jsとReactに関する最新の情報やチュートリアルをお届けします",
+  keywords: ["Next.js", "React", "TypeScript", "ブログ", "チュートリアル"],
+};
 
 // サンプルブログデータ
 const blogPosts = [

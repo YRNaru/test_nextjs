@@ -28,6 +28,7 @@ export default function LeftSidebar() {
 
   return (
     <aside
+      data-lenis-prevent=""
       className={`fixed top-20 bottom-0 w-[320px] max-h-[calc(100vh-80px)] overflow-y-auto backdrop-blur-xl bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-gray-900/90 dark:via-gray-900/80 dark:to-gray-900/90 border-r border-white/20 dark:border-white/10 p-6 pl-4 z-50 transition-all duration-300 left-0 shadow-2xl shadow-black/10 dark:shadow-black/30 scrollbar-hide xl:translate-x-0 ${leftSidebarOpen ? "translate-x-0 opacity-100" : "translate-x-[-100%] opacity-0 pointer-events-none xl:translate-x-0 xl:opacity-100 xl:pointer-events-auto"}`}
       style={{
         scrollbarWidth: "none",
