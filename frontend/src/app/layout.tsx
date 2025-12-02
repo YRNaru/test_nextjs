@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { SidebarProvider } from "./components/SidebarContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import LenisProvider from "@/components/providers/LenisProvider";
 
 // Next.js 16では、Server Componentsで直接インポート
 import Header from "./components/Header";
@@ -53,20 +53,22 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
       </head>
       <body className="">
-        <AuthProvider>
-          <ThemeProvider>
-            <SidebarProvider>
-              <Header />
-              <LeftSidebar />
-              <RightSidebar />
-              <MainContent>
-                {children}
-                <Footer />
-              </MainContent>
-              <ScrollToTop />
-            </SidebarProvider>
-          </ThemeProvider>
-        </AuthProvider>
+        <LenisProvider>
+          <AuthProvider>
+            <ThemeProvider>
+              <SidebarProvider>
+                <Header />
+                <LeftSidebar />
+                <RightSidebar />
+                <MainContent>
+                  {children}
+                  <Footer />
+                </MainContent>
+                <ScrollToTop />
+              </SidebarProvider>
+            </ThemeProvider>
+          </AuthProvider>
+        </LenisProvider>
       </body>
     </html>
   );

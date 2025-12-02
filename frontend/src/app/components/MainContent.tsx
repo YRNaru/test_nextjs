@@ -2,6 +2,7 @@
 
 import { useSidebar } from "./SidebarContext";
 import { ReactNode, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function MainContent({ children }: { children: ReactNode }) {
   const { leftSidebarOpen, rightSidebarOpen } = useSidebar();
@@ -9,7 +10,6 @@ export default function MainContent({ children }: { children: ReactNode }) {
   const [viewportWidth, setViewportWidth] = useState(0);
 
   useEffect(() => {
-    // クライアント側でのみ実行
     setMounted(true);
     setViewportWidth(window.innerWidth);
 
@@ -21,19 +21,19 @@ export default function MainContent({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // サイドバー幅を320pxに固定（パディング6 = 24px を含む）
   const sidebarWidth = 320;
-  // 1280px以上（xlブレークポイント）でサイドバーが固定表示される
   const shouldOffsetSidebars = viewportWidth >= 1200;
 
-  // mountedになるまではサーバー側と同じ値（0）を返す
   const paddingLeft =
     mounted && leftSidebarOpen && shouldOffsetSidebars ? `${sidebarWidth}px` : "0";
   const paddingRight =
     mounted && rightSidebarOpen && shouldOffsetSidebars ? `${sidebarWidth}px` : "0";
 
   return (
-    <main
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
       className="min-h-screen pt-20 transition-[padding] duration-300 ease-in-out"
       style={{
         paddingLeft,
@@ -41,6 +41,6 @@ export default function MainContent({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </main>
+    </motion.main>
   );
 }

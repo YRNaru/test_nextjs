@@ -4,8 +4,11 @@
 "use client";
 
 import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import { motion } from "framer-motion";
+import { AlertCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 interface GoogleLoginButtonProps {
   onSuccess?: () => void;
@@ -19,7 +22,6 @@ export default function GoogleLoginButton({ onSuccess, onError }: GoogleLoginBut
 
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
     try {
-      // credentialがundefinedの可能性を考慮
       if (!credentialResponse.credential) {
         throw new Error("認証情報が取得できませんでした");
       }
@@ -29,7 +31,6 @@ export default function GoogleLoginButton({ onSuccess, onError }: GoogleLoginBut
       router.push("/mypage");
     } catch (error) {
       console.error("Google login failed:", error);
-      // errorをError型として扱う
       const errorMessage = error instanceof Error ? error : new Error("Google login failed");
       onError?.(errorMessage);
     }
@@ -41,12 +42,23 @@ export default function GoogleLoginButton({ onSuccess, onError }: GoogleLoginBut
   };
 
   if (!clientId) {
-    return <div className="alert alert-warning">Google Client IDが設定されていません。</div>;
+    return (
+      <Alert variant="destructive">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>エラー</AlertTitle>
+        <AlertDescription>Google Client IDが設定されていません。</AlertDescription>
+      </Alert>
+    );
   }
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
-      <div className="d-flex justify-content-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="flex justify-center"
+      >
         <GoogleLogin
           onSuccess={handleSuccess}
           onError={handleError}
@@ -55,7 +67,7 @@ export default function GoogleLoginButton({ onSuccess, onError }: GoogleLoginBut
           text="continue_with"
           locale="ja"
         />
-      </div>
+      </motion.div>
     </GoogleOAuthProvider>
   );
 }

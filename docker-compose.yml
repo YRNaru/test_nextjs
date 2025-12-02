@@ -31,10 +31,8 @@ services:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
       --innodb-buffer-pool-size=256M
-      --innodb-log-file-size=64M
+      --innodb-redo-log-capacity=134217728
       --max-connections=200
-      --query-cache-size=0
-      --query-cache-type=0
 
   # Redis (Celeryのブローカー & キャッシュ)
   redis:
@@ -109,7 +107,7 @@ services:
     networks:
       - app_network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/login/"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/admin/login/')"]
       interval: 30s
       timeout: 10s
       retries: 3

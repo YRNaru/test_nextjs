@@ -1,23 +1,42 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import pluginReact from "eslint-plugin-react";
+import pluginReactHooks from "eslint-plugin-react-hooks";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default [
   {
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
+  ...tseslint.configs.recommended,
+  {
+    plugins: {
+      react: pluginReact,
+      "react-hooks": pluginReactHooks,
+    },
     rules: {
-      // Next.js 15+の推奨ルール
-      "@next/next/no-html-link-for-pages": "error",
-      "@next/next/no-img-element": "warn",
-      "@next/next/no-sync-scripts": "error",
-      // TypeScript推奨ルール
+      // React rules
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      // React Hooks rules
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      // TypeScript rules
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -26,11 +45,15 @@ const eslintConfig = [
         },
       ],
       "@typescript-eslint/no-explicit-any": "warn",
-      // React推奨ルール
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
     },
   },
+  {
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "public/**",
+      "*.config.*",
+    ],
+  },
 ];
-
-export default eslintConfig;

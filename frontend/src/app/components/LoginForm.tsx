@@ -2,9 +2,15 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { Mail, Lock, AlertCircle } from "lucide-react";
 import { login } from "@/api/auth";
 import { isValidEmail, isRequired } from "@/utils/validation";
 import { LoginFormData } from "@/types";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -19,14 +25,12 @@ export default function LoginForm() {
   const validateForm = (): boolean => {
     const newErrors: Partial<Record<keyof LoginFormData, string>> = {};
 
-    // メールアドレスのバリデーション
     if (!isRequired(formData.email)) {
       newErrors.email = "メールアドレスを入力してください";
     } else if (!isValidEmail(formData.email)) {
       newErrors.email = "有効なメールアドレスを入力してください";
     }
 
-    // パスワードのバリデーション
     if (!isRequired(formData.password)) {
       newErrors.password = "パスワードを入力してください";
     }
@@ -52,13 +56,10 @@ export default function LoginForm() {
       });
 
       if (response.success && response.data) {
-        // トークンを保存
         if (typeof window !== "undefined") {
           localStorage.setItem("authToken", response.data.token);
-          // カスタムイベントを発火して認証状態を更新
           window.dispatchEvent(new Event("auth-change"));
         }
-        // ログイン成功後にホームページへリダイレクト
         router.push("/");
         router.refresh();
       } else {
@@ -73,95 +74,105 @@ export default function LoginForm() {
 
   const handleChange = (field: keyof LoginFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-    // エラーをクリア
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
   };
 
   return (
-    <form
+    <motion.form
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
       onSubmit={handleSubmit}
       className="flex flex-col gap-6 w-full max-w-[500px] mx-auto md:max-w-full"
-      data-oid="gbh_n6g"
     >
-      <div className="flex flex-col gap-2" data-oid="_gep6n2">
-        <label
-          htmlFor="email"
-          className="text-sm font-medium text-foreground flex items-center gap-1"
-          data-oid=".34.-5k"
-        >
-          メールアドレス{" "}
-          <span className="text-[#e74c3c] font-semibold" data-oid="bkp1vy-">
-            *
-          </span>
-        </label>
-        <input
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        className="flex flex-col gap-2"
+      >
+        <Label htmlFor="email" className="flex items-center gap-2">
+          <Mail className="w-4 h-4" />
+          メールアドレス
+          <span className="text-destructive">*</span>
+        </Label>
+        <Input
           type="email"
           id="email"
           value={formData.email}
           onChange={handleChange("email")}
-          className={`px-4 py-3 text-base border-2 rounded-lg bg-card-background text-foreground transition-all duration-200 w-full box-border focus:outline-none focus:border-[#3498db] focus:shadow-[0_0_0_3px_rgba(52,152,219,0.1)] disabled:opacity-60 disabled:cursor-not-allowed md:text-base ${errors.email ? "border-[#e74c3c] focus:border-[#e74c3c] focus:shadow-[0_0_0_3px_rgba(231,76,60,0.1)]" : "border-[var(--border-color)]"}`}
+          className={errors.email ? "border-destructive focus-visible:ring-destructive" : ""}
           placeholder="example@email.com"
           disabled={isSubmitting}
           autoComplete="email"
-          data-oid="2v.y_63"
         />
-
         {errors.email && (
-          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="aw0bg53">
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-sm text-destructive"
+          >
             {errors.email}
-          </span>
+          </motion.p>
         )}
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col gap-2" data-oid="ost5bkl">
-        <label
-          htmlFor="password"
-          className="text-sm font-medium text-foreground flex items-center gap-1"
-          data-oid="15hx_v."
-        >
-          パスワード{" "}
-          <span className="text-[#e74c3c] font-semibold" data-oid="lk6y63y">
-            *
-          </span>
-        </label>
-        <input
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="flex flex-col gap-2"
+      >
+        <Label htmlFor="password" className="flex items-center gap-2">
+          <Lock className="w-4 h-4" />
+          パスワード
+          <span className="text-destructive">*</span>
+        </Label>
+        <Input
           type="password"
           id="password"
           value={formData.password}
           onChange={handleChange("password")}
-          className={`px-4 py-3 text-base border-2 rounded-lg bg-card-background text-foreground transition-all duration-200 w-full box-border focus:outline-none focus:border-[#3498db] focus:shadow-[0_0_0_3px_rgba(52,152,219,0.1)] disabled:opacity-60 disabled:cursor-not-allowed md:text-base ${errors.password ? "border-[#e74c3c] focus:border-[#e74c3c] focus:shadow-[0_0_0_3px_rgba(231,76,60,0.1)]" : "border-[var(--border-color)]"}`}
+          className={errors.password ? "border-destructive focus-visible:ring-destructive" : ""}
           placeholder="パスワードを入力"
           disabled={isSubmitting}
           autoComplete="current-password"
-          data-oid="fco387g"
         />
-
         {errors.password && (
-          <span className="text-[#e74c3c] text-sm -mt-1" data-oid="al:n8gh">
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-sm text-destructive"
+          >
             {errors.password}
-          </span>
+          </motion.p>
         )}
-      </div>
+      </motion.div>
 
       {submitError && (
-        <div
-          className="px-4 py-3 bg-[rgba(231,76,60,0.1)] border border-[rgba(231,76,60,0.3)] rounded-lg text-[#e74c3c] text-sm text-center"
-          data-oid="ngmdbsb"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
         >
-          {submitError}
-        </div>
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{submitError}</AlertDescription>
+          </Alert>
+        </motion.div>
       )}
 
-      <button
-        type="submit"
-        className="py-3.5 px-6 text-base font-semibold text-white bg-gradient-to-br from-[#3498db] to-[#2980b9] border-none rounded-lg cursor-pointer transition-all duration-200 mt-2 hover:from-[#2980b9] hover:to-[#21618c] hover:-translate-y-[1px] hover:shadow-[0_4px_12px_rgba(52,152,219,0.3)] active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
-        disabled={isSubmitting}
-        data-oid="kwbl02b"
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
       >
-        {isSubmitting ? "ログイン中..." : "ログイン"}
-      </button>
-    </form>
+        <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+          {isSubmitting ? "ログイン中..." : "ログイン"}
+        </Button>
+      </motion.div>
+    </motion.form>
   );
 }
