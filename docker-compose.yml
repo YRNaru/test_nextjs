@@ -5,11 +5,14 @@ services:
   db:
     image: mysql:8.0
     container_name: test_nextjs_db
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+      # パフォーマンス最適化
+      MYSQL_INITDB_SKIP_TZINFO: 1
     ports:
       - "3307:3306"  # ホスト:コンテナ（コンテナ内は3306）
     volumes:
@@ -18,31 +21,61 @@ services:
       - app_network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    # MySQLパフォーマンス最適化
+    command: >
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --innodb-buffer-pool-size=256M
+      --innodb-log-file-size=64M
+      --max-connections=200
+      --query-cache-size=0
+      --query-cache-type=0
 
-  # Redis (Celeryのブローカー)
+  # Redis (Celeryのブローカー & キャッシュ)
   redis:
     image: redis:7-alpine
     container_name: test_nextjs_redis
+    restart: unless-stopped
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
     networks:
       - app_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      timeout: 20s
-      retries: 10
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    # Redisパフォーマンス最適化
+    command: >
+      redis-server
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --save 60 1000
+      --appendonly yes
 
   # Django バックエンド
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      target: dev  # 開発環境用のステージを使用
+      cache_from:
+        - test_nextjs_backend:latest
+    image: test_nextjs_backend:latest
     container_name: test_nextjs_backend
+    restart: unless-stopped
     # マイグレーション実行後にサーバー起動
     command: >
       sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
@@ -75,14 +108,24 @@ services:
         condition: service_healthy
     networks:
       - app_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/login/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   # Celery Worker
   celery_worker:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      target: dev
+      cache_from:
+        - test_nextjs_backend:latest
     container_name: test_nextjs_celery_worker
-    command: celery -A config worker -l info
+    restart: unless-stopped
+    command: celery -A config worker -l info --concurrency=4 --max-tasks-per-child=100
     volumes:
       - ./backend:/app
     environment:
@@ -95,18 +138,29 @@ services:
       - DB_PORT=3306
       - REDIS_URL=redis://redis:6379/0
     depends_on:
-      - backend
-      - redis
+      backend:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - app_network
+    healthcheck:
+      test: ["CMD", "celery", "-A", "config", "inspect", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Celery Beat (定期実行)
   celery_beat:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      target: dev
+      cache_from:
+        - test_nextjs_backend:latest
     container_name: test_nextjs_celery_beat
-    command: celery -A config beat -l info
+    restart: unless-stopped
+    command: celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - ./backend:/app
     environment:
@@ -119,8 +173,10 @@ services:
       - DB_PORT=3306
       - REDIS_URL=redis://redis:6379/0
     depends_on:
-      - backend
-      - redis
+      backend:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - app_network
 
@@ -129,7 +185,12 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      target: dev  # 開発環境用のステージを使用
+      cache_from:
+        - test_nextjs_frontend:latest
+    image: test_nextjs_frontend:latest
     container_name: test_nextjs_frontend
+    restart: unless-stopped
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -137,12 +198,14 @@ services:
     ports:
       - "${FRONTEND_PORT:-8742}:3000"
     environment:
+      - NODE_ENV=development
       - NEXT_PUBLIC_API_URL=http://localhost:${BACKEND_PORT:-8080}
       - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
       - WATCHPACK_POLLING=true  # ホットリロード有効化
       - CHOKIDAR_USEPOLLING=true  # ファイル監視をポーリングモードに
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     networks:
       - app_network
     develop:
@@ -155,13 +218,27 @@ services:
             - .next/
         - action: rebuild
           path: ./frontend/package.json
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
 networks:
   app_network:
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
 
 volumes:
   mysql_data:
+    driver: local
+  redis_data:
+    driver: local
   static_volume:
+    driver: local
   media_volume:
+    driver: local
+
 

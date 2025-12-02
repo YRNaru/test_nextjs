@@ -1,30 +1,86 @@
+# Python
 __pycache__
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
 .Python
-env/
-venv/
-.venv
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.git
-.gitignore
-.mypy_cache
+*.egg
+*.egg-info
+dist
+build
+eggs
+.eggs
+lib
+lib64
+parts
+sdist
+var
+wheels
+pip-wheel-metadata
+*.manifest
+*.spec
+
+# Virtual environments
+venv
+env
+ENV
+env.bak
+venv.bak
+backend/venv
+
+# Testing
 .pytest_cache
-.hypothesis
-db.sqlite3
-*.sqlite3
+.coverage
+htmlcov
+.tox
+.nox
+
+# Environment files
 .env
 .env.local
-staticfiles/
-media/
+.env.*.local
 
+# Database
+*.db
+*.sqlite3
+
+# Logs
+logs
+*.log
+django.log
+error.log
+
+# Static & Media (will be generated)
+staticfiles
+media
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+*.md
+docs
+
+# Development files
+mypy.ini
+pytest.ini
+.flake8
+.pylintrc
+
+# Celery
+celerybeat-schedule
+celerybeat.pid

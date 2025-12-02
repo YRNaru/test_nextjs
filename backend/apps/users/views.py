@@ -7,6 +7,7 @@ import logging
 from typing import Any
 
 from django.db.models import QuerySet
+from django.core.cache import cache
 from rest_framework import generics, permissions, status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -81,6 +82,9 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
         """
         try:
             response = super().update(request, *args, **kwargs)
+            # キャッシュを削除（更新されたデータを取得するため）
+            cache_key = f'user_profile_{request.user.id}'
+            cache.delete(cache_key)
             logger.info(
                 f"User {request.user.id} updated their profile successfully"
             )
@@ -118,7 +122,15 @@ class UserListView(generics.ListAPIView):
         logger.info(f"Admin user {self.request.user.id} accessed user list")
 
         # パフォーマンス最適化: 必要なフィールドのみ選択
-        return User.objects.all().order_by('-created_at')
+        # only()を使用して取得するフィールドを制限
+        return (
+            User.objects
+            .only(
+                'id', 'email', 'display_name', 'is_active', 
+                'is_staff', 'created_at', 'updated_at'
+            )
+            .order_by('-created_at')
+        )
 
     def list(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         """
@@ -133,7 +145,20 @@ class UserListView(generics.ListAPIView):
             Response: ユーザー一覧
         """
         try:
-            return super().list(request, *args, **kwargs)
+            # キャッシュを確認
+            cache_key = 'user_list_admin'
+            cached_data = cache.get(cache_key)
+            
+            if cached_data is not None:
+                logger.info("Returning cached user list")
+                return Response(cached_data)
+            
+            response = super().list(request, *args, **kwargs)
+            
+            # キャッシュに保存（5分間）
+            cache.set(cache_key, response.data, 300)
+            
+            return response
         except Exception as e:
             logger.error(
                 f"Error fetching user list: {str(e)}",
@@ -166,7 +191,15 @@ class UserDetailView(generics.RetrieveAPIView):
             QuerySet[User]: ユーザーのクエリセット
         """
         # パフォーマンス最適化: アクティブなユーザーのみ
-        return User.objects.filter(is_active=True)
+        # defer()を使用して不要な大きなフィールド（bio, avatar）の取得を遅延
+        return (
+            User.objects
+            .filter(is_active=True)
+            .only(
+                'id', 'email', 'display_name', 'is_active',
+                'created_at', 'updated_at'
+            )
+        )
 
     def retrieve(
         self, request: Request, *args: Any, **kwargs: Any
@@ -187,10 +220,24 @@ class UserDetailView(generics.RetrieveAPIView):
         """
         try:
             user_id = kwargs.get('pk')
+            
+            # キャッシュを確認
+            cache_key = f'user_detail_{user_id}'
+            cached_data = cache.get(cache_key)
+            
+            if cached_data is not None:
+                logger.info(f"Returning cached user detail for user {user_id}")
+                return Response(cached_data)
+            
             logger.info(
                 f"User {request.user.id} accessed details of user {user_id}"
             )
-            return super().retrieve(request, *args, **kwargs)
+            response = super().retrieve(request, *args, **kwargs)
+            
+            # キャッシュに保存（10分間）
+            cache.set(cache_key, response.data, 600)
+            
+            return response
         except Exception as e:
             # Http404は正常な動作なのでそのままraise
             from django.http import Http404

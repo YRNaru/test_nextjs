@@ -1,20 +1,37 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import ScrollToTop from "./components/ScrollToTop";
-import LeftSidebar from "./components/LeftSidebar";
-import RightSidebar from "./components/RightSidebar";
-import MainContent from "./components/MainContent";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { SidebarProvider } from "./components/SidebarContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+
+// 動的インポート（コード分割）でパフォーマンス最適化
+const Header = dynamic(() => import("./components/Header"), {
+  ssr: true, // サーバーサイドレンダリングを維持
+});
+const Footer = dynamic(() => import("./components/Footer"), {
+  ssr: true,
+});
+const ScrollToTop = dynamic(() => import("./components/ScrollToTop"), {
+  ssr: false, // クライアントサイドのみで実行
+});
+const LeftSidebar = dynamic(() => import("./components/LeftSidebar"), {
+  ssr: false,
+});
+const RightSidebar = dynamic(() => import("./components/RightSidebar"), {
+  ssr: false,
+});
+const MainContent = dynamic(() => import("./components/MainContent"), {
+  ssr: true,
+});
+
 export const metadata: Metadata = {
   title: "Next.js 初心者講座",
   description: "Next.jsの基本から実践的な開発まで、段階的に学べる学習用プロジェクト",
   keywords: ["Next.js", "React", "TypeScript", "学習", "講座"],
 };
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja" suppressHydrationWarning>

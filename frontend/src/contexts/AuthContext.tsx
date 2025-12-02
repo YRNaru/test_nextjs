@@ -3,7 +3,7 @@
  */
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from "react";
 import { authAPI } from "@/lib/api";
 
 interface User {
@@ -66,7 +66,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     initAuth();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  // useCallbackでメモ化してパフォーマンス最適化
+  const login = useCallback(async (email: string, password: string) => {
     try {
       const data = await authAPI.login(email, password);
       localStorage.setItem("access_token", data.tokens.access);
@@ -77,9 +78,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error("Login failed:", error);
       throw error;
     }
-  };
+  }, []);
 
-  const register = async (
+  const register = useCallback(async (
     email: string,
     password: string,
     passwordConfirm: string,
@@ -95,9 +96,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error("Registration failed:", error);
       throw error;
     }
-  };
+  }, []);
 
-  const googleLogin = async (accessToken: string) => {
+  const googleLogin = useCallback(async (accessToken: string) => {
     try {
       const data = await authAPI.googleAuth(accessToken);
       localStorage.setItem("access_token", data.tokens.access);
@@ -108,9 +109,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error("Google login failed:", error);
       throw error;
     }
-  };
+  }, []);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       const refreshToken = localStorage.getItem("refresh_token");
       if (refreshToken) {
@@ -124,9 +125,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.removeItem("user");
       setUser(null);
     }
-  };
+  }, []);
 
-  const value = {
+  // useMemoでvalueをメモ化
+  const value = useMemo(() => ({
     user,
     loading,
     login,
@@ -134,7 +136,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     googleLogin,
     logout,
     isAuthenticated: !!user,
-  };
+  }), [user, loading, login, register, googleLogin, logout]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

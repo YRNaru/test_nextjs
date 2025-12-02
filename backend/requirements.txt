@@ -18,11 +18,12 @@ google-auth==2.26.2
 google-auth-oauthlib==1.2.0
 google-auth-httplib2==0.2.0
 
-# Celery
+# Celery & Redis
 celery==5.3.4
 redis==5.0.1
 django-celery-beat==2.5.0
 django-celery-results==2.5.1
+django-redis==5.4.0  # Redisキャッシュバックエンド
 
 # Environment
 python-decouple==3.8
