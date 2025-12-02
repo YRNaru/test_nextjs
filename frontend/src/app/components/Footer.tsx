@@ -3,17 +3,20 @@ import React, { useMemo } from "react";
 // React.memoでメモ化してパフォーマンス最適化
 const Footer = React.memo(() => {
   // 学習内容リストをメモ化
-  const learningItems = useMemo(() => 
-    ["App Router", "コンポーネント開発", "TypeScript", "API開発"],
+  const learningItems = useMemo(
+    () => ["App Router", "コンポーネント開発", "TypeScript", "API開発"],
     []
   );
 
   // リンクリストをメモ化
-  const links = useMemo(() => [
-    { name: "Next.js Docs", url: "https://nextjs.org/docs" },
-    { name: "React Docs", url: "https://react.dev" },
-    { name: "TypeScript Docs", url: "https://www.typescriptlang.org/docs" },
-  ], []);
+  const links = useMemo(
+    () => [
+      { name: "Next.js Docs", url: "https://nextjs.org/docs" },
+      { name: "React Docs", url: "https://react.dev" },
+      { name: "TypeScript Docs", url: "https://www.typescriptlang.org/docs" },
+    ],
+    []
+  );
 
   return (
     <footer className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-t border-white/20 dark:border-white/10 mt-16 pt-12 pb-6 z-[60] shadow-2xl md:pt-8 overflow-hidden">

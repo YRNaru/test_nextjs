@@ -19,12 +19,19 @@ export default function GoogleLoginButton({ onSuccess, onError }: GoogleLoginBut
 
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
     try {
+      // credentialがundefinedの可能性を考慮
+      if (!credentialResponse.credential) {
+        throw new Error("認証情報が取得できませんでした");
+      }
+
       await googleLogin(credentialResponse.credential);
       onSuccess?.();
       router.push("/mypage");
     } catch (error) {
       console.error("Google login failed:", error);
-      onError?.(error);
+      // errorをError型として扱う
+      const errorMessage = error instanceof Error ? error : new Error("Google login failed");
+      onError?.(errorMessage);
     }
   };
 

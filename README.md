@@ -15,12 +15,15 @@ React + TypeScript + Django REST Framework を使用した本格的なWebアプ�
 ## 🚀 技術スタック
 
 ### フロントエンド
-- **フレームワーク**: Next.js 15.3.4
-- **言語**: TypeScript
-- **UI**: React 19 + React Bootstrap 5
+- **フレームワーク**: Next.js 16.0.0 (最新・Stable)
+- **言語**: TypeScript 5.7.2
+- **UI**: React 19.2 + React Bootstrap 2.10.5
 - **認証**: Google OAuth 2.0
 - **状態管理**: React Context API
-- **HTTPクライアント**: Axios
+- **HTTPクライアント**: Axios 1.7.9
+- **スタイリング**: Tailwind CSS 3.4.17
+- **バンドラー**: Turbopack (Stable)
+- **Node.js**: >=20.0.0 (推奨: 22.x)
 
 ### バックエンド
 - **フレームワーク**: Django 4.2 + Django REST Framework

@@ -1,7 +1,7 @@
 # ============================================
 # ステージ1: 依存関係のインストール
 # ============================================
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 WORKDIR /app
 
 # パッケージファイルのコピー（キャッシュ最適化のため先にコピー）
@@ -14,7 +14,7 @@ RUN npm ci --only=production && \
 # ============================================
 # ステージ2: ビルドステージ
 # ============================================
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 # ビルド用の依存関係をインストール
@@ -28,13 +28,13 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
-# Next.jsアプリケーションのビルド
+# Next.jsアプリケーションのビルド（Turbopack使用）
 RUN npm run build
 
 # ============================================
 # ステージ3: 本番用ランタイム
 # ============================================
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 # セキュリティのため非rootユーザーを作成
@@ -44,6 +44,8 @@ RUN addgroup --system --gid 1001 nodejs && \
 # 環境変数の設定
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 # 本番用のファイルのみをコピー
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
@@ -68,7 +70,7 @@ CMD ["node", "server.js"]
 # ============================================
 # 開発環境用のステージ
 # ============================================
-FROM node:20-alpine AS dev
+FROM node:22-alpine AS dev
 WORKDIR /app
 
 # パッケージファイルのコピー
@@ -80,9 +82,12 @@ RUN npm ci
 # アプリケーションコードのコピー
 COPY . .
 
+# 環境変数の設定
+ENV NEXT_TELEMETRY_DISABLED=1
+
 # ポート公開
 EXPOSE 3000
 
-# 開発サーバーの起動
+# 開発サーバーの起動（Turbopack有効）
 CMD ["npm", "run", "dev"]
 
