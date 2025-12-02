@@ -6,9 +6,12 @@ import { useSidebar } from "./SidebarContext";
 export default function RightSidebar() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [randomTip, setRandomTip] = useState<string>("");
+  const [isMounted, setIsMounted] = useState(false);
   const { rightSidebarOpen } = useSidebar();
 
   useEffect(() => {
+    setIsMounted(true);
+    
     const tips = [
       "💡 Next.jsはApp RouterとPages Routerの2つのルーティング方式があります",
       "🚀 Server Componentsを使うとパフォーマンスが向上します",
@@ -26,6 +29,31 @@ export default function RightSidebar() {
 
     return () => clearInterval(timer);
   }, []);
+
+  // ハイドレーションエラーを防ぐため、マウント前は何もレンダリングしない
+  if (!isMounted) {
+    return (
+      <aside
+        data-lenis-prevent=""
+        className={`fixed top-20 bottom-0 w-[320px] max-h-[calc(100vh-80px)] overflow-y-auto backdrop-blur-xl bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-gray-900/90 dark:via-gray-900/80 dark:to-gray-900/90 border-l border-white/20 dark:border-white/10 p-6 pr-4 z-50 transition-all duration-300 right-0 shadow-2xl shadow-black/10 dark:shadow-black/30 scrollbar-hide xl:translate-x-0 ${rightSidebarOpen ? "translate-x-0 opacity-100" : "translate-x-[100%] opacity-0 pointer-events-none xl:translate-x-0 xl:opacity-100 xl:pointer-events-auto"}`}
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        <style jsx>{`
+          aside::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+        <div className="flex flex-col gap-6">
+          <div className="relative p-6 rounded-2xl backdrop-blur-md bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 shadow-xl overflow-hidden">
+            <div className="text-center text-foreground/60">読み込み中...</div>
+          </div>
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <aside

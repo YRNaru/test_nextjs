@@ -3,10 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "./SidebarContext";
+import { useState, useEffect } from "react";
 
 export default function LeftSidebar() {
   const pathname = usePathname();
   const { leftSidebarOpen } = useSidebar();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const quickLinks = [
     { href: "/", label: "ホーム", icon: "🏠" },
@@ -19,12 +25,17 @@ export default function LeftSidebar() {
   ];
 
   const isActive = (href: string) => {
-    if (!pathname) return false;
+    if (!pathname || !isMounted) return false;
     if (href === "/") {
       return pathname === "/";
     }
     return pathname.startsWith(href);
   };
+
+  // ハイドレーションエラーを防ぐため、マウント前は簡易版をレンダリング
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <aside
